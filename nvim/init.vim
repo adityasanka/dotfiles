@@ -23,6 +23,7 @@ Plug 'lifepillar/pgsql.vim'                    		   " PostgreSQL syntax highligh
 Plug 'HerringtonDarkholme/yats.vim'            		   " TypeScript syntax
 Plug 'leafgarland/typescript-vim'              		   " TypeScript syntax highlighting
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'} " TypeScript auto completion
+Plug 'ekalinin/dockerfile.vim'				   " Dockerfile syntax highlighting
 
 "----------------------------------------------
 " Color schemes
