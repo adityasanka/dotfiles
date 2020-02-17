@@ -13,6 +13,8 @@ Plug 'junegunn/vim-emoji'					" Emoji in Vim
 Plug 'vim-scripts/vim-gitgutter'				" Show a git diff in the gutter
 Plug 'scrooloose/nerdtree'					" Tree explorer
 Plug 'scrooloose/nerdcommenter'					" Nerdy commenting powers
+Plug 'junegunn/goyo.vim'					" Distraction free editing
+Plug 'junegunn/limelight.vim'					" Hyperfocus on the current paragraph
 
 "----------------------------------------------
 " Language support
@@ -154,6 +156,12 @@ let g:ale_set_quickfix = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+"----------------------------------------------
+" Plugin: junegunn/goyo
+"----------------------------------------------
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 "----------------------------------------------
 " Plugin: plasticboy/vim-markdown
