@@ -7,11 +7,12 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'bronson/vim-trailing-whitespace'				" Highlight unwanted whitespace
 Plug 'dense-analysis/ale'					" Aynchronous lint engine
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" Aynchronous text completion
-Plug 'bling/vim-airline'					" lightweight status bar
+Plug 'bling/vim-airline'					" Lightweight status bar
 Plug 'jiangmiao/auto-pairs'					" Brackets, parens, quotes in pair.
 Plug 'junegunn/vim-emoji'					" Emoji in Vim
 Plug 'vim-scripts/vim-gitgutter'				" Show a git diff in the gutter
 Plug 'scrooloose/nerdtree'					" Tree explorer
+Plug 'scrooloose/nerdcommenter'					" Nerdy commenting powers
 
 "----------------------------------------------
 " Language support
@@ -77,14 +78,6 @@ call deoplete#custom#option({
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "----------------------------------------------
-" Language: apiblueprint
-"----------------------------------------------
-au FileType apiblueprint set expandtab
-au FileType apiblueprint set shiftwidth=4
-au FileType apiblueprint set softtabstop=4
-au FileType apiblueprint set tabstop=4
-
-"----------------------------------------------
 " Plugin: zchee/deoplete-go
 "----------------------------------------------
 " Enable completing of go pointers
@@ -92,43 +85,6 @@ let g:deoplete#sources#go#pointer = 1
 
 " Enable autocomplete of unimported packages
 let g:deoplete#sources#go#unimported_packages = 0
-
-"----------------------------------------------
-" Language: Golang
-"----------------------------------------------
-
-" Configure indentation
-au FileType go set noexpandtab
-au FileType go set shiftwidth=4
-au FileType go set softtabstop=4
-au FileType go set tabstop=4
-
-" Code highlighting
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-
-" Highlight variable usage within viewport
-" let g:go_auto_sameids = 1
-
-" Show type information in status line
-" let g:go_auto_type_info = 1
-
-" Auto import dependencies
-let g:go_fmt_command = "goimports"
-
-" Use camelcase for JSON tags
-let g:go_addtags_transform = "camelcase"
-
-"----------------------------------------------
-" Language: SQL
-"----------------------------------------------
-let g:sql_type_default = 'pgsql'	" Use lifepillar/pgsql for SQL by default
 
 "----------------------------------------------
 " Plugin: bling/vim-airline
@@ -151,8 +107,8 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-let g:airline_symbols.branch = ''
-let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.maxlinenr = ' L'
 
 "----------------------------------------------
 " Plugin: scrooloose/nerdtree
@@ -195,6 +151,51 @@ let g:ale_set_quickfix = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+"----------------------------------------------
+" Language: apiblueprint
+"----------------------------------------------
+au FileType apiblueprint set expandtab
+au FileType apiblueprint set shiftwidth=4
+au FileType apiblueprint set softtabstop=4
+au FileType apiblueprint set tabstop=4
+
+"----------------------------------------------
+" Language: Golang
+"----------------------------------------------
+
+" Configure indentation
+au FileType go set noexpandtab
+au FileType go set shiftwidth=4
+au FileType go set softtabstop=4
+au FileType go set tabstop=4
+
+" Code highlighting
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+
+" Highlight variable usage within viewport
+" let g:go_auto_sameids = 1
+
+" Show type information in status line
+" let g:go_auto_type_info = 1
+
+" Auto import dependencies
+let g:go_fmt_command = "goimports"
+
+" Use camelcase for JSON tags
+let g:go_addtags_transform = "camelcase"
+
+"----------------------------------------------
+" Language: SQL
+"----------------------------------------------
+let g:sql_type_default = 'pgsql'	" Use lifepillar/pgsql for SQL by default
 
 "----------------------------------------------
 " Language: gitcommit
