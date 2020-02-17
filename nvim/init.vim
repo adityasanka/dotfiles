@@ -17,14 +17,17 @@ Plug 'scrooloose/nerdcommenter'					" Nerdy commenting powers
 "----------------------------------------------
 " Language support
 "----------------------------------------------
-Plug 'kylef/apiblueprint.vim'                  		   " API Blueprint syntax highlighting
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }	   " Go IDE
-Plug 'zchee/deoplete-go', { 'do': 'make'}      		   " Go auto completion
-Plug 'lifepillar/pgsql.vim'                    		   " PostgreSQL syntax highlighting
-Plug 'HerringtonDarkholme/yats.vim'            		   " TypeScript syntax
-Plug 'leafgarland/typescript-vim'              		   " TypeScript syntax highlighting
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'} " TypeScript auto completion
-Plug 'ekalinin/dockerfile.vim'				   " Dockerfile syntax highlighting
+Plug 'kylef/apiblueprint.vim'                  		   		" API Blueprint syntax highlighting
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }	   		" Go IDE
+Plug 'zchee/deoplete-go', { 'do': 'make'}      		   		" Go auto completion
+Plug 'lifepillar/pgsql.vim'                    		   		" PostgreSQL syntax highlighting
+Plug 'HerringtonDarkholme/yats.vim'            		   		" TypeScript syntax
+Plug 'leafgarland/typescript-vim'              		   		" TypeScript syntax highlighting
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'} 		" TypeScript auto completion
+Plug 'ekalinin/dockerfile.vim'				   		" Dockerfile syntax highlighting
+Plug 'godlygeek/tabular'				   		" Text alignment
+Plug 'plasticboy/vim-markdown'				   		" Markdown syntax highlighting
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " Markdown live preview
 
 "----------------------------------------------
 " Color schemes
@@ -153,6 +156,18 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 "----------------------------------------------
+" Plugin: plasticboy/vim-markdown
+"----------------------------------------------
+
+" key bindings
+nmap <C-s> <Plug>MarkdownPreview
+nmap <M-s> <Plug>MarkdownPreviewStop
+nmap <C-p> <Plug>MarkdownPreviewToggle
+
+" Disable text folding
+let g:vim_markdown_folding_disabled = 1
+
+"----------------------------------------------
 " Language: apiblueprint
 "----------------------------------------------
 au FileType apiblueprint set expandtab
@@ -184,7 +199,7 @@ let g:go_highlight_types = 1
 " let g:go_auto_sameids = 1
 
 " Show type information in status line
-" let g:go_auto_type_info = 1
+let g:go_auto_type_info = 1
 
 " Auto import dependencies
 let g:go_fmt_command = "goimports"
@@ -218,6 +233,14 @@ au FileType typescript set expandtab
 au FileType typescript set shiftwidth=4
 au FileType typescript set softtabstop=4
 au FileType typescript set tabstop=4
+
+"----------------------------------------------
+" Language: Markdown
+"----------------------------------------------
+au FileType markdown set expandtab
+au FileType markdown set shiftwidth=4
+au FileType markdown set softtabstop=4
+au FileType markdown set tabstop=4
 
 "----------------------------------------------
 " Language: YAML
