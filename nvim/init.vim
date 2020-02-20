@@ -15,6 +15,7 @@ Plug 'scrooloose/nerdtree'					" Tree explorer
 Plug 'scrooloose/nerdcommenter'					" Nerdy commenting powers
 Plug 'junegunn/goyo.vim'					" Distraction free editing
 Plug 'junegunn/limelight.vim'					" Hyperfocus on the current paragraph
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }		" Code formatting
 
 "----------------------------------------------
 " Language support
@@ -166,7 +167,6 @@ autocmd! User GoyoLeave Limelight!
 "----------------------------------------------
 " Plugin: plasticboy/vim-markdown
 "----------------------------------------------
-
 " key bindings
 nmap <C-s> <Plug>MarkdownPreview
 nmap <M-s> <Plug>MarkdownPreviewStop
@@ -174,6 +174,14 @@ nmap <C-p> <Plug>MarkdownPreviewToggle
 
 " Disable text folding
 let g:vim_markdown_folding_disabled = 1
+
+"----------------------------------------------
+" Plugin: prettier/vim-prettier
+"----------------------------------------------
+" Enable auto formatting of files that have "@format" or "@prettier" tag
+let g:prettier#autoformat = 1
+" Allow auto formatting for files without "@format" or "@prettier" tag
+let g:prettier#autoformat_require_pragma = 0
 
 "----------------------------------------------
 " Language: apiblueprint
