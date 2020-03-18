@@ -24,9 +24,6 @@ Plug 'kylef/apiblueprint.vim'                  		   		" API Blueprint syntax hig
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }	   		" Go IDE
 Plug 'zchee/deoplete-go', { 'do': 'make'}      		   		" Go auto completion
 Plug 'lifepillar/pgsql.vim'                    		   		" PostgreSQL syntax highlighting
-Plug 'HerringtonDarkholme/yats.vim'            		   		" TypeScript syntax
-Plug 'leafgarland/typescript-vim'              		   		" TypeScript syntax highlighting
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'} 		" TypeScript auto completion
 Plug 'ekalinin/dockerfile.vim'				   		" Dockerfile syntax highlighting
 Plug 'godlygeek/tabular'				   		" Text alignment
 Plug 'plasticboy/vim-markdown'				   		" Markdown syntax highlighting
@@ -36,7 +33,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " Markdo
 " Color schemes
 "----------------------------------------------
 Plug 'dracula/vim', { 'as': 'dracula' }			" Dracula
-Plug 'hzchirs/vim-material'				" Material
 
 " Initialize plugin system
 call plug#end()
@@ -176,31 +172,12 @@ nmap <C-p> <Plug>MarkdownPreviewToggle
 let g:vim_markdown_folding_disabled = 1
 
 "----------------------------------------------
-" Plugin: prettier/vim-prettier
-"----------------------------------------------
-" Enable auto formatting of files that have "@format" or "@prettier" tag
-let g:prettier#autoformat = 1
-" Allow auto formatting for files without "@format" or "@prettier" tag
-let g:prettier#autoformat_require_pragma = 0
-
-"----------------------------------------------
 " Language: apiblueprint
 "----------------------------------------------
 au FileType apiblueprint set expandtab
 au FileType apiblueprint set shiftwidth=4
 au FileType apiblueprint set softtabstop=4
 au FileType apiblueprint set tabstop=4
-
-"----------------------------------------------
-" Language: python
-"----------------------------------------------
-au FileType python set tabstop=4
-au FileType python set softtabstop=4
-au FileType python set shiftwidth=4
-au FileType python set textwidth=79
-au FileType python set expandtab
-au FileType python set autoindent
-au FileType python set fileformat=unix
 
 "----------------------------------------------
 " Language: Golang
@@ -244,6 +221,10 @@ let g:sql_type_default = 'pgsql'	" Use lifepillar/pgsql for SQL by default
 "----------------------------------------------
 au FileType gitcommit setlocal spell
 au FileType gitcommit setlocal textwidth=80
+au FileType gitcommit set expandtab
+au FileType gitcommit set shiftwidth=4
+au FileType gitcommit set softtabstop=4
+au FileType gitcommit set tabstop=4
 
 "----------------------------------------------
 " Language: SQL
@@ -252,14 +233,6 @@ au FileType sql set expandtab
 au FileType sql set shiftwidth=2
 au FileType sql set softtabstop=2
 au FileType sql set tabstop=2
-
-"----------------------------------------------
-" Language: TypeScript
-"----------------------------------------------
-au FileType typescript set expandtab
-au FileType typescript set shiftwidth=4
-au FileType typescript set softtabstop=4
-au FileType typescript set tabstop=4
 
 "----------------------------------------------
 " Language: Markdown
