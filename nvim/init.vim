@@ -4,28 +4,26 @@ call plug#begin('~/.config/nvim/plugged')
 "----------------------------------------------
 " General plugins
 "----------------------------------------------
-Plug 'bronson/vim-trailing-whitespace'				" Highlight unwanted whitespace
-Plug 'dense-analysis/ale'					" Aynchronous lint engine
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" Aynchronous text completion
 Plug 'bling/vim-airline'					" Lightweight status bar
-Plug 'jiangmiao/auto-pairs'					" Brackets, parens, quotes in pair.
-Plug 'junegunn/vim-emoji'					" Emoji in Vim
-Plug 'vim-scripts/vim-gitgutter'				" Show a git diff in the gutter
-Plug 'scrooloose/nerdtree'					" Tree explorer
-Plug 'scrooloose/nerdcommenter'					" Nerdy commenting powers
 Plug 'junegunn/goyo.vim'					" Distraction free editing
 Plug 'junegunn/limelight.vim'					" Hyperfocus on the current paragraph
+Plug 'bronson/vim-trailing-whitespace'				" Highlight unwanted whitespace
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }		" Code formatting
+Plug 'vim-scripts/vim-gitgutter'				" Show a git diff in the gutter
+Plug 'jiangmiao/auto-pairs'					" Brackets, parens, quotes in pair.
+Plug 'scrooloose/nerdtree'					" Tree explorer
+Plug 'scrooloose/nerdcommenter'					" Nerdy commenting powers
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" Aynchronous text completion
+Plug 'dense-analysis/ale'					" Aynchronous lint engine
 
 "----------------------------------------------
 " Language support
 "----------------------------------------------
 Plug 'kylef/apiblueprint.vim'                  		   		" API Blueprint syntax highlighting
+Plug 'ekalinin/dockerfile.vim'				   		" Dockerfile syntax highlighting
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }	   		" Go IDE
 Plug 'zchee/deoplete-go', { 'do': 'make'}      		   		" Go auto completion
 Plug 'lifepillar/pgsql.vim'                    		   		" PostgreSQL syntax highlighting
-Plug 'ekalinin/dockerfile.vim'				   		" Dockerfile syntax highlighting
-Plug 'godlygeek/tabular'				   		" Text alignment
 Plug 'plasticboy/vim-markdown'				   		" Markdown syntax highlighting
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  } " Markdown live preview
 
@@ -59,7 +57,6 @@ set autochdir
 " Color scheme
 "----------------------------------------------
 set background=dark
-" set term=xterm-256color
 set t_Co=256
 color dracula
 
@@ -249,5 +246,3 @@ au FileType yaml set expandtab
 au FileType yaml set shiftwidth=2
 au FileType yaml set softtabstop=2
 au FileType yaml set tabstop=2
-
-set completefunc=emoji#complete
