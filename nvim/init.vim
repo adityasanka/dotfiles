@@ -53,10 +53,12 @@ set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
 set autochdir
 
+" Map leader key to `,`
+let mapleader = ","
+
 "----------------------------------------------
 " Color scheme
 "----------------------------------------------
-set background=dark
 set t_Co=256
 color dracula
 
@@ -186,6 +188,26 @@ au FileType go set shiftwidth=4
 au FileType go set softtabstop=4
 au FileType go set tabstop=4
 
+" Key bindings
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
 " Code highlighting
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -202,11 +224,15 @@ let g:go_highlight_types = 1
 " Show type information in status line
 let g:go_auto_type_info = 1
 
-" Auto import dependencies
+" goimports will auto import dependencies
+" use goimports for formatting instead of gofmt
 let g:go_fmt_command = "goimports"
 
 " Use camelcase for JSON tags
 let g:go_addtags_transform = "camelcase"
+
+" Use quickfix for all lists, instead of location list
+let g:go_list_type = "quickfix"
 
 "----------------------------------------------
 " Language: SQL
