@@ -18,3 +18,4 @@
 (load-library "git")                ;; version control
 (load-library "themes")             ;; doom modeline and themes
 (load-library "generic-completion") ;; enhanced completion with ivy and counsel
+(load-library "projects")           ;; project mgmt with projectile
