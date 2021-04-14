@@ -14,6 +14,7 @@
 (load-library "fs")                 ;; file management
 (load-library "visual")             ;; visual preferences
 (load-library "fonts")              ;; font preferences
+(load-library "kbd")                ;; keyboard preferences
 (load-library "git")                ;; version control
 (load-library "themes")             ;; doom modeline and themes
 (load-library "generic-completion") ;; enhanced completion with ivy and counsel
