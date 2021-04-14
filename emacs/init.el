@@ -1,0 +1,12 @@
+(defun dotfiles-dir ()
+  "Return the absolute path of dotfiles dir."
+  (file-name-directory (file-truename user-init-file)))
+
+(defun custom-elisp-dir ()
+  "Return the absolute path of custom files dir."
+  (file-name-as-directory (concat (dotfiles-dir) "custom")))
+
+(add-to-list 'load-path (custom-elisp-dir))
+
+(load-library "startup") ;; splash settings
+(load-library "fs")      ;; file management
