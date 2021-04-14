@@ -14,3 +14,4 @@
 (load-library "visual")    ;; visual preferences
 (load-library "fonts")     ;; font preferences
 (load-library "git")       ;; version control
+(load-library "themes")    ;; doom modeline and themes
