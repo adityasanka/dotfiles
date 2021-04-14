@@ -22,3 +22,12 @@
 		shell-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
+
+;; Enable smooth scrolling
+(use-package smooth-scrolling
+  :ensure t
+  :init (smooth-scrolling-mode 1))
+
+;; Highlight delimiters like parentheses
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
