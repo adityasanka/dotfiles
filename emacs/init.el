@@ -9,6 +9,7 @@
 (add-to-list 'load-path (custom-elisp-dir))
 
 (load-library "packages")           ;; package management
+(load-library "env")                ;; setup env variables
 (load-library "startup")            ;; splash settings
 (load-library "fs")                 ;; file management
 (load-library "visual")             ;; visual preferences
