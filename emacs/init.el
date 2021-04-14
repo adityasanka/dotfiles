@@ -10,3 +10,5 @@
 
 (load-library "startup") ;; splash settings
 (load-library "fs")      ;; file management
+(load-library "visual")  ;; visual preferences
+(load-library "fonts")   ;; font preferences
