@@ -1,26 +1,26 @@
-(defun dotfiles-dir ()
+(defun dot/dotfiles-dir ()
   "Return the absolute path of dotfiles dir."
   (file-name-directory (file-truename user-init-file)))
 
-(defun custom-elisp-dir ()
+(defun dot/custom-elisp-dir ()
   "Return the absolute path of custom files dir."
-  (file-name-as-directory (concat (dotfiles-dir) "elisp")))
+  (file-name-as-directory (concat (dot/dotfiles-dir) "lisp")))
 
-(add-to-list 'load-path (custom-elisp-dir))
+(add-to-list 'load-path (dot/custom-elisp-dir))
 
-(load-library "packages")           ;; package management
-(load-library "env")                ;; setup env variables
-(load-library "startup")            ;; splash settings
-(load-library "fs")                 ;; file management
-(load-library "visual")             ;; visual preferences
-(load-library "fonts")              ;; font preferences
-(load-library "kbd")                ;; keyboard preferences
-(load-library "git")                ;; version control
-(load-library "themes")             ;; doom modeline and themes
-(load-library "generic-completion") ;; enhanced completion with ivy and counsel
-(load-library "projects")           ;; project mgmt with projectile
-(load-library "cs-org-mode")                ;; org mode preferences
-(load-library "markdown")           ;; markdown support
+(load-library "dot-packages")      ;; package management
+(load-library "dot-env")           ;; setup env variables
+(load-library "dot-startup")       ;; splash settings
+(load-library "dot-fs")            ;; file management
+(load-library "dot-visual")        ;; visual preferences
+(load-library "dot-fonts")         ;; font preferences
+(load-library "dot-kbd")           ;; keyboard preferences
+(load-library "dot-git")           ;; version control
+(load-library "dot-themes")        ;; doom modeline and themes
+(load-library "dot-ivy")           ;; enhanced completion with ivy and counsel
+(load-library "dot-projects")      ;; project mgmt with projectile
+(load-library "dot-org")           ;; org mode preferences
+(load-library "dot-md")            ;; markdown support
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
