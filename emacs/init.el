@@ -4,7 +4,7 @@
 
 (defun custom-elisp-dir ()
   "Return the absolute path of custom files dir."
-  (file-name-as-directory (concat (dotfiles-dir) "custom")))
+  (file-name-as-directory (concat (dotfiles-dir) "elisp")))
 
 (add-to-list 'load-path (custom-elisp-dir))
 
@@ -21,6 +21,7 @@
 (load-library "projects")           ;; project mgmt with projectile
 (load-library "org")                ;; org mode preferences
 (load-library "markdown")           ;; markdown support
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
