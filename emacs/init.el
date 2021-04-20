@@ -19,7 +19,7 @@
 (load-library "themes")             ;; doom modeline and themes
 (load-library "generic-completion") ;; enhanced completion with ivy and counsel
 (load-library "projects")           ;; project mgmt with projectile
-(load-library "org")                ;; org mode preferences
+(load-library "cs-org-mode")                ;; org mode preferences
 (load-library "markdown")           ;; markdown support
 
 (custom-set-variables
