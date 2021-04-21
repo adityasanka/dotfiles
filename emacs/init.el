@@ -24,25 +24,280 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
-(defun dot/dotfiles-dir ()
-  "Return the absolute path of dotfiles dir."
-  (file-name-directory (file-truename user-init-file)))
+;; load env variables from shell
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize)))
 
-(defun dot/custom-elisp-dir ()
-  "Return the absolute path of custom files dir."
-  (file-name-as-directory (concat (dot/dotfiles-dir) "lisp")))
+;; Inhibit startup message
+(setq inhibit-startup-message t)
 
-(add-to-list 'load-path (dot/custom-elisp-dir))
+(scroll-bar-mode -1) ; Disable visual scroll bar
+(tool-bar-mode -1)   ; Disable the tool bar
+(tooltip-mode -1)    ; Disable tooltips
+(set-fringe-mode 10) ; Give some breathing room
+(menu-bar-mode -1)   ; Disable menu bar
 
-(use-package "dot-env" :ensure nil)           ;; setup env variables
-(use-package "dot-startup" :ensure nil)       ;; splash settings
-(use-package "dot-fs" :ensure nil)            ;; file management
-(use-package "dot-visual" :ensure nil)        ;; visual preferences
-(use-package "dot-fonts" :ensure nil)         ;; font preferences
-(use-package "dot-kbd" :ensure nil)           ;; keyboard preferences
-(use-package "dot-git" :ensure nil)           ;; version control
-(use-package "dot-themes" :ensure nil)        ;; doom modeline and themes
-(use-package "dot-ivy" :ensure nil)           ;; enhanced completion with ivy and counsel
-(use-package "dot-projects" :ensure nil)      ;; project mgmt with projectile
-(use-package "dot-org" :ensure nil)           ;; org mode preferences
-(use-package "dot-md" :ensure nil)            ;; markdown support
+;; Setup the visible bell
+(setq visible-bell t)
+
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+(dolist (mode `(org-mode-hook
+		term-mode-hook
+		shell-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda() (display-line-numbers-mode 0))))
+
+;; Enable smooth scrolling
+(use-package smooth-scrolling
+  :ensure t
+  :init (smooth-scrolling-mode 1))
+
+;; Highlight delimiters like parentheses
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; store backup files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+
+;; store auto-save files in the tmp dir
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;; Set font
+(set-face-attribute 'default nil :font "Cascadia Code-16" :weight 'semi-light)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Cascadia Code-16" :weight 'semi-light)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Cascadia Code-16" :weight 'semi-light)
+
+;; icon fonts to prettify doom mode line
+(use-package all-the-icons
+  :init
+  (when (and (not (member "all-the-icons" (font-family-list)))
+	     (window-system))
+    (all-the-icons-install-fonts t)))
+
+(use-package all-the-icons-dired
+  :if (display-graphic-p)
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
+(use-package doom-themes
+  :config
+  ;; Global Settings
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t)
+  (load-theme 'doom-dracula t)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+;; Show column number in mode line
+(column-number-mode)
+
+;; Set fringe color to nil
+(set-face-attribute 'fringe nil :background nil)
+
+;; Set line height
+(setq-default line-spacing 0.5)
+
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Log commands in a buffer
+(use-package command-log-mode)
+
+;; Compose key sequences
+(use-package hydra)
+
+(defhydra hydra-text-scale (:timeout 4)
+  "scale text"
+  ("j" text-scale-increase "in")
+  ("k" text-scale-decrease "out")
+  ("f" nil "finished" :exit t))
+
+;; Convenient key bindings 
+(use-package general
+  :after (ivy counsel)
+  :config  
+  (general-create-definer rune/leader-keys
+			 :keymaps '(emacs)
+			 :prefix "SPC"
+			 :prefix "C-SPC")
+  (rune/leader-keys
+   "t" '(:ignore t :which-key "toggles")
+   "tt" '(counsel-load-theme :which-key "choose theme")
+   "ts" '(hydra-text-scale/body :which-key "scale-text")))
+
+(general-define-key
+ "C-M-j" 'counsel-switch-buffer)
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done)	
+	 ("C-l" . ivy-alt-done)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line)
+	 :map ivy-switch-buffer-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-l" . ivy-done)
+	 ("C-d" . ivy-switch-buffer-kill)
+	 :map ivy-reverse-i-search-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
+
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file)
+	 :map minibuffer-local-map
+	 ("C-r" . 'counsel-minibuffer-history)))
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.3))
+
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+;; Want this to run on every file open for org mode
+(defun efs/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (visual-line-mode 1)
+  (setq evil-auto-indent nil))
+
+(defun efs/org-font-setup ()
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+			  '(("^ *\\([-]\\) "
+			     (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.2)
+		  (org-level-2 . 1.1)
+		  (org-level-3 . 1.05)
+		  (org-level-4 . 1.0)
+		  (org-level-5 . 1.1)
+		  (org-level-6 . 1.1)
+		  (org-level-7 . 1.1)
+		  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Cascadia Code" :weight 'semi-light :height (cdr face)))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+
+;; Org mode that comes bundled with Emacs is usually out of date
+;; org-plus-contrib has the latest version with all the recent community contributions
+;; (use-package org-plus-contrib)
+
+(use-package org
+  :hook (org-mode-hook . efs/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"
+	org-hide-emphasis-markers t)
+  (efs/org-font-setup))
+
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+	visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :defer t
+  :hook (org-mode . efs/org-mode-visual-fill))
+
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (python .t)))
+
+(setq org-confirm-babel-evaluate nil)
+
+;; Automatically tangle our Emacs.org config file when we save it
+(defun efs/org-babel-tangle-config ()
+  (when (string-equal (buffer-file-name)
+			   (expand-file-name "~/Work/repos/dotfiles/emacs/dotfiles.org"))
+	 ;; Dynamic scoping to the rescue
+	 (let ((org-confirm-babel-evaluate nil))
+	   (org-babel-tangle))))
+
+     (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
+
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+
+(use-package magit
+  :commands (magit-status magit-get-current-branch))
+; :custom
+; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package projectile
+  :diminish projectile-mode
+  :config
+  (projectile-mode)
+  :custom
+  ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (when (file-directory-p "~/Work/repos")
+    (setq projectile-project-search-path '("~/Work/repos")))
+  (setq projectile-switch-project-action #'projectile-dired))
+
+(use-package counsel-projectile
+  :after (counsel projectile)
+  :config (counsel-projectile-mode))
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
