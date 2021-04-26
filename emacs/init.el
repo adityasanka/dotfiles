@@ -70,10 +70,10 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; Set font
-(set-face-attribute 'default nil :font "Cascadia Code-16" :weight 'semi-light)
+(set-face-attribute 'default nil :font "MonacoB-13" :weight 'semi-light)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Cascadia Code-16" :weight 'semi-light)
+(set-face-attribute 'fixed-pitch nil :font "MonacoB-13" :weight 'semi-light)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Cascadia Code-16" :weight 'semi-light)
@@ -102,7 +102,7 @@
   (modus-themes-load-themes)
   :config
   ;; Load the theme of your choice:
-  (modus-themes-load-operandi) ;; OR (modus-themes-load-vivendi)
+  (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
   :bind ("<f5>" . modus-themes-toggle))
 
 (use-package doom-modeline
@@ -322,23 +322,7 @@
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
-(defun dot/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
-
-;; :hook (lsp-mode . efs/lsp-mode-setup)
-
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-  :custom
-  (lsp-enable-which-key-integration t)
-  (lsp-headerline-breadcrumb-enable nil))
-
 (use-package company
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
 	 ("<tab>" . company-complete-selection))
 	(:map lsp-mode-map
@@ -350,11 +334,20 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :custom
+  (lsp-completion-provider :company-capf)
+  (lsp-enable-which-key-integration t)
+  (lsp-headerline-breadcrumb-enable nil))
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
-  (lsp-ui-doc-position 'bottom)
   (lsp-ui-doc-enable nil)
+  (lsp-ui-doc-position 'bottom)
   (lsp-ui-doc-show-with-cursor nil))
 
 (use-package lsp-treemacs
