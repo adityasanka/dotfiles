@@ -46,6 +46,7 @@
 
 ;; Disable line numbers for some modes
 (dolist (mode `(org-mode-hook
+		dired-mode-hook
 		term-mode-hook
 		vterm-mode-hook
 		shell-mode-hook
@@ -62,14 +63,6 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; store backup files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-
-;; store auto-save files in the tmp dir
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
 ;; Set font
 (set-face-attribute 'default nil :font "MonacoB-13" :weight 'semi-light)
 
@@ -85,10 +78,6 @@
   (when (and (not (member "all-the-icons" (font-family-list)))
 	     (window-system))
     (all-the-icons-install-fonts t)))
-
-(use-package all-the-icons-dired
-  :if (display-graphic-p)
-  :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package modus-themes
   :ensure
@@ -131,6 +120,27 @@
 
 ;; Set line height
 (setq-default line-spacing 0.5)
+
+;; store backup files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+
+;; store auto-save files in the tmp dir
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom
+  (delete-by-moving-to-trash t))
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :if (display-graphic-p)
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)

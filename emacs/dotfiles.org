@@ -82,6 +82,7 @@
 
      ;; Disable line numbers for some modes
      (dolist (mode `(org-mode-hook
+		     dired-mode-hook
 		     term-mode-hook
 		     vterm-mode-hook
 		     shell-mode-hook
@@ -105,23 +106,6 @@
        :hook (prog-mode . rainbow-delimiters-mode))
    #+end_src
    
-* File Management
-** Backup
-
-   #+begin_src emacs-lisp
-     ;; store backup files in the tmp dir
-     (setq backup-directory-alist
-	   `((".*" . ,temporary-file-directory)))
-   #+end_src
-   
-** Auto Save
-
-   #+begin_src emacs-lisp
-     ;; store auto-save files in the tmp dir
-     (setq auto-save-file-name-transforms
-	   `((".*" ,temporary-file-directory t)))
-   #+end_src
-   
 * Fonts and Themes
 ** Fonts
 
@@ -143,10 +127,6 @@
        (when (and (not (member "all-the-icons" (font-family-list)))
 		  (window-system))
 	 (all-the-icons-install-fonts t)))
-
-     (use-package all-the-icons-dired
-       :if (display-graphic-p)
-       :hook (dired-mode . all-the-icons-dired-mode))
    #+end_src
    
 ** Themes
@@ -205,6 +185,43 @@
      ;; Set line height
      (setq-default line-spacing 0.5)
    #+end_src
+   
+* File Management
+** Backup
+
+   #+begin_src emacs-lisp
+     ;; store backup files in the tmp dir
+     (setq backup-directory-alist
+	   `((".*" . ,temporary-file-directory)))
+   #+end_src
+   
+** Auto Save
+
+   #+begin_src emacs-lisp
+     ;; store auto-save files in the tmp dir
+     (setq auto-save-file-name-transforms
+	   `((".*" ,temporary-file-directory t)))
+   #+end_src
+
+** Dired
+
+   #+begin_src emacs-lisp
+     (use-package dired
+       :ensure nil
+       :commands (dired dired-jump)
+       :bind (("C-x C-j" . dired-jump))
+       :custom
+       (delete-by-moving-to-trash t))
+
+     (use-package dired-single)
+
+     (use-package all-the-icons-dired
+       :if (display-graphic-p)
+       :hook (dired-mode . all-the-icons-dired-mode))
+   #+end_src
+
+   #+RESULTS:
+   | dired-extra-startup | doom-modeline-set-project-modeline | all-the-icons-dired-mode | (lambda nil (display-line-numbers-mode 0)) |
    
 * Keyboard
 ** Esc Key
