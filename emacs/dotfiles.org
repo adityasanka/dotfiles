@@ -132,21 +132,21 @@
 ** Themes
 
    #+begin_src emacs-lisp
-     (use-package modus-themes
-       :ensure
-       :init
-       ;; Add all your customizations prior to loading the themes
-       (setq modus-themes-slanted-constructs t
-	     modus-themes-bold-constructs nil
-	     modus-themes-region 'no-extend
-	     modus-themes-subtle-line-numbers t)
+     ;; (use-package modus-themes
+     ;;   :ensure
+     ;;   :init
+     ;;   ;; Add all your customizations prior to loading the themes
+     ;;   (setq modus-themes-slanted-constructs t
+     ;; 	modus-themes-bold-constructs nil
+     ;; 	modus-themes-region 'no-extend
+     ;; 	modus-themes-subtle-line-numbers t)
 
-       ;; Load the theme files before enabling a theme
-       (modus-themes-load-themes)
-       :config
-       ;; Load the theme of your choice:
-       (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
-       :bind ("<f5>" . modus-themes-toggle))
+     ;;   ;; Load the theme files before enabling a theme
+     ;;   (modus-themes-load-themes)
+     ;;   :config
+     ;;   ;; Load the theme of your choice:
+     ;;   (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
+     ;;   :bind ("<f5>" . modus-themes-toggle))
    #+end_src
 
    #+RESULTS:
@@ -159,15 +159,18 @@
    #+end_src
    
    #+begin_src emacs-lisp
-     ;; (use-package doom-themes
-     ;;   :config
-     ;;   ;; Global Settings
-     ;;   (setq doom-themes-enable-bold t
-     ;; 	doom-themes-enable-italic t)
-     ;;   (load-theme 'doom-dracula t)
-     ;;   ;; Corrects (and improves) org-mode's native fontification.
-     ;;   (doom-themes-org-config))
+     (use-package doom-themes
+       :config
+       ;; Global Settings
+       (setq doom-themes-enable-bold t
+	     doom-themes-enable-italic t)
+       (load-theme 'doom-dracula t)
+       ;; Corrects (and improves) org-mode's native fontification.
+       (doom-themes-org-config))
    #+end_src
+
+   #+RESULTS:
+   : t
    
 ** Misc
 

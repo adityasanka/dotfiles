@@ -79,34 +79,34 @@
 	     (window-system))
     (all-the-icons-install-fonts t)))
 
-(use-package modus-themes
-  :ensure
-  :init
-  ;; Add all your customizations prior to loading the themes
-  (setq modus-themes-slanted-constructs t
-	modus-themes-bold-constructs nil
-	modus-themes-region 'no-extend
-	modus-themes-subtle-line-numbers t)
+;; (use-package modus-themes
+;;   :ensure
+;;   :init
+;;   ;; Add all your customizations prior to loading the themes
+;;   (setq modus-themes-slanted-constructs t
+;; 	modus-themes-bold-constructs nil
+;; 	modus-themes-region 'no-extend
+;; 	modus-themes-subtle-line-numbers t)
 
-  ;; Load the theme files before enabling a theme
-  (modus-themes-load-themes)
-  :config
-  ;; Load the theme of your choice:
-  (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
-  :bind ("<f5>" . modus-themes-toggle))
+;;   ;; Load the theme files before enabling a theme
+;;   (modus-themes-load-themes)
+;;   :config
+;;   ;; Load the theme of your choice:
+;;   (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
+;;   :bind ("<f5>" . modus-themes-toggle))
 
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
 
-;; (use-package doom-themes
-;;   :config
-;;   ;; Global Settings
-;;   (setq doom-themes-enable-bold t
-;; 	doom-themes-enable-italic t)
-;;   (load-theme 'doom-dracula t)
-;;   ;; Corrects (and improves) org-mode's native fontification.
-;;   (doom-themes-org-config))
+(use-package doom-themes
+  :config
+  ;; Global Settings
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t)
+  (load-theme 'doom-dracula t)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 ;; Highlight current line
 ;; (global-hl-line-mode +1)
