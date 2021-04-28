@@ -37,7 +37,20 @@
      ;; Ensure that every package is installed
      (setq use-package-always-ensure t)
    #+end_src
- 
+
+** Auto-update packages
+
+   #+begin_src emacs-lisp
+     (use-package auto-package-update
+       :custom
+       (auto-package-update-interval 7)
+       (auto-package-update-prompt-before-update t)
+       (auto-package-update-hide-results t)
+       :config
+       (auto-package-update-maybe)
+       (auto-package-update-at-time "21:00"))
+   #+end_src
+
 * StartUp Configuration
 ** Set custom file
 
