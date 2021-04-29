@@ -168,7 +168,8 @@
   :commands command-log-mode)
 
 ;; Compose key sequences
-(use-package hydra)
+(use-package hydra
+  :defer t)
 
 (defhydra hydra-text-scale (:timeout 4)
   "scale text"
