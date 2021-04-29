@@ -304,7 +304,19 @@
    #+end_src
    
 * Generic Completion
+** Keyboard hints with which-key
 
+  #+begin_src emacs-lisp
+    (use-package which-key
+      :defer 0
+      :diminish which-key-mode
+      :config
+      (which-key-mode)
+      (setq which-key-idle-delay 0.5))
+  #+end_src
+      
+** Better completion with ivy and counsel
+   
   #+begin_src emacs-lisp
     (use-package ivy
       :diminish
@@ -322,7 +334,7 @@
 	     ("C-k" . ivy-previous-line)
 	     ("C-d" . ivy-reverse-i-search-kill))
       :config
-      (message "Ivy got loaded")
+      (message "Ivy got loaded.")
       (ivy-mode 1))
   #+end_src
 
@@ -347,20 +359,29 @@
 	     ("C-x b" . counsel-ibuffer)
 	     ("C-x C-f" . counsel-find-file)
 	     :map minibuffer-local-map
-	     ("C-r" . 'counsel-minibuffer-history)))
-  #+end_src
-  
-  #+begin_src emacs-lisp
-    (use-package which-key
-      :defer 0
-      :diminish which-key-mode
+	     ("C-r" . 'counsel-minibuffer-history))
       :config
-      (which-key-mode)
-      (setq which-key-idle-delay 0.5))
+      (message "Counsel got loaded.")
+      (counsel-mode 1))
   #+end_src
 
   #+begin_src emacs-lisp
+    (use-package ivy-prescient
+      :after counsel
+      :custom
+      (ivy-prescient-enable-filtering nil)
+      :config
+      ;; Uncomment the following line to have sorting remembered across sessions!
+      ; (prescient-persist-mode 1)
+      (ivy-prescient-mode 1))
+  #+end_src
+
+  #+RESULTS:
+  : t
+
+  #+begin_src emacs-lisp
     (use-package helpful
+      :commands (helpful-callable helpful-variable helpful-command helpful-key)
       :custom
       (counsel-describe-function-function #'helpful-callable)
       (counsel-describe-variable-function #'helpful-variable)
@@ -370,6 +391,9 @@
       ([remap describe-variable] . counsel-describe-variable)
       ([remap describe-key] . helpful-key))
   #+end_src
+
+  #+RESULTS:
+  : helpful-key
   
 * Org Mode
 ** Install and Setup Org Mode

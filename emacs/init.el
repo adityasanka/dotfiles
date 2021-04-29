@@ -192,6 +192,13 @@
 (general-define-key
  "C-M-j" 'counsel-switch-buffer)
 
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.5))
+
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
@@ -208,7 +215,7 @@
 	 ("C-k" . ivy-previous-line)
 	 ("C-d" . ivy-reverse-i-search-kill))
   :config
-  (message "Ivy got loaded")
+  (message "Ivy got loaded.")
   (ivy-mode 1))
 
 (use-package all-the-icons-ivy-rich
@@ -226,16 +233,22 @@
 	 ("C-x b" . counsel-ibuffer)
 	 ("C-x C-f" . counsel-find-file)
 	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history)))
-
-(use-package which-key
-  :defer 0
-  :diminish which-key-mode
+	 ("C-r" . 'counsel-minibuffer-history))
   :config
-  (which-key-mode)
-  (setq which-key-idle-delay 0.5))
+  (message "Counsel got loaded.")
+  (counsel-mode 1))
+
+(use-package ivy-prescient
+  :after counsel
+  :custom
+  (ivy-prescient-enable-filtering nil)
+  :config
+  ;; Uncomment the following line to have sorting remembered across sessions!
+  ; (prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
 
 (use-package helpful
+  :commands (helpful-callable helpful-variable helpful-command helpful-key)
   :custom
   (counsel-describe-function-function #'helpful-callable)
   (counsel-describe-variable-function #'helpful-variable)
