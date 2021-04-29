@@ -326,17 +326,20 @@
       (ivy-mode 1))
   #+end_src
 
+
   #+begin_src emacs-lisp
     (use-package all-the-icons-ivy-rich
+      :after ivy
       :ensure t
       :init (all-the-icons-ivy-rich-mode 1))
+  #+end_src
 
+  #+begin_src emacs-lisp
     (use-package ivy-rich
+       :after (ivy all-the-icons-ivy-rich)
        :init
        (ivy-rich-mode 1))
   #+end_src
-
-  #+RESULTS:
 
   #+begin_src emacs-lisp
     (use-package counsel

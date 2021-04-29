@@ -212,10 +212,12 @@
   (ivy-mode 1))
 
 (use-package all-the-icons-ivy-rich
+  :after ivy
   :ensure t
   :init (all-the-icons-ivy-rich-mode 1))
 
 (use-package ivy-rich
+   :after (ivy all-the-icons-ivy-rich)
    :init
    (ivy-rich-mode 1))
 
