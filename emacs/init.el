@@ -29,6 +29,15 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "21:00"))
 
+(defun dot/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+	   (format "%.2f seconds"
+		   (float-time
+		     (time-subtract after-init-time before-init-time)))
+	   gcs-done))
+
+(add-hook 'emacs-startup-hook #'dot/display-startup-time)
+
 ;; Use separate file for storing customization info
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)

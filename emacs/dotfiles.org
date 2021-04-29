@@ -52,6 +52,22 @@
    #+end_src
 
 * StartUp Configuration
+** StartUp Performance
+
+   #+begin_src emacs-lisp
+     (defun dot/display-startup-time ()
+       (message "Emacs loaded in %s with %d garbage collections."
+		(format "%.2f seconds"
+			(float-time
+			  (time-subtract after-init-time before-init-time)))
+		gcs-done))
+
+     (add-hook 'emacs-startup-hook #'dot/display-startup-time)
+   #+end_src
+
+   #+RESULTS:
+   | dot/display-startup-time |
+   
 ** Set custom file
 
    #+begin_src emacs-lisp
