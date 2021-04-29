@@ -267,7 +267,8 @@
 
    #+begin_src emacs-lisp
      ;; Log commands in a buffer
-     (use-package command-log-mode)
+     (use-package command-log-mode
+       :commands command-log-mode)
    #+end_src
 
 ** Key Bindings

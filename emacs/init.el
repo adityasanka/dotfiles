@@ -164,7 +164,8 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Log commands in a buffer
-(use-package command-log-mode)
+(use-package command-log-mode
+  :commands command-log-mode)
 
 ;; Compose key sequences
 (use-package hydra)
