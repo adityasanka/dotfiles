@@ -113,10 +113,6 @@
 ;;   (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
 ;;   :bind ("<f5>" . modus-themes-toggle))
 
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
-
 (use-package doom-themes
   :config
   ;; Global Settings
@@ -125,6 +121,10 @@
   (load-theme 'doom-dracula t)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
 
 ;; Highlight current line
 ;; (global-hl-line-mode +1)
@@ -208,6 +208,7 @@
 	 ("C-k" . ivy-previous-line)
 	 ("C-d" . ivy-reverse-i-search-kill))
   :config
+  (message "Ivy got loaded")
   (ivy-mode 1))
 
 (use-package all-the-icons-ivy-rich
@@ -226,10 +227,11 @@
 	 ("C-r" . 'counsel-minibuffer-history)))
 
 (use-package which-key
-  :init (which-key-mode)
+  :defer 0
   :diminish which-key-mode
   :config
-  (setq which-key-idle-delay 0.3))
+  (which-key-mode)
+  (setq which-key-idle-delay 0.5))
 
 (use-package helpful
   :custom

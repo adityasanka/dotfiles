@@ -182,12 +182,6 @@
    : modus-themes-toggle
    
    #+begin_src emacs-lisp
-     (use-package doom-modeline
-       :ensure t
-       :init (doom-modeline-mode 1))
-   #+end_src
-   
-   #+begin_src emacs-lisp
      (use-package doom-themes
        :config
        ;; Global Settings
@@ -196,6 +190,13 @@
        (load-theme 'doom-dracula t)
        ;; Corrects (and improves) org-mode's native fontification.
        (doom-themes-org-config))
+   #+end_src
+
+   
+   #+begin_src emacs-lisp
+     (use-package doom-modeline
+       :ensure t
+       :init (doom-modeline-mode 1))
    #+end_src
 
    #+RESULTS:
@@ -321,6 +322,7 @@
 	     ("C-k" . ivy-previous-line)
 	     ("C-d" . ivy-reverse-i-search-kill))
       :config
+      (message "Ivy got loaded")
       (ivy-mode 1))
   #+end_src
 
@@ -347,10 +349,11 @@
   
   #+begin_src emacs-lisp
     (use-package which-key
-      :init (which-key-mode)
+      :defer 0
       :diminish which-key-mode
       :config
-      (setq which-key-idle-delay 0.3))
+      (which-key-mode)
+      (setq which-key-idle-delay 0.5))
   #+end_src
 
   #+begin_src emacs-lisp
