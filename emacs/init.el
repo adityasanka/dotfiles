@@ -218,7 +218,6 @@
 	 ("C-k" . ivy-previous-line)
 	 ("C-d" . ivy-reverse-i-search-kill))
   :config
-  (message "Ivy got loaded.")
   (ivy-mode 1))
 
 (use-package all-the-icons-ivy-rich
@@ -238,7 +237,6 @@
 	 :map minibuffer-local-map
 	 ("C-r" . 'counsel-minibuffer-history))
   :config
-  (message "Counsel got loaded.")
   (counsel-mode 1))
 
 (use-package ivy-prescient
@@ -307,7 +305,6 @@
   :commands (org-capture org-agenda)
   :hook (org-mode-hook . efs/org-mode-setup)
   :config
-  (message "Org mode got loaded.")
   (setq org-ellipsis " ▾"
 	org-hide-emphasis-markers t)
   (efs/org-font-setup))
@@ -371,7 +368,7 @@
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package counsel-projectile
-  :after (counsel projectile)
+  :after projectile
   :config (counsel-projectile-mode))
 
 (use-package evil-nerd-commenter
@@ -408,7 +405,8 @@
 (use-package lsp-treemacs
   :after lsp)
 
-(use-package lsp-ivy)
+(use-package lsp-ivy
+  :after lsp)
 
 (use-package markdown-mode
   :ensure t
@@ -436,9 +434,10 @@
 
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
-(lsp-register-custom-settings
- '(("gopls.completeUnimported" t t)
-   ("gopls.staticcheck" t t)))
+(with-eval-after-load 'lsp
+    (lsp-register-custom-settings
+     '(("gopls.completeUnimported" t t)
+       ("gopls.staticcheck" t t))))
 
 (use-package term
   :config
