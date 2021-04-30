@@ -440,6 +440,7 @@
        ("gopls.staticcheck" t t))))
 
 (use-package term
+  :commands term
   :config
   (setq explicit-shell-file-name "zsh") ;; Change this to bash, etc
   ;;(setq explicit-zsh-args '())         ;; Use 'explicit-<shell>-args for shell-specific args
