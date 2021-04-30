@@ -156,9 +156,13 @@
   :custom
   (delete-by-moving-to-trash t))
 
-(use-package dired-single)
+(use-package dired-single
+  :after dired
+  :commands (dired dired-jump))
 
 (use-package all-the-icons-dired
+  :after dired
+  :commands (dired dired-jump)
   :if (display-graphic-p)
   :hook (dired-mode . all-the-icons-dired-mode))
 
