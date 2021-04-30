@@ -31,6 +31,9 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "21:00"))
 
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
 (defun dot/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
 	   (format "%.2f seconds"
