@@ -675,6 +675,39 @@
 
     #+RESULTS:
 
+*** Python
+
+    https://emacs-lsp.github.io/lsp-mode/page/lsp-pyls/
+    
+    #+begin_src shell
+      pip3 install 'python-language-server[all]'
+    #+end_src
+
+    #+begin_src emacs-lisp
+      (use-package python-mode
+	:ensure t
+	:hook (python-mode . lsp-deferred)
+	:custom
+	;; NOTE: Set these if Python 3 is called "python3" on your system!
+	(python-shell-interpreter "python3"))
+    #+end_src
+
+    #+RESULTS:
+    | lsp-deferred | #[0 \211\207 [py--imenu-create-index-function imenu-create-index-function] 2] | doom-modeline-env-setup-python |
+
+    #+begin_src shell
+      pip3 install pytest
+    #+end_src
+
+    #+begin_src emacs-lisp
+      (use-package pyvenv
+	:config
+	(pyvenv-mode 1))
+    #+end_src
+
+    #+RESULTS:
+    : t
+
 * Terminals
 ** term-mode
 

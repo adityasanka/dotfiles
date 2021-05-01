@@ -446,6 +446,17 @@
      '(("gopls.completeUnimported" t t)
        ("gopls.staticcheck" t t))))
 
+(use-package python-mode
+  :ensure t
+  :hook (python-mode . lsp-deferred)
+  :custom
+  ;; NOTE: Set these if Python 3 is called "python3" on your system!
+  (python-shell-interpreter "python3"))
+
+(use-package pyvenv
+  :config
+  (pyvenv-mode 1))
+
 (use-package term
   :commands term
   :config
