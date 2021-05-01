@@ -393,6 +393,10 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :init

@@ -565,7 +565,7 @@
    #+RESULTS:
    : evilnc-comment-or-uncomment-lines
    
-** Better completion with company-mode
+** Sytnax Completion
 
    #+begin_src emacs-lisp
      (use-package company
@@ -584,8 +584,20 @@
    #+RESULTS:
    | company-box-mode | company-mode-set-explicitly |
 
+** Syntax Checking
+
+   #+begin_src emacs-lisp
+     (use-package flycheck
+       :ensure t
+       :init (global-flycheck-mode))
+   #+end_src
+
+   #+RESULTS:
+   
 ** Language Server
 
+   https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+   
    #+begin_src emacs-lisp
      (use-package lsp-mode
        :commands (lsp lsp-deferred)
