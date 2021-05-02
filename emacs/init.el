@@ -31,6 +31,9 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "21:00"))
 
+;; Inhibit startup message
+(setq inhibit-startup-message t)
+
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -43,18 +46,15 @@
 
 (add-hook 'emacs-startup-hook #'dot/display-startup-time)
 
-;; Use separate file for storing customization info
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
-
 ;; load env variables from shell
 (use-package exec-path-from-shell
   :config
   (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize)))
 
-;; Inhibit startup message
-(setq inhibit-startup-message t)
+;; Use separate file for storing customization info
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 (scroll-bar-mode -1) ; Disable visual scroll bar
 (tool-bar-mode -1)   ; Disable the tool bar
@@ -77,14 +77,15 @@
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
+;; Highlight current line
+(add-hook 'prog-mode-hook 'hl-line-mode )
+
 ;; Enable smooth scrolling
 (use-package smooth-scrolling
   :ensure t
   :init (smooth-scrolling-mode 1))
 
-;; Highlight delimiters like parentheses
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+(setq-default line-spacing 0.5)
 
 ;; Set font
 (set-face-attribute 'default nil :font "MonacoB-13" :weight 'semi-light)
@@ -102,22 +103,6 @@
 	     (window-system))
     (all-the-icons-install-fonts t)))
 
-;; (use-package modus-themes
-;;   :ensure
-;;   :init
-;;   ;; Add all your customizations prior to loading the themes
-;;   (setq modus-themes-slanted-constructs t
-;; 	modus-themes-bold-constructs nil
-;; 	modus-themes-region 'no-extend
-;; 	modus-themes-subtle-line-numbers t)
-
-;;   ;; Load the theme files before enabling a theme
-;;   (modus-themes-load-themes)
-;;   :config
-;;   ;; Load the theme of your choice:
-;;   (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
-;;   :bind ("<f5>" . modus-themes-toggle))
-
 (use-package doom-themes
   :config
   ;; Global Settings
@@ -127,22 +112,15 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+;; Set fringe color to nil
+(set-face-attribute 'fringe nil :background nil)
+
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
 
-;; Highlight current line
-;; (global-hl-line-mode +1)
-(add-hook 'prog-mode-hook 'hl-line-mode )
-
 ;; Show column number in mode line
 (column-number-mode)
-
-;; Set fringe color to nil
-(set-face-attribute 'fringe nil :background nil)
-
-;; Set line height
-(setq-default line-spacing 0.5)
 
 ;; store backup files in the tmp dir
 (setq backup-directory-alist
@@ -357,8 +335,6 @@
 
 (use-package magit
   :commands (magit-status magit-get-current-branch))
-; :custom
-; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package projectile
   :diminish projectile-mode
@@ -379,6 +355,10 @@
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+
+;; Highlight delimiters like parentheses
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package company
   :bind (:map company-active-map

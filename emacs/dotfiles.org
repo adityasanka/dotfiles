@@ -7,8 +7,6 @@
 
 * Package Management
 ** Setup package archives
-
-   + Use org package [[https://orgmode.org/elpa.html][archive]] to install the latest version of org mode and other community add-ons.
     
    #+begin_src emacs-lisp
      ;; Initialize package sources
@@ -54,7 +52,14 @@
    #+end_src
 
 * StartUp Configuration
-** StartUp Performance
+** Splash settings
+   
+   #+begin_src emacs-lisp
+     ;; Inhibit startup message
+     (setq inhibit-startup-message t)
+   #+end_src
+
+** Startup performance
 
    #+begin_src emacs-lisp
      ;; The default is 800 kilobytes.  Measured in bytes.
@@ -73,14 +78,6 @@
    #+RESULTS:
    | dot/display-startup-time |
    
-** Set custom file
-
-   #+begin_src emacs-lisp
-     ;; Use separate file for storing customization info
-     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-     (load custom-file)
-   #+end_src
-
 ** Setup env variables
 
    #+begin_src emacs-lisp
@@ -91,14 +88,16 @@
        (exec-path-from-shell-initialize)))
    #+end_src
 
-** Splash settings
-   
+** Set custom file
+
    #+begin_src emacs-lisp
-     ;; Inhibit startup message
-     (setq inhibit-startup-message t)
+     ;; Use separate file for storing customization info
+     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+     (load custom-file)
    #+end_src
 
-** Visual preferences
+* UI Configuration
+** Minimal UI
 
    #+begin_src emacs-lisp
      (scroll-bar-mode -1) ; Disable visual scroll bar
@@ -111,6 +110,9 @@
      (setq visible-bell t)
    #+end_src
 
+** Lines
+*** Show line numbers
+    
    #+begin_src emacs-lisp
      (global-display-line-numbers-mode t)
 
@@ -125,24 +127,31 @@
        (add-hook mode (lambda() (display-line-numbers-mode 0))))
    #+end_src
 
-   #+RESULTS:
-
+*** Highlight current line
+    
+   #+begin_src emacs-lisp
+     ;; Highlight current line
+     (add-hook 'prog-mode-hook 'hl-line-mode )
+   #+end_src
+    
+** Scrolling
+   
    #+begin_src emacs-lisp
      ;; Enable smooth scrolling
      (use-package smooth-scrolling
        :ensure t
        :init (smooth-scrolling-mode 1))
    #+end_src
-
-   #+begin_src emacs-lisp
-     ;; Highlight delimiters like parentheses
-     (use-package rainbow-delimiters
-       :hook (prog-mode . rainbow-delimiters-mode))
-   #+end_src
    
-* Fonts and Themes
-** Fonts
+** Font configuration
+*** Increase line height
+    
+   #+begin_src emacs-lisp
+     (setq-default line-spacing 0.5)
+   #+end_src
 
+*** Set font face
+    
    #+begin_src emacs-lisp
      ;; Set font
      (set-face-attribute 'default nil :font "MonacoB-13" :weight 'semi-light)
@@ -154,6 +163,8 @@
      (set-face-attribute 'variable-pitch nil :font "Cascadia Code-16" :weight 'semi-light)
    #+end_src
 
+*** Install icon fonts
+    
    #+begin_src emacs-lisp
      ;; icon fonts to prettify doom mode line
      (use-package all-the-icons
@@ -163,28 +174,7 @@
 	 (all-the-icons-install-fonts t)))
    #+end_src
    
-** Themes
-
-   #+begin_src emacs-lisp
-     ;; (use-package modus-themes
-     ;;   :ensure
-     ;;   :init
-     ;;   ;; Add all your customizations prior to loading the themes
-     ;;   (setq modus-themes-slanted-constructs t
-     ;; 	modus-themes-bold-constructs nil
-     ;; 	modus-themes-region 'no-extend
-     ;; 	modus-themes-subtle-line-numbers t)
-
-     ;;   ;; Load the theme files before enabling a theme
-     ;;   (modus-themes-load-themes)
-     ;;   :config
-     ;;   ;; Load the theme of your choice:
-     ;;   (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
-     ;;   :bind ("<f5>" . modus-themes-toggle))
-   #+end_src
-
-   #+RESULTS:
-   : modus-themes-toggle
+** Color Theme
    
    #+begin_src emacs-lisp
      (use-package doom-themes
@@ -197,6 +187,12 @@
        (doom-themes-org-config))
    #+end_src
 
+   #+begin_src emacs-lisp
+     ;; Set fringe color to nil
+     (set-face-attribute 'fringe nil :background nil)
+   #+end_src
+   
+** Better modeline
    
    #+begin_src emacs-lisp
      (use-package doom-modeline
@@ -204,26 +200,11 @@
        :init (doom-modeline-mode 1))
    #+end_src
 
-   #+RESULTS:
-   : t
-   
-** Misc
-
    #+begin_src emacs-lisp
-     ;; Highlight current line
-     ;; (global-hl-line-mode +1)
-     (add-hook 'prog-mode-hook 'hl-line-mode )
-
      ;; Show column number in mode line
      (column-number-mode)
-
-     ;; Set fringe color to nil
-     (set-face-attribute 'fringe nil :background nil)
-
-     ;; Set line height
-     (setq-default line-spacing 0.5)
    #+end_src
-   
+      
 * File Management
 ** Backup
 
@@ -265,15 +246,15 @@
    #+RESULTS:
    | all-the-icons-dired-mode | doom-modeline-set-project-modeline | (lambda nil (display-line-numbers-mode 0)) |
    
-* Keyboard
-** Esc Key
+* Keyboard Configuration
+** Esc key
 
    #+begin_src emacs-lisp
      ;; Make ESC quit prompts
      (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
    #+end_src
 
-** Command Log
+** Command log
 
    #+begin_src emacs-lisp
      ;; Log commands in a buffer
@@ -281,7 +262,7 @@
        :commands command-log-mode)
    #+end_src
 
-** Key Bindings
+** Key bindings
    
    #+begin_src emacs-lisp
      ;; Compose key sequences
@@ -326,7 +307,8 @@
   #+end_src
       
 ** Better completion with ivy and counsel
-   
+*** Setup ivy
+    
   #+begin_src emacs-lisp
     (use-package ivy
       :diminish
@@ -362,6 +344,8 @@
        (ivy-rich-mode 1))
   #+end_src
 
+*** Setup counsel
+    
   #+begin_src emacs-lisp
     (use-package counsel
       :bind (("M-x" . counsel-M-x)
@@ -373,6 +357,8 @@
       (counsel-mode 1))
   #+end_src
 
+*** Better sorting with prescient
+    
   #+begin_src emacs-lisp
     (use-package ivy-prescient
       :after counsel
@@ -383,8 +369,7 @@
       (ivy-prescient-mode 1))
   #+end_src
 
-  #+RESULTS:
-  : t
+** Better help with helpful
 
   #+begin_src emacs-lisp
     (use-package helpful
@@ -398,12 +383,12 @@
       ([remap describe-variable] . counsel-describe-variable)
       ([remap describe-key] . helpful-key))
   #+end_src
-
-  #+RESULTS:
-  : helpful-key
   
 * Org Mode
-** Install and Setup Org Mode
+** Setup org-mode
+   
+   + =org-mode= bundled with Emacs is usually outdated
+   + Install the latest version of `org-mode` from org package [[https://orgmode.org/elpa.html][archive]].
 
    #+begin_src emacs-lisp
      ;; Want this to run on every file open for org mode
@@ -458,7 +443,8 @@
    #+end_src
 
 ** Add Ons
-
+*** Nice heading bullets
+    
    #+begin_src emacs-lisp
      (use-package org-bullets
        :hook (org-mode . org-bullets-mode)
@@ -466,6 +452,8 @@
        (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
    #+end_src
 
+*** Center org buffers
+    
    #+begin_src emacs-lisp
      (defun efs/org-mode-visual-fill ()
        (setq visual-fill-column-width 100
@@ -525,12 +513,9 @@
 * Development
 ** Git
    
-
    #+begin_src emacs-lisp
      (use-package magit
        :commands (magit-status magit-get-current-branch))
-     ; :custom
-     ; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
    #+end_src
    
 ** Projectile
@@ -563,6 +548,14 @@
 
    #+RESULTS:
    : evilnc-comment-or-uncomment-lines
+
+** Rainbow delimiters
+
+   #+begin_src emacs-lisp
+     ;; Highlight delimiters like parentheses
+     (use-package rainbow-delimiters
+       :hook (prog-mode . rainbow-delimiters-mode))
+   #+end_src
    
 ** Sytnax Completion
 
@@ -692,6 +685,7 @@
     
     #+begin_src shell
       pip3 install 'python-language-server[all]'
+      pip3 install gnureadline
     #+end_src
 
     #+begin_src emacs-lisp
