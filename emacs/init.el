@@ -88,13 +88,13 @@
 (setq-default line-spacing 0.5)
 
 ;; Set font
-(set-face-attribute 'default nil :font "MonacoB-13" :weight 'semi-light)
+(set-face-attribute 'default nil :font "MonacoB-16" :weight 'semi-light)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "MonacoB-13" :weight 'semi-light)
+(set-face-attribute 'fixed-pitch nil :font "MonacoB-16" :weight 'semi-light)
 
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Average-18" :weight 'semi-light)
+(set-face-attribute 'variable-pitch nil :font "MonacoB-16" :weight 'semi-light)
 
 ;; icon fonts to prettify doom mode line
 (use-package all-the-icons
@@ -266,7 +266,7 @@
 		  (org-level-6 . 1.1)
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Average-18" :weight 'normal))
+    (set-face-attribute (car face) nil :font "MonacoB-16" :weight 'semi-light))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
