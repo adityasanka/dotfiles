@@ -77,6 +77,8 @@
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
+(global-visual-line-mode 1)
+
 ;; Highlight current line
 (add-hook 'prog-mode-hook 'hl-line-mode )
 
