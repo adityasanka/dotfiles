@@ -309,6 +309,8 @@
   :defer t
   :hook (org-mode . efs/org-mode-visual-fill))
 
+(setq org-confirm-babel-evaluate nil)
+
 (with-eval-after-load 'org
   (org-babel-do-load-languages
       'org-babel-load-languages

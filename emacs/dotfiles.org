@@ -472,7 +472,13 @@
    #+end_src
 
 ** Org Babel
-*** Configure Babel Languages
+*** Evaluate code blocks without confirmation
+
+    #+begin_src emacs-lisp
+      (setq org-confirm-babel-evaluate nil)
+    #+end_src
+    
+*** Configure babel languages
 
    #+begin_src emacs-lisp
      (with-eval-after-load 'org
@@ -499,7 +505,7 @@
     (add-to-list 'org-structure-template-alist '("py" . "src python")))
 #+end_src
 
-*** Auto Tangle Configuration Files
+*** Auto tangle configuration files
 
    #+begin_src emacs-lisp
      ;; Automatically tangle our Emacs.org config file when we save it
