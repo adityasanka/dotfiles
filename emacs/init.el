@@ -421,6 +421,7 @@
   :custom
   (markdown-command "multimarkdown")
   (markdown-hide-urls t)
+  (markdown-fontify-code-blocks-natively t)
   :config
   (add-hook 'markdown-mode-hook 'dot/markdown-mode-hook))
 
