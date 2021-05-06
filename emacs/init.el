@@ -69,6 +69,7 @@
 
 ;; Disable line numbers for some modes
 (dolist (mode `(org-mode-hook
+		markdown-mode-hook
 		dired-mode-hook
 		term-mode-hook
 		vterm-mode-hook
@@ -90,13 +91,13 @@
 (setq-default line-spacing 0.5)
 
 ;; Set font
-(set-face-attribute 'default nil :font "MonacoB-16" :weight 'semi-light)
+(set-face-attribute 'default nil :font "Monaco-14" :weight 'normal)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "MonacoB-16" :weight 'semi-light)
+(set-face-attribute 'fixed-pitch nil :font "Monaco-14" :weight 'normal)
 
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "MonacoB-16" :weight 'semi-light)
+(set-face-attribute 'variable-pitch nil :font "Alegreya-20" :weight 'normal)
 
 ;; icon fonts to prettify doom mode line
 (use-package all-the-icons
@@ -260,15 +261,15 @@
 			     (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.2)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.0)
-		  (org-level-5 . 1.1)
-		  (org-level-6 . 1.1)
-		  (org-level-7 . 1.1)
-		  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "MonacoB-16" :weight 'semi-light))
+  (dolist (face '((org-level-1 . 2.0)
+		  (org-level-2 . 1.7)
+		  (org-level-3 . 1.4)
+		  (org-level-4 . 1.2)
+		  (org-level-5 . 1.0)
+		  (org-level-6 . 1.0)
+		  (org-level-7 . 1.0)
+		  (org-level-8 . 1.0)))
+    (set-face-attribute (car face) nil :font "Alegreya-20" :weight 'normal :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
@@ -300,14 +301,13 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-(defun efs/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
-	visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
-
 (use-package visual-fill-column
   :defer t
-  :hook (org-mode . efs/org-mode-visual-fill))
+  :hook ((org-mode . visual-fill-column-mode)
+	 (markdown-mode . visual-fill-column-mode))
+  :custom
+  (visual-fill-column-width 120)
+  (visual-fill-column-center-text t))
 
 (setq org-confirm-babel-evaluate nil)
 
@@ -402,13 +402,27 @@
 (use-package lsp-ivy
   :after lsp)
 
+(defun dot/set-markdown-header-font-sizes ()
+  (dolist (face '((markdown-header-face-1 . 2.0)
+		  (markdown-header-face-2 . 1.7)
+		  (markdown-header-face-3 . 1.4)
+		  (markdown-header-face-4 . 1.1)
+		  (markdown-header-face-5 . 1.0)))
+    (set-face-attribute (car face) nil :font "Alegreya-20" :weight 'normal :height (cdr face))))
+
+(defun dot/markdown-mode-hook ()
+  (dot/set-markdown-header-font-sizes))
+
 (use-package markdown-mode
   :ensure t
-  :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
 	 ("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :custom
+  (markdown-command "multimarkdown")
+  (markdown-hide-urls t)
+  :config
+  (add-hook 'markdown-mode-hook 'dot/markdown-mode-hook))
 
 (use-package typescript-mode
   :mode "\\.ts\\'"
