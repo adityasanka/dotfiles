@@ -455,7 +455,23 @@
   ;; NOTE: Set these if Python 3 is called "python3" on your system!
   (python-shell-interpreter "python3"))
 
+(use-package lsp-pyright
+  :ensure t
+  :after (python-mode lsp-mode))
+
+(use-package python-black
+  :ensure t
+  :after python)
+;;:hook (python-mode . python-black-on-save-mode))
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+(defun python-black-save-hooks ()
+  (add-hook 'before-save-hook #'python-black-buffer t t))
+
+(add-hook 'python-mode-hook #'python-black-save-hooks)
+
 (use-package pyvenv
+  :after python-mode
   :config
   (pyvenv-mode 1))
 
