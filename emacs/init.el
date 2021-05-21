@@ -90,12 +90,14 @@
 
 (setq-default line-spacing 0.5)
 
-;; Set font
-(set-face-attribute 'default nil :font "Monaco-14" :weight 'normal)
+(use-package fira-code-mode
+  :ensure t
+  :config (global-fira-code-mode))
 
+;; Set default font
+(set-face-attribute 'default nil :font "Fira Code-18" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Monaco-14" :weight 'normal)
-
+(set-face-attribute 'fixed-pitch nil :font "Fira Code-18" :weight 'normal)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Alegreya-20" :weight 'normal)
 
@@ -269,7 +271,7 @@
 		  (org-level-6 . 1.0)
 		  (org-level-7 . 1.0)
 		  (org-level-8 . 1.0)))
-    (set-face-attribute (car face) nil :font "Alegreya-20" :weight 'normal :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Alegreya" :weight 'normal :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
@@ -408,7 +410,7 @@
 		  (markdown-header-face-3 . 1.4)
 		  (markdown-header-face-4 . 1.1)
 		  (markdown-header-face-5 . 1.0)))
-    (set-face-attribute (car face) nil :font "Alegreya-20" :weight 'normal :height (cdr face))))
+    (set-face-attribute (car face) nil :font "Alegreya" :weight 'normal :height (cdr face))))
 
 (defun dot/markdown-mode-hook ()
   (dot/set-markdown-header-font-sizes))
