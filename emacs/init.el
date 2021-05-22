@@ -56,6 +56,19 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  :custom
+  (dashboard-center-content t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-set-navigator t)
+  (dashboard-set-footer nil)
+  (dashboard-page-separator "\n\n")
+  (dashboard-items '((recents  . 5))))
+
 (scroll-bar-mode -1) ; Disable visual scroll bar
 (tool-bar-mode -1)   ; Disable the tool bar
 (tooltip-mode -1)    ; Disable tooltips
@@ -90,14 +103,10 @@
 
 (setq-default line-spacing 0.5)
 
-(use-package fira-code-mode
-  :ensure t
-  :config (global-fira-code-mode))
-
 ;; Set default font
-(set-face-attribute 'default nil :font "Fira Code-18" :weight 'normal)
+(set-face-attribute 'default nil :font "Monaco-16" :weight 'semi-bold)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code-18" :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :font "Monaco-16" :weight 'semi-bold)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Alegreya-20" :weight 'normal)
 
