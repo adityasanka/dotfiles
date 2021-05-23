@@ -114,9 +114,9 @@
 (setq-default line-spacing 0.5)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Monaco-16" :weight 'semi-bold)
+(set-face-attribute 'default nil :font "Monaco-16" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Monaco-16" :weight 'semi-bold)
+(set-face-attribute 'fixed-pitch nil :font "Monaco-16" :weight 'normal)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Alegreya-20" :weight 'normal)
 
