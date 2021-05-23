@@ -85,6 +85,9 @@
 ;; Disable text for title bar
 (setq frame-title-format nil)
 
+(add-to-list 'default-frame-alist '(width . 140))
+(add-to-list 'default-frame-alist '(height . 45))
+
 (global-display-line-numbers-mode t)
 
 ;; Disable line numbers for some modes
