@@ -78,6 +78,13 @@
 ;; Setup the visible bell
 (setq visible-bell t)
 
+;; Transparent title bar
+(when (memq window-system '(mac ns))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark)) ; nil for dark text
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+;; Disable text for title bar
+(setq frame-title-format nil)
+
 (global-display-line-numbers-mode t)
 
 ;; Disable line numbers for some modes
