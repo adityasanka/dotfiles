@@ -82,8 +82,10 @@
 (when (memq window-system '(mac ns))
   (add-to-list 'default-frame-alist '(ns-appearance . dark)) ; nil for dark text
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
-;; Disable text for title bar
+
+;; Disable text and icon for title bar
 (setq frame-title-format nil)
+(setq icon-title-format nil)
 
 (add-to-list 'default-frame-alist '(width . 140))
 (add-to-list 'default-frame-alist '(height . 45))
