@@ -482,16 +482,22 @@
   :ensure t
   :after (python-mode lsp-mode))
 
+(use-package py-isort
+  :ensure t
+  :after (python-mode)
+  :config
+  (setq py-isort-options '("--profile=black")))
+
 (use-package python-black
   :ensure t
   :after python)
-;;:hook (python-mode . python-black-on-save-mode))
 
-;; Set up before-save hooks to format buffer and add/delete imports.
-(defun python-black-save-hooks ()
+;; Set up before-save hooks to format buffer.
+(defun dot/python-save-hooks ()
+  (add-hook 'before-save-hook #'py-isort-buffer t t)
   (add-hook 'before-save-hook #'python-black-buffer t t))
 
-(add-hook 'python-mode-hook #'python-black-save-hooks)
+(add-hook 'python-mode-hook #'dot/python-save-hooks)
 
 (use-package pyvenv
   :after python-mode
