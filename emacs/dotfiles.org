@@ -59,6 +59,14 @@
      (setq inhibit-startup-message t)
    #+end_src
 
+** Warnings
+Emacs 28 (with support for native compilation) generates a fair number of warnings. On startup, often, we are presented with the Warnings buffer. Report only warnings with severity level :error or higher.
+   
+   #+begin_src emacs-lisp
+     ;; default is :warning, which displays all warnings except :debug warnings
+     (setq warning-minimum-level :error)
+   #+end_src
+   
 ** Startup performance
 
    #+begin_src emacs-lisp
@@ -97,6 +105,7 @@
    #+end_src
 
 ** Home Screen
+   
    #+begin_src emacs-lisp
      (use-package dashboard
        :ensure t
@@ -111,6 +120,7 @@
        (dashboard-page-separator "\n\n")
        (dashboard-items '((recents  . 5))))
    #+end_src
+
 * UI Configuration
 ** Minimal UI
 
@@ -137,8 +147,8 @@
 ** Default Window Size
 
    #+begin_src emacs-lisp
-     (add-to-list 'default-frame-alist '(width . 180))
-     (add-to-list 'default-frame-alist '(height . 50))
+     (add-to-list 'default-frame-alist '(width . 140))
+     (add-to-list 'default-frame-alist '(height . 40))
    #+end_src
    
 ** Lines
@@ -192,9 +202,9 @@
     
    #+begin_src emacs-lisp
      ;; Set default font
-     (set-face-attribute 'default nil :font "Consolas-16" :weight 'normal)
+     (set-face-attribute 'default nil :font "Monaco-15" :weight 'normal)
      ;; Set the fixed pitch face
-     (set-face-attribute 'fixed-pitch nil :font "Consolas-16" :weight 'normal)
+     (set-face-attribute 'fixed-pitch nil :font "Monaco-15" :weight 'normal)
      ;; Set the variable pitch face
      (set-face-attribute 'variable-pitch nil :font "Alegreya-20" :weight 'normal)
    #+end_src

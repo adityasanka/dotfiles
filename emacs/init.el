@@ -34,6 +34,9 @@
 ;; Inhibit startup message
 (setq inhibit-startup-message t)
 
+;; default is :warning, which displays all warnings except :debug warnings
+(setq warning-minimum-level :error)
+
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -87,8 +90,8 @@
 (setq frame-title-format nil)
 (setq icon-title-format nil)
 
-(add-to-list 'default-frame-alist '(width . 180))
-(add-to-list 'default-frame-alist '(height . 50))
+(add-to-list 'default-frame-alist '(width . 140))
+(add-to-list 'default-frame-alist '(height . 40))
 
 (global-display-line-numbers-mode t)
 
@@ -116,9 +119,9 @@
 (setq-default line-spacing 0.5)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Consolas-16" :weight 'normal)
+(set-face-attribute 'default nil :font "Monaco-15" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Consolas-16" :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :font "Monaco-15" :weight 'normal)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Alegreya-20" :weight 'normal)
 
