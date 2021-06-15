@@ -119,11 +119,11 @@
 (setq-default line-spacing 0.5)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Monaco-15" :weight 'normal)
+(set-face-attribute 'default nil :font "JetBrains Mono-16" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Monaco-15" :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :font  "JetBrains Mono-16" :weight 'normal)
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Alegreya-20" :weight 'normal)
+(set-face-attribute 'variable-pitch nil :font  "JetBrains Mono-16" :weight 'normal)
 
 ;; icon fonts to prettify doom mode line
 (use-package all-the-icons
@@ -131,6 +131,37 @@
   (when (and (not (member "all-the-icons" (font-family-list)))
 	     (window-system))
     (all-the-icons-install-fonts t)))
+
+(let ((ligatures `((?-  ,(regexp-opt '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->")))
+		     (?/  ,(regexp-opt '("/**" "/*" "///" "/=" "/==" "/>" "//")))
+		     (?*  ,(regexp-opt '("*>" "***" "*/")))
+		     (?<  ,(regexp-opt '("<-" "<<-" "<=>" "<=" "<|" "<||" "<|||" "<|>" "<:" "<>" "<-<"
+					   "<<<" "<==" "<<=" "<=<" "<==>" "<-|" "<<" "<~>" "<=|" "<~~" "<~"
+					   "<$>" "<$" "<+>" "<+" "</>" "</" "<*" "<*>" "<->" "<!--")))
+		     (?:  ,(regexp-opt '(":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=")))
+		     (?=  ,(regexp-opt '("=>>" "==>" "=/=" "=!=" "=>" "===" "=:=" "==")))
+		     (?!  ,(regexp-opt '("!==" "!!" "!=")))
+		     (?>  ,(regexp-opt '(">]" ">:" ">>-" ">>=" ">=>" ">>>" ">-" ">=")))
+		     (?&  ,(regexp-opt '("&&&" "&&")))
+		     (?|  ,(regexp-opt '("|||>" "||>" "|>" "|]" "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||")))
+		     (?.  ,(regexp-opt '(".." ".?" ".=" ".-" "..<" "...")))
+		     (?+  ,(regexp-opt '("+++" "+>" "++")))
+		     (?\[ ,(regexp-opt '("[||]" "[<" "[|")))
+		     (?\{ ,(regexp-opt '("{|")))
+		     (?\? ,(regexp-opt '("??" "?." "?=" "?:")))
+		     (?#  ,(regexp-opt '("####" "###" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" "##")))
+		     (?\; ,(regexp-opt '(";;")))
+		     (?_  ,(regexp-opt '("_|_" "__")))
+		     (?\\ ,(regexp-opt '("\\" "\\/")))
+		     (?~  ,(regexp-opt '("~~" "~~>" "~>" "~=" "~-" "~@")))
+		     (?$  ,(regexp-opt '("$>")))
+		     (?^  ,(regexp-opt '("^=")))
+		     (?\] ,(regexp-opt '("]#"))))))
+    (dolist (char-regexp ligatures)
+      (apply (lambda (char regexp) (set-char-table-range
+				    composition-function-table
+				    char `([,regexp 0 font-shape-gstring])))
+	     char-regexp)))
 
 (use-package doom-themes
   :config
@@ -290,7 +321,7 @@
   (dolist (face '((org-level-1 . 2.0)
 		  (org-level-2 . 1.7)
 		  (org-level-3 . 1.4)
-		  (org-level-4 . 1.2)
+		  ;(org-level-4 . 1.2)
 		  (org-level-5 . 1.0)
 		  (org-level-6 . 1.0)
 		  (org-level-7 . 1.0)
