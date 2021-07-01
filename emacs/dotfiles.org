@@ -148,7 +148,7 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 
    #+begin_src emacs-lisp
      (add-to-list 'default-frame-alist '(width . 140))
-     (add-to-list 'default-frame-alist '(height . 40))
+     (add-to-list 'default-frame-alist '(height . 48))
    #+end_src
    
 ** Lines
@@ -202,11 +202,9 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
     
    #+begin_src emacs-lisp
      ;; Set default font
-     (set-face-attribute 'default nil :font "JetBrains Mono-16" :weight 'normal)
+     (set-face-attribute 'default nil :font "JuliaMono-16" :weight 'normal)
      ;; Set the fixed pitch face
-     (set-face-attribute 'fixed-pitch nil :font  "JetBrains Mono-16" :weight 'normal)
-     ;; Set the variable pitch face
-     (set-face-attribute 'variable-pitch nil :font  "JetBrains Mono-16" :weight 'normal)
+     (set-face-attribute 'fixed-pitch nil :font  "JuliaMono-16" :weight 'normal)
    #+end_src
 
 *** Install icon fonts
@@ -264,7 +262,7 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        ;; Global Settings
        (setq doom-themes-enable-bold t
 	     doom-themes-enable-italic t)
-       (load-theme 'doom-dracula t)
+       (load-theme 'doom-gruvbox t)
        ;; Corrects (and improves) org-mode's native fontification.
        (doom-themes-org-config))
    #+end_src

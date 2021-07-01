@@ -91,7 +91,7 @@
 (setq icon-title-format nil)
 
 (add-to-list 'default-frame-alist '(width . 140))
-(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(height . 48))
 
 (global-display-line-numbers-mode t)
 
@@ -119,11 +119,9 @@
 (setq-default line-spacing 0.5)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "JetBrains Mono-16" :weight 'normal)
+(set-face-attribute 'default nil :font "JuliaMono-16" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font  "JetBrains Mono-16" :weight 'normal)
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font  "JetBrains Mono-16" :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :font  "JuliaMono-16" :weight 'normal)
 
 ;; icon fonts to prettify doom mode line
 (use-package all-the-icons
@@ -168,7 +166,7 @@
   ;; Global Settings
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t)
-  (load-theme 'doom-dracula t)
+  (load-theme 'doom-gruvbox t)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
