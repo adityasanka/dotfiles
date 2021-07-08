@@ -119,9 +119,9 @@
 (setq-default line-spacing 0.5)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "JuliaMono-16" :weight 'normal)
+(set-face-attribute 'default nil :font "Ubuntu Mono-18" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font  "JuliaMono-16" :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-18" :weight 'normal)
 
 ;; icon fonts to prettify doom mode line
 (use-package all-the-icons
