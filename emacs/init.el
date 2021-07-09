@@ -90,8 +90,8 @@
 (setq frame-title-format nil)
 (setq icon-title-format nil)
 
-(add-to-list 'default-frame-alist '(width . 140))
-(add-to-list 'default-frame-alist '(height . 48))
+(add-to-list 'default-frame-alist '(width . 150))
+(add-to-list 'default-frame-alist '(height . 52))
 
 (global-display-line-numbers-mode t)
 

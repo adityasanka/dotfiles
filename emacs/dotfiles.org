@@ -147,8 +147,8 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 ** Default Window Size
 
    #+begin_src emacs-lisp
-     (add-to-list 'default-frame-alist '(width . 140))
-     (add-to-list 'default-frame-alist '(height . 48))
+     (add-to-list 'default-frame-alist '(width . 150))
+     (add-to-list 'default-frame-alist '(height . 52))
    #+end_src
    
 ** Lines
