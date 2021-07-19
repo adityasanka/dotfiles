@@ -810,7 +810,7 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 
       (use-package python-black
 	:ensure t
-	:after python)
+	:after python-mode)
 
       ;; Set up before-save hooks to format buffer.
       (defun dot/python-save-hooks ()

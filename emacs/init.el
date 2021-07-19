@@ -522,7 +522,7 @@
 
 (use-package python-black
   :ensure t
-  :after python)
+  :after python-mode)
 
 ;; Set up before-save hooks to format buffer.
 (defun dot/python-save-hooks ()
