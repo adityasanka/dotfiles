@@ -596,14 +596,14 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
    | (lambda nil (add-hook 'after-save-hook #'efs/org-babel-tangle-config)) | org-tempo-setup | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | efs/org-mode-visual-fill | org-bullets-mode | (lambda nil (display-line-numbers-mode 0)) |
 
 * Development
-** Git
+** Version Control
    
    #+begin_src emacs-lisp
      (use-package magit
        :commands (magit-status magit-get-current-branch))
    #+end_src
    
-** Projectile
+** Project Management
 
    #+begin_src emacs-lisp
      (use-package projectile
@@ -611,7 +611,8 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        :config
        (projectile-mode)
        :custom
-       ((projectile-completion-system 'ivy))
+       ((projectile-completion-system 'ivy)
+	(projectile-sort-order 'recently-active))
        :bind-keymap
        ("C-c p" . projectile-command-map)
        :init
@@ -624,7 +625,7 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        :config (counsel-projectile-mode))
    #+end_src
 
-** Commenting
+** Comments
 
    #+begin_src emacs-lisp
      (use-package evil-nerd-commenter

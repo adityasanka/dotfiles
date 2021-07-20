@@ -400,7 +400,8 @@
   :config
   (projectile-mode)
   :custom
-  ((projectile-completion-system 'ivy))
+  ((projectile-completion-system 'ivy)
+   (projectile-sort-order 'recently-active))
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
