@@ -162,16 +162,16 @@
 	     char-regexp)))
 
 (use-package doom-themes
+  :custom
+  ((doom-themes-enable-bold t)
+   (doom-themes-enable-italic t)
+   (doom-themes-padded-modeline t))
   :config
-  ;; Global Settings
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
-  (load-theme 'doom-gruvbox t)
   ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
-;; Set fringe color to nil
-(set-face-attribute 'fringe nil :background nil)
+  (doom-themes-org-config)
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  (load-theme 'doom-dracula t))
 
 (use-package doom-modeline
   :ensure t
