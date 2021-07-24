@@ -97,6 +97,80 @@
   :ensure t
   :init (smooth-scrolling-mode 1))
 
+;; Let the text breath. Increase line spacing
+(setq-default line-spacing 0.5)
+
+(global-visual-line-mode 1)
+
+;; Highlight current line
+(add-hook 'prog-mode-hook 'hl-line-mode )
+
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+(dolist (mode `(org-mode-hook
+		markdown-mode-hook
+		dired-mode-hook
+		term-mode-hook
+		vterm-mode-hook
+		shell-mode-hook
+		treemacs-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda() (display-line-numbers-mode 0))))
+
+;; Better help with heplful
+(use-package helpful
+  :commands (helpful-callable helpful-variable helpful-command helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+;; Keyboard hints with which-key
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.5))
+
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Log commands in a buffer
+(use-package command-log-mode
+  :commands command-log-mode)
+
+;; Compose key sequences
+(use-package hydra
+  :defer t)
+
+(defhydra hydra-text-scale (:timeout 4)
+  "scale text"
+  ("j" text-scale-increase "in")
+  ("k" text-scale-decrease "out")
+  ("f" nil "finished" :exit t))
+
+;; Convenient key bindings 
+(use-package general
+  :after (ivy counsel)
+  :config  
+  (general-create-definer rune/leader-keys
+			 :keymaps '(emacs)
+			 :prefix "SPC"
+			 :prefix "C-SPC")
+  (rune/leader-keys
+   "t" '(:ignore t :which-key "toggles")
+   "tt" '(counsel-load-theme :which-key "choose theme")
+   "ts" '(hydra-text-scale/body :which-key "scale-text")))
+
+(general-define-key
+ "C-M-j" 'counsel-switch-buffer)
+
 ;; Set default font
 (set-face-attribute 'default nil :font "Ubuntu Mono-20" :weight 'normal)
 ;; Set the fixed pitch face
@@ -152,66 +226,13 @@
   (doom-themes-visual-bell-config)
   (load-theme 'doom-dracula t))
 
+;; Better modeline
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
   :config
   ;; Show column number in modeline
   (column-number-mode))
-
-;; Let the text breath. Increase line spacing
-(setq-default line-spacing 0.5)
-
-(global-visual-line-mode 1)
-
-;; Highlight current line
-(add-hook 'prog-mode-hook 'hl-line-mode )
-
-(global-display-line-numbers-mode t)
-
-;; Disable line numbers for some modes
-(dolist (mode `(org-mode-hook
-		markdown-mode-hook
-		dired-mode-hook
-		term-mode-hook
-		vterm-mode-hook
-		shell-mode-hook
-		treemacs-mode-hook
-		eshell-mode-hook))
-  (add-hook mode (lambda() (display-line-numbers-mode 0))))
-
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-;; Log commands in a buffer
-(use-package command-log-mode
-  :commands command-log-mode)
-
-;; Compose key sequences
-(use-package hydra
-  :defer t)
-
-(defhydra hydra-text-scale (:timeout 4)
-  "scale text"
-  ("j" text-scale-increase "in")
-  ("k" text-scale-decrease "out")
-  ("f" nil "finished" :exit t))
-
-;; Convenient key bindings 
-(use-package general
-  :after (ivy counsel)
-  :config  
-  (general-create-definer rune/leader-keys
-			 :keymaps '(emacs)
-			 :prefix "SPC"
-			 :prefix "C-SPC")
-  (rune/leader-keys
-   "t" '(:ignore t :which-key "toggles")
-   "tt" '(counsel-load-theme :which-key "choose theme")
-   "ts" '(hydra-text-scale/body :which-key "scale-text")))
-
-(general-define-key
- "C-M-j" 'counsel-switch-buffer)
 
 ;; store backup files in the tmp dir
 (setq backup-directory-alist
@@ -237,13 +258,6 @@
   :commands (dired dired-jump)
   :if (display-graphic-p)
   :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package which-key
-  :defer 0
-  :diminish which-key-mode
-  :config
-  (which-key-mode)
-  (setq which-key-idle-delay 0.5))
 
 (use-package ivy
   :diminish
@@ -289,17 +303,6 @@
   :config
   (prescient-persist-mode 1)
   (ivy-prescient-mode 1))
-
-(use-package helpful
-  :commands (helpful-callable helpful-variable helpful-command helpful-key)
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
-  ([remap describe-key] . helpful-key))
 
 ;; Want this to run on every file open for org mode
 (defun efs/org-mode-setup ()

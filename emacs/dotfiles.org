@@ -151,7 +151,7 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
      (setq icon-title-format nil)
    #+end_src
 
-** Smooth Scrolling
+** Scrolling
    
    #+begin_src emacs-lisp
      ;; Enable smooth scrolling
@@ -160,6 +160,118 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        :init (smooth-scrolling-mode 1))
    #+end_src
  
+** Text Appearence
+*** Increase Line Height
+    
+   #+begin_src emacs-lisp
+     ;; Let the text breath. Increase line spacing
+     (setq-default line-spacing 0.5)
+   #+end_src
+
+*** Wrap Lines
+
+    #+begin_src emacs-lisp
+      (global-visual-line-mode 1)
+    #+end_src
+
+*** Highlight Current Line
+    
+   #+begin_src emacs-lisp
+     ;; Highlight current line
+     (add-hook 'prog-mode-hook 'hl-line-mode )
+   #+end_src
+    
+*** Show Line Numbers
+    
+   #+begin_src emacs-lisp
+     (global-display-line-numbers-mode t)
+
+     ;; Disable line numbers for some modes
+     (dolist (mode `(org-mode-hook
+		     markdown-mode-hook
+		     dired-mode-hook
+		     term-mode-hook
+		     vterm-mode-hook
+		     shell-mode-hook
+		     treemacs-mode-hook
+		     eshell-mode-hook))
+       (add-hook mode (lambda() (display-line-numbers-mode 0))))
+   #+end_src
+
+** Help
+
+    #+begin_src emacs-lisp
+      ;; Better help with heplful
+      (use-package helpful
+	:commands (helpful-callable helpful-variable helpful-command helpful-key)
+	:custom
+	(counsel-describe-function-function #'helpful-callable)
+	(counsel-describe-variable-function #'helpful-variable)
+	:bind
+	([remap describe-function] . counsel-describe-function)
+	([remap describe-command] . helpful-command)
+	([remap describe-variable] . counsel-describe-variable)
+	([remap describe-key] . helpful-key))
+  #+end_src
+
+  #+begin_src emacs-lisp
+    ;; Keyboard hints with which-key
+    (use-package which-key
+      :defer 0
+      :diminish which-key-mode
+      :config
+      (which-key-mode)
+      (setq which-key-idle-delay 0.5))
+  #+end_src
+
+** Keyboard
+*** Esc Key
+    
+   #+begin_src emacs-lisp
+     ;; Make ESC quit prompts
+     (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+   #+end_src
+
+*** Command Log
+
+   #+begin_src emacs-lisp
+     ;; Log commands in a buffer
+     (use-package command-log-mode
+       :commands command-log-mode)
+   #+end_src
+
+*** Key Bindings
+   
+   #+begin_src emacs-lisp
+     ;; Compose key sequences
+     (use-package hydra
+       :defer t)
+
+     (defhydra hydra-text-scale (:timeout 4)
+       "scale text"
+       ("j" text-scale-increase "in")
+       ("k" text-scale-decrease "out")
+       ("f" nil "finished" :exit t))
+   #+end_src
+
+   #+begin_src emacs-lisp
+     ;; Convenient key bindings 
+     (use-package general
+       :after (ivy counsel)
+       :config  
+       (general-create-definer rune/leader-keys
+			      :keymaps '(emacs)
+			      :prefix "SPC"
+			      :prefix "C-SPC")
+       (rune/leader-keys
+	"t" '(:ignore t :which-key "toggles")
+	"tt" '(counsel-load-theme :which-key "choose theme")
+	"ts" '(hydra-text-scale/body :which-key "scale-text")))
+
+     (general-define-key
+      "C-M-j" 'counsel-switch-buffer)
+   #+end_src
+   
 ** Fonts
 *** Set Font Face
     
@@ -233,9 +345,10 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        (load-theme 'doom-dracula t))
    #+end_src
 
-** Better Modeline
+** Modeline
    
    #+begin_src emacs-lisp
+     ;; Better modeline
      (use-package doom-modeline
        :ensure t
        :init (doom-modeline-mode 1)
@@ -244,92 +357,6 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        (column-number-mode))
    #+end_src
 
-** Text Appearence
-*** Increase Line Height
-    
-   #+begin_src emacs-lisp
-     ;; Let the text breath. Increase line spacing
-     (setq-default line-spacing 0.5)
-   #+end_src
-
-*** Wrap Lines
-
-    #+begin_src emacs-lisp
-      (global-visual-line-mode 1)
-    #+end_src
-
-*** Highlight Current Line
-    
-   #+begin_src emacs-lisp
-     ;; Highlight current line
-     (add-hook 'prog-mode-hook 'hl-line-mode )
-   #+end_src
-    
-*** Show Line Numbers
-    
-   #+begin_src emacs-lisp
-     (global-display-line-numbers-mode t)
-
-     ;; Disable line numbers for some modes
-     (dolist (mode `(org-mode-hook
-		     markdown-mode-hook
-		     dired-mode-hook
-		     term-mode-hook
-		     vterm-mode-hook
-		     shell-mode-hook
-		     treemacs-mode-hook
-		     eshell-mode-hook))
-       (add-hook mode (lambda() (display-line-numbers-mode 0))))
-   #+end_src
-
-** Keyboard
-*** Esc Key
-    
-   #+begin_src emacs-lisp
-     ;; Make ESC quit prompts
-     (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-   #+end_src
-
-*** Command Log
-
-   #+begin_src emacs-lisp
-     ;; Log commands in a buffer
-     (use-package command-log-mode
-       :commands command-log-mode)
-   #+end_src
-
-*** Key Bindings
-   
-   #+begin_src emacs-lisp
-     ;; Compose key sequences
-     (use-package hydra
-       :defer t)
-
-     (defhydra hydra-text-scale (:timeout 4)
-       "scale text"
-       ("j" text-scale-increase "in")
-       ("k" text-scale-decrease "out")
-       ("f" nil "finished" :exit t))
-   #+end_src
-
-   #+begin_src emacs-lisp
-     ;; Convenient key bindings 
-     (use-package general
-       :after (ivy counsel)
-       :config  
-       (general-create-definer rune/leader-keys
-			      :keymaps '(emacs)
-			      :prefix "SPC"
-			      :prefix "C-SPC")
-       (rune/leader-keys
-	"t" '(:ignore t :which-key "toggles")
-	"tt" '(counsel-load-theme :which-key "choose theme")
-	"ts" '(hydra-text-scale/body :which-key "scale-text")))
-
-     (general-define-key
-      "C-M-j" 'counsel-switch-buffer)
-   #+end_src
-  
 * File Management
 ** Backup
 
@@ -372,17 +399,6 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
    | all-the-icons-dired-mode | doom-modeline-set-project-modeline | (lambda nil (display-line-numbers-mode 0)) |
    
 * Generic Completion
-** Keyboard hints with which-key
-
-  #+begin_src emacs-lisp
-    (use-package which-key
-      :defer 0
-      :diminish which-key-mode
-      :config
-      (which-key-mode)
-      (setq which-key-idle-delay 0.5))
-  #+end_src
-      
 ** Better completion with ivy and counsel
 *** Setup ivy
     
@@ -446,21 +462,6 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
       (ivy-prescient-mode 1))
   #+end_src
 
-** Better help with helpful
-
-  #+begin_src emacs-lisp
-    (use-package helpful
-      :commands (helpful-callable helpful-variable helpful-command helpful-key)
-      :custom
-      (counsel-describe-function-function #'helpful-callable)
-      (counsel-describe-variable-function #'helpful-variable)
-      :bind
-      ([remap describe-function] . counsel-describe-function)
-      ([remap describe-command] . helpful-command)
-      ([remap describe-variable] . counsel-describe-variable)
-      ([remap describe-key] . helpful-key))
-  #+end_src
-  
 * Org Mode
 ** Setup org-mode
    
