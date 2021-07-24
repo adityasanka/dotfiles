@@ -97,46 +97,6 @@
   :ensure t
   :init (smooth-scrolling-mode 1))
 
-(use-package doom-themes
-  :custom
-  ((doom-themes-enable-bold t)
-   (doom-themes-enable-italic t)
-   (doom-themes-padded-modeline t))
-  :config
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config)
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  (load-theme 'doom-dracula t))
-
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1)
-  :config
-  ;; Show column number in modeline
-  (column-number-mode))
-
-;; Let the text breath. Increase line spacing
-(setq-default line-spacing 0.5)
-
-(global-visual-line-mode 1)
-
-;; Highlight current line
-(add-hook 'prog-mode-hook 'hl-line-mode )
-
-(global-display-line-numbers-mode t)
-
-;; Disable line numbers for some modes
-(dolist (mode `(org-mode-hook
-		markdown-mode-hook
-		dired-mode-hook
-		term-mode-hook
-		vterm-mode-hook
-		shell-mode-hook
-		treemacs-mode-hook
-		eshell-mode-hook))
-  (add-hook mode (lambda() (display-line-numbers-mode 0))))
-
 ;; Set default font
 (set-face-attribute 'default nil :font "Ubuntu Mono-20" :weight 'normal)
 ;; Set the fixed pitch face
@@ -180,30 +140,45 @@
 	     (window-system))
     (all-the-icons-install-fonts t)))
 
-;; store backup files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-
-;; store auto-save files in the tmp dir
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump))
+(use-package doom-themes
   :custom
-  (delete-by-moving-to-trash t))
+  ((doom-themes-enable-bold t)
+   (doom-themes-enable-italic t)
+   (doom-themes-padded-modeline t))
+  :config
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  (load-theme 'doom-dracula t))
 
-(use-package dired-single
-  :after dired
-  :commands (dired dired-jump))
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config
+  ;; Show column number in modeline
+  (column-number-mode))
 
-(use-package all-the-icons-dired
-  :after dired
-  :commands (dired dired-jump)
-  :if (display-graphic-p)
-  :hook (dired-mode . all-the-icons-dired-mode))
+;; Let the text breath. Increase line spacing
+(setq-default line-spacing 0.5)
+
+(global-visual-line-mode 1)
+
+;; Highlight current line
+(add-hook 'prog-mode-hook 'hl-line-mode )
+
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+(dolist (mode `(org-mode-hook
+		markdown-mode-hook
+		dired-mode-hook
+		term-mode-hook
+		vterm-mode-hook
+		shell-mode-hook
+		treemacs-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -237,6 +212,31 @@
 
 (general-define-key
  "C-M-j" 'counsel-switch-buffer)
+
+;; store backup files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+
+;; store auto-save files in the tmp dir
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom
+  (delete-by-moving-to-trash t))
+
+(use-package dired-single
+  :after dired
+  :commands (dired dired-jump))
+
+(use-package all-the-icons-dired
+  :after dired
+  :commands (dired dired-jump)
+  :if (display-graphic-p)
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package which-key
   :defer 0

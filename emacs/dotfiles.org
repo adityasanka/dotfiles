@@ -160,71 +160,6 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        :init (smooth-scrolling-mode 1))
    #+end_src
  
-** Color Theme
-   
-   #+begin_src emacs-lisp
-     (use-package doom-themes
-       :custom
-       ((doom-themes-enable-bold t)
-	(doom-themes-enable-italic t)
-	(doom-themes-padded-modeline t))
-       :config
-       ;; Corrects (and improves) org-mode's native fontification.
-       (doom-themes-org-config)
-       ;; Enable flashing mode-line on errors
-       (doom-themes-visual-bell-config)
-       (load-theme 'doom-dracula t))
-   #+end_src
-
-** Better modeline
-   
-   #+begin_src emacs-lisp
-     (use-package doom-modeline
-       :ensure t
-       :init (doom-modeline-mode 1)
-       :config
-       ;; Show column number in modeline
-       (column-number-mode))
-   #+end_src
-
-** Text Appearence
-*** Increase Line Height
-    
-   #+begin_src emacs-lisp
-     ;; Let the text breath. Increase line spacing
-     (setq-default line-spacing 0.5)
-   #+end_src
-
-*** Wrap Lines
-
-    #+begin_src emacs-lisp
-      (global-visual-line-mode 1)
-    #+end_src
-
-*** Highlight Current Line
-    
-   #+begin_src emacs-lisp
-     ;; Highlight current line
-     (add-hook 'prog-mode-hook 'hl-line-mode )
-   #+end_src
-    
-*** Show Line Numbers
-    
-   #+begin_src emacs-lisp
-     (global-display-line-numbers-mode t)
-
-     ;; Disable line numbers for some modes
-     (dolist (mode `(org-mode-hook
-		     markdown-mode-hook
-		     dired-mode-hook
-		     term-mode-hook
-		     vterm-mode-hook
-		     shell-mode-hook
-		     treemacs-mode-hook
-		     eshell-mode-hook))
-       (add-hook mode (lambda() (display-line-numbers-mode 0))))
-   #+end_src
-             
 ** Fonts
 *** Set Font Face
     
@@ -282,6 +217,119 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 	 (all-the-icons-install-fonts t)))
    #+end_src
 
+** Color Theme
+   
+   #+begin_src emacs-lisp
+     (use-package doom-themes
+       :custom
+       ((doom-themes-enable-bold t)
+	(doom-themes-enable-italic t)
+	(doom-themes-padded-modeline t))
+       :config
+       ;; Corrects (and improves) org-mode's native fontification.
+       (doom-themes-org-config)
+       ;; Enable flashing mode-line on errors
+       (doom-themes-visual-bell-config)
+       (load-theme 'doom-dracula t))
+   #+end_src
+
+** Better Modeline
+   
+   #+begin_src emacs-lisp
+     (use-package doom-modeline
+       :ensure t
+       :init (doom-modeline-mode 1)
+       :config
+       ;; Show column number in modeline
+       (column-number-mode))
+   #+end_src
+
+** Text Appearence
+*** Increase Line Height
+    
+   #+begin_src emacs-lisp
+     ;; Let the text breath. Increase line spacing
+     (setq-default line-spacing 0.5)
+   #+end_src
+
+*** Wrap Lines
+
+    #+begin_src emacs-lisp
+      (global-visual-line-mode 1)
+    #+end_src
+
+*** Highlight Current Line
+    
+   #+begin_src emacs-lisp
+     ;; Highlight current line
+     (add-hook 'prog-mode-hook 'hl-line-mode )
+   #+end_src
+    
+*** Show Line Numbers
+    
+   #+begin_src emacs-lisp
+     (global-display-line-numbers-mode t)
+
+     ;; Disable line numbers for some modes
+     (dolist (mode `(org-mode-hook
+		     markdown-mode-hook
+		     dired-mode-hook
+		     term-mode-hook
+		     vterm-mode-hook
+		     shell-mode-hook
+		     treemacs-mode-hook
+		     eshell-mode-hook))
+       (add-hook mode (lambda() (display-line-numbers-mode 0))))
+   #+end_src
+
+** Keyboard
+*** Esc Key
+    
+   #+begin_src emacs-lisp
+     ;; Make ESC quit prompts
+     (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+   #+end_src
+
+*** Command Log
+
+   #+begin_src emacs-lisp
+     ;; Log commands in a buffer
+     (use-package command-log-mode
+       :commands command-log-mode)
+   #+end_src
+
+*** Key Bindings
+   
+   #+begin_src emacs-lisp
+     ;; Compose key sequences
+     (use-package hydra
+       :defer t)
+
+     (defhydra hydra-text-scale (:timeout 4)
+       "scale text"
+       ("j" text-scale-increase "in")
+       ("k" text-scale-decrease "out")
+       ("f" nil "finished" :exit t))
+   #+end_src
+
+   #+begin_src emacs-lisp
+     ;; Convenient key bindings 
+     (use-package general
+       :after (ivy counsel)
+       :config  
+       (general-create-definer rune/leader-keys
+			      :keymaps '(emacs)
+			      :prefix "SPC"
+			      :prefix "C-SPC")
+       (rune/leader-keys
+	"t" '(:ignore t :which-key "toggles")
+	"tt" '(counsel-load-theme :which-key "choose theme")
+	"ts" '(hydra-text-scale/body :which-key "scale-text")))
+
+     (general-define-key
+      "C-M-j" 'counsel-switch-buffer)
+   #+end_src
+  
 * File Management
 ** Backup
 
@@ -322,54 +370,6 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 
    #+RESULTS:
    | all-the-icons-dired-mode | doom-modeline-set-project-modeline | (lambda nil (display-line-numbers-mode 0)) |
-   
-* Keyboard Configuration
-** Esc key
-
-   #+begin_src emacs-lisp
-     ;; Make ESC quit prompts
-     (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-   #+end_src
-
-** Command log
-
-   #+begin_src emacs-lisp
-     ;; Log commands in a buffer
-     (use-package command-log-mode
-       :commands command-log-mode)
-   #+end_src
-
-** Key bindings
-   
-   #+begin_src emacs-lisp
-     ;; Compose key sequences
-     (use-package hydra
-       :defer t)
-
-     (defhydra hydra-text-scale (:timeout 4)
-       "scale text"
-       ("j" text-scale-increase "in")
-       ("k" text-scale-decrease "out")
-       ("f" nil "finished" :exit t))
-   #+end_src
-
-   #+begin_src emacs-lisp
-     ;; Convenient key bindings 
-     (use-package general
-       :after (ivy counsel)
-       :config  
-       (general-create-definer rune/leader-keys
-			      :keymaps '(emacs)
-			      :prefix "SPC"
-			      :prefix "C-SPC")
-       (rune/leader-keys
-	"t" '(:ignore t :which-key "toggles")
-	"tt" '(counsel-load-theme :which-key "choose theme")
-	"ts" '(hydra-text-scale/body :which-key "scale-text")))
-
-     (general-define-key
-      "C-M-j" 'counsel-switch-buffer)
-   #+end_src
    
 * Generic Completion
 ** Keyboard hints with which-key
