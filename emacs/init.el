@@ -59,6 +59,10 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
+;; Default window size
+(add-to-list 'default-frame-alist '(width . 150))
+(add-to-list 'default-frame-alist '(height . 48))
+
 (use-package dashboard
   :ensure t
   :config
@@ -75,23 +79,50 @@
 (scroll-bar-mode -1) ; Disable visual scroll bar
 (tool-bar-mode -1)   ; Disable the tool bar
 (tooltip-mode -1)    ; Disable tooltips
-(set-fringe-mode 10) ; Give some breathing room
 (menu-bar-mode -1)   ; Disable menu bar
-
-;; Setup the visible bell
-(setq visible-bell t)
+(set-fringe-mode 10) ; Give some breathing room
 
 ;; Transparent title bar
 (when (memq window-system '(mac ns))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark)) ; nil for dark text
+   ; nil for dark text
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
 
 ;; Disable text and icon for title bar
 (setq frame-title-format nil)
 (setq icon-title-format nil)
 
-(add-to-list 'default-frame-alist '(width . 150))
-(add-to-list 'default-frame-alist '(height . 52))
+;; Enable smooth scrolling
+(use-package smooth-scrolling
+  :ensure t
+  :init (smooth-scrolling-mode 1))
+
+(use-package doom-themes
+  :custom
+  ((doom-themes-enable-bold t)
+   (doom-themes-enable-italic t)
+   (doom-themes-padded-modeline t))
+  :config
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  (load-theme 'doom-dracula t))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config
+  ;; Show column number in modeline
+  (column-number-mode))
+
+;; Let the text breath. Increase line spacing
+(setq-default line-spacing 0.5)
+
+(global-visual-line-mode 1)
+
+;; Highlight current line
+(add-hook 'prog-mode-hook 'hl-line-mode )
 
 (global-display-line-numbers-mode t)
 
@@ -106,29 +137,10 @@
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
-(global-visual-line-mode 1)
-
-;; Highlight current line
-(add-hook 'prog-mode-hook 'hl-line-mode )
-
-;; Enable smooth scrolling
-(use-package smooth-scrolling
-  :ensure t
-  :init (smooth-scrolling-mode 1))
-
-(setq-default line-spacing 0.5)
-
 ;; Set default font
 (set-face-attribute 'default nil :font "Ubuntu Mono-20" :weight 'normal)
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-20" :weight 'normal)
-
-;; icon fonts to prettify doom mode line
-(use-package all-the-icons
-  :init
-  (when (and (not (member "all-the-icons" (font-family-list)))
-	     (window-system))
-    (all-the-icons-install-fonts t)))
 
 (let ((ligatures `((?-  ,(regexp-opt '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->")))
 		     (?/  ,(regexp-opt '("/**" "/*" "///" "/=" "/==" "/>" "//")))
@@ -161,24 +173,12 @@
 				    char `([,regexp 0 font-shape-gstring])))
 	     char-regexp)))
 
-(use-package doom-themes
-  :custom
-  ((doom-themes-enable-bold t)
-   (doom-themes-enable-italic t)
-   (doom-themes-padded-modeline t))
-  :config
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config)
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  (load-theme 'doom-dracula t))
-
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
-
-;; Show column number in mode line
-(column-number-mode)
+;; icon fonts to prettify doom mode line
+(use-package all-the-icons
+  :init
+  (when (and (not (member "all-the-icons" (font-family-list)))
+	     (window-system))
+    (all-the-icons-install-fonts t)))
 
 ;; store backup files in the tmp dir
 (setq backup-directory-alist

@@ -107,6 +107,13 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 ** Home Screen
    
    #+begin_src emacs-lisp
+     ;; Default window size
+     (add-to-list 'default-frame-alist '(width . 150))
+     (add-to-list 'default-frame-alist '(height . 48))
+   #+end_src
+ 
+   
+   #+begin_src emacs-lisp
      (use-package dashboard
        :ensure t
        :config
@@ -121,22 +128,22 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        (dashboard-items '((recents  . 5))))
    #+end_src
 
-* UI Configuration
-** Minimal UI
+* User Interface
+** Minimal GUI 
 
    #+begin_src emacs-lisp
      (scroll-bar-mode -1) ; Disable visual scroll bar
      (tool-bar-mode -1)   ; Disable the tool bar
      (tooltip-mode -1)    ; Disable tooltips
-     (set-fringe-mode 10) ; Give some breathing room
      (menu-bar-mode -1)   ; Disable menu bar
+     (set-fringe-mode 10) ; Give some breathing room
+   #+end_src
 
-     ;; Setup the visible bell
-     (setq visible-bell t)
-
+   #+begin_src emacs-lisp
      ;; Transparent title bar
      (when (memq window-system '(mac ns))
-       (add-to-list 'default-frame-alist '(ns-appearance . dark)) ; nil for dark text
+	; nil for dark text
+       (add-to-list 'default-frame-alist '(ns-appearance . dark))
        (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
 
      ;; Disable text and icon for title bar
@@ -144,15 +151,64 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
      (setq icon-title-format nil)
    #+end_src
 
-** Default Window Size
-
-   #+begin_src emacs-lisp
-     (add-to-list 'default-frame-alist '(width . 150))
-     (add-to-list 'default-frame-alist '(height . 52))
-   #+end_src
+** Smooth Scrolling
    
-** Lines
-*** Show line numbers
+   #+begin_src emacs-lisp
+     ;; Enable smooth scrolling
+     (use-package smooth-scrolling
+       :ensure t
+       :init (smooth-scrolling-mode 1))
+   #+end_src
+ 
+** Color Theme
+   
+   #+begin_src emacs-lisp
+     (use-package doom-themes
+       :custom
+       ((doom-themes-enable-bold t)
+	(doom-themes-enable-italic t)
+	(doom-themes-padded-modeline t))
+       :config
+       ;; Corrects (and improves) org-mode's native fontification.
+       (doom-themes-org-config)
+       ;; Enable flashing mode-line on errors
+       (doom-themes-visual-bell-config)
+       (load-theme 'doom-dracula t))
+   #+end_src
+
+** Better modeline
+   
+   #+begin_src emacs-lisp
+     (use-package doom-modeline
+       :ensure t
+       :init (doom-modeline-mode 1)
+       :config
+       ;; Show column number in modeline
+       (column-number-mode))
+   #+end_src
+
+** Text Appearence
+*** Increase Line Height
+    
+   #+begin_src emacs-lisp
+     ;; Let the text breath. Increase line spacing
+     (setq-default line-spacing 0.5)
+   #+end_src
+
+*** Wrap Lines
+
+    #+begin_src emacs-lisp
+      (global-visual-line-mode 1)
+    #+end_src
+
+*** Highlight Current Line
+    
+   #+begin_src emacs-lisp
+     ;; Highlight current line
+     (add-hook 'prog-mode-hook 'hl-line-mode )
+   #+end_src
+    
+*** Show Line Numbers
     
    #+begin_src emacs-lisp
      (global-display-line-numbers-mode t)
@@ -168,37 +224,9 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 		     eshell-mode-hook))
        (add-hook mode (lambda() (display-line-numbers-mode 0))))
    #+end_src
-
-*** Wrap lines
-
-    #+begin_src emacs-lisp
-      (global-visual-line-mode 1)
-    #+end_src
-    
-*** Highlight current line
-    
-   #+begin_src emacs-lisp
-     ;; Highlight current line
-     (add-hook 'prog-mode-hook 'hl-line-mode )
-   #+end_src
-    
-** Scrolling
-   
-   #+begin_src emacs-lisp
-     ;; Enable smooth scrolling
-     (use-package smooth-scrolling
-       :ensure t
-       :init (smooth-scrolling-mode 1))
-   #+end_src
-   
-** Font configuration
-*** Increase line height
-    
-   #+begin_src emacs-lisp
-     (setq-default line-spacing 0.5)
-   #+end_src
-  
-*** Set font face
+             
+** Fonts
+*** Set Font Face
     
    #+begin_src emacs-lisp
      ;; Set default font
@@ -207,18 +235,7 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
      (set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-20" :weight 'normal)
    #+end_src
 
-*** Install icon fonts
- 
-   #+begin_src emacs-lisp
-     ;; icon fonts to prettify doom mode line
-     (use-package all-the-icons
-       :init
-       (when (and (not (member "all-the-icons" (font-family-list)))
-		  (window-system))
-	 (all-the-icons-install-fonts t)))
-   #+end_src
-
-*** Enable font ligatures
+*** Enable Font Ligatures
 
     Based on the discussion from https://github.com/JetBrains/JetBrainsMono/issues/280.
     #+begin_src emacs-lisp
@@ -253,36 +270,18 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
 					  char `([,regexp 0 font-shape-gstring])))
 		   char-regexp)))
     #+end_src
-    
-** Color Theme
-   
+ 
+*** Icon Fonts
+ 
    #+begin_src emacs-lisp
-     (use-package doom-themes
-       :custom
-       ((doom-themes-enable-bold t)
-	(doom-themes-enable-italic t)
-	(doom-themes-padded-modeline t))
-       :config
-       ;; Corrects (and improves) org-mode's native fontification.
-       (doom-themes-org-config)
-       ;; Enable flashing mode-line on errors
-       (doom-themes-visual-bell-config)
-       (load-theme 'doom-dracula t))
+     ;; icon fonts to prettify doom mode line
+     (use-package all-the-icons
+       :init
+       (when (and (not (member "all-the-icons" (font-family-list)))
+		  (window-system))
+	 (all-the-icons-install-fonts t)))
    #+end_src
 
-** Better modeline
-   
-   #+begin_src emacs-lisp
-     (use-package doom-modeline
-       :ensure t
-       :init (doom-modeline-mode 1))
-   #+end_src
-
-   #+begin_src emacs-lisp
-     ;; Show column number in mode line
-     (column-number-mode)
-   #+end_src
-      
 * File Management
 ** Backup
 
