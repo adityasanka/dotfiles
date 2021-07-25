@@ -172,9 +172,9 @@
  "C-M-j" 'counsel-switch-buffer)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Ubuntu Mono-20" :weight 'normal)
+(set-face-attribute 'default nil :font "Ubuntu Mono-18" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-20" :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-18" :weight 'normal)
 
 (let ((ligatures `((?-  ,(regexp-opt '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->")))
 		     (?/  ,(regexp-opt '("/**" "/*" "///" "/=" "/==" "/>" "//")))
@@ -426,13 +426,15 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package company
-  :bind (:map company-active-map
-	 ("<tab>" . company-complete-selection))
-	(:map lsp-mode-map
-	 ("<tab>" . company-indent-or-complete-common))
-  :custom
+  :bind
+  (:map company-active-map ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map ("<tab>" . company-indent-or-complete-common))
+  :custom	
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-idle-delay 0.0)
+  ;; avoid resizing of popup while typing.
+  (company-tooltip-maximum-width 80)
+  (company-tooltip-minimum-width 80))
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
