@@ -279,7 +279,9 @@
   :init (doom-modeline-mode 1)
   :config
   ;; Show column number in modeline
-  (column-number-mode))
+  (column-number-mode)
+  ;; Show battery status
+  (display-battery-mode t))
 
 ;; store backup files in the tmp dir
 (setq backup-directory-alist
@@ -520,7 +522,9 @@
 
 (use-package lsp-pyright
   :ensure t
-  :after (python-mode lsp-mode))
+  :after (python-mode lsp-mode)
+  :custom
+  (lsp-pyright-auto-search-paths t))
 
 (use-package py-isort
   :ensure t

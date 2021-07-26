@@ -413,7 +413,9 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
        :init (doom-modeline-mode 1)
        :config
        ;; Show column number in modeline
-       (column-number-mode))
+       (column-number-mode)
+       ;; Show battery status
+       (display-battery-mode t))
    #+end_src
 
 * File Management
@@ -787,7 +789,9 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
     #+begin_src emacs-lisp
       (use-package lsp-pyright
 	:ensure t
-	:after (python-mode lsp-mode))
+	:after (python-mode lsp-mode)
+	:custom
+	(lsp-pyright-auto-search-paths t))
     #+end_src
 
     #+begin_src shell
