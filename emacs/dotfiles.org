@@ -277,9 +277,9 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
     
    #+begin_src emacs-lisp
      ;; Set default font
-     (set-face-attribute 'default nil :font "Ubuntu Mono-16" :weight 'normal)
+     (set-face-attribute 'default nil :font "Ubuntu Mono-18" :weight 'normal)
      ;; Set the fixed pitch face
-     (set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-16" :weight 'normal)
+     (set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-18" :weight 'normal)
    #+end_src
 
 *** Enable Font Ligatures

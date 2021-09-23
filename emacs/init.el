@@ -172,9 +172,9 @@
  "C-M-j" 'counsel-switch-buffer)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Ubuntu Mono-16" :weight 'normal)
+(set-face-attribute 'default nil :font "Ubuntu Mono-18" :weight 'normal)
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-16" :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-18" :weight 'normal)
 
 (let ((ligatures `((?-  ,(regexp-opt '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->")))
 		     (?/  ,(regexp-opt '("/**" "/*" "///" "/=" "/==" "/>" "//")))
