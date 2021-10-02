@@ -274,12 +274,17 @@ Emacs 28 (with support for native compilation) generates a fair number of warnin
    
 ** Fonts
 *** Set Font Face
+
+   + Install Ubuntu Mono from [[https://fonts.google.com/specimen/Ubuntu+Mono][Google Fonts]].
+   + Install Alegreya from [[https://fonts.google.com/specimen/Alegreya][Google Fonts]].
     
    #+begin_src emacs-lisp
      ;; Set default font
-     (set-face-attribute 'default nil :font "Ubuntu Mono-18" :weight 'normal)
-     ;; Set the fixed pitch face
-     (set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-18" :weight 'normal)
+     (set-face-attribute 'default nil :font "Ubuntu Mono-16" :weight 'normal)
+     ;; Set fixed width font
+     (set-face-attribute 'fixed-pitch nil :font  "Ubuntu Mono-16" :weight 'normal)
+     ;; Set variable width font
+     (set-face-attribute 'variable-pitch nil :font "Alegreya-24" :weight 'normal)
    #+end_src
 
 *** Enable Font Ligatures
