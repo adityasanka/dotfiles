@@ -1,0 +1,53 @@
+set encoding=utf-8
+
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
+
+"-----------------------------------------------------------
+" Plugins
+"-----------------------------------------------------------
+Plug 'bronson/vim-trailing-whitespace'				" Highlight unwanted whitespace
+Plug 'jiangmiao/auto-pairs'					" Brackets, parens, quotes in pair.
+Plug 'dracula/vim', { 'as': 'dracula' }				" Dracula color scheme
+
+" Initialize plugin system
+call plug#end()
+
+"-----------------------------------------------------------
+" General settings
+"-----------------------------------------------------------
+syntax enable			  " enable syntax highlighting
+set autoindent                    " take indent for new line from previous line
+set smartindent                   " enable smart indentation
+set autoread                      " reload file if the file changes on the disk
+set autowrite                     " write when switching buffers
+set autowriteall                  " write on :quit
+set number 			  " set line numbers
+set cursorline 			  " highlight current line
+set noerrorbells                  " No bells!
+set novisualbell                  " I said, no bells!
+set title                         " let vim set the terminal title
+set updatetime=100                " redraw the status bar often
+set autochdir
+
+" Map leader key to `,`
+let mapleader = ","
+
+"-----------------------------------------------------------
+" Color scheme
+"-----------------------------------------------------------
+let g:dracula_italic = 0
+set t_Co=256
+colorscheme dracula
+
+"-----------------------------------------------------------
+" Language: gitcommit
+"-----------------------------------------------------------
+au FileType gitcommit setlocal spell
+au FileType gitcommit setlocal textwidth=72
+au FileType gitcommit set colorcolumn=50,72
+au FileType gitcommit set expandtab
+au FileType gitcommit set shiftwidth=2
+au FileType gitcommit set softtabstop=2
+au FileType gitcommit set tabstop=2
+

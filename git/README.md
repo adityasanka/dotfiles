@@ -1,8 +1,13 @@
 ## Git Configuration
 
-Use the following command to use the template file (globally, not just in the current repo):
+Use the template file (globally, not just in the current repo).
 ``` sh
 git config --global commit.template ~/.gitmessage
+```
+
+Open commit messages in a Vim instance.
+``` sh
+git config --global core.editor vim
 ```
 
 
