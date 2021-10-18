@@ -6,9 +6,10 @@ call plug#begin('~/.vim/plugged')
 "-----------------------------------------------------------
 " Plugins
 "-----------------------------------------------------------
-Plug 'bronson/vim-trailing-whitespace'				" Highlight unwanted whitespace
-Plug 'jiangmiao/auto-pairs'					" Brackets, parens, quotes in pair.
-Plug 'dracula/vim', { 'as': 'dracula' }				" Dracula color scheme
+Plug 'dracula/vim', { 'as': 'dracula' }		" Dracula color scheme
+Plug 'bronson/vim-trailing-whitespace'		" Highlight unwanted whitespace
+Plug 'jiangmiao/auto-pairs'			" Brackets, parens, quotes in pair.
+Plug 'plasticboy/vim-markdown'			" Markdown syntax highlighting
 
 " Initialize plugin system
 call plug#end()
@@ -50,4 +51,12 @@ au FileType gitcommit set expandtab
 au FileType gitcommit set shiftwidth=2
 au FileType gitcommit set softtabstop=2
 au FileType gitcommit set tabstop=2
+
+"----------------------------------------------
+" Language: Markdown
+"----------------------------------------------
+au FileType markdown set expandtab
+au FileType markdown set shiftwidth=4
+au FileType markdown set softtabstop=4
+au FileType markdown set tabstop=4
 
