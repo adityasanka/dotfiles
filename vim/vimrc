@@ -10,6 +10,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }		" Dracula color scheme
 Plug 'bronson/vim-trailing-whitespace'		" Highlight unwanted whitespace
 Plug 'jiangmiao/auto-pairs'			" Brackets, parens, quotes in pair.
 Plug 'plasticboy/vim-markdown'			" Markdown syntax highlighting
+Plug 'lifepillar/pgsql.vim'                     " PostgreSQL syntax highlighting
 
 " Initialize plugin system
 call plug#end()
@@ -59,6 +60,14 @@ au FileType markdown set expandtab
 au FileType markdown set shiftwidth=4
 au FileType markdown set softtabstop=4
 au FileType markdown set tabstop=4
+
+"----------------------------------------------
+" Language: SQL
+"----------------------------------------------
+au FileType sql set expandtab
+au FileType sql set shiftwidth=2
+au FileType sql set softtabstop=2
+au FileType sql set tabstop=2
 
 "----------------------------------------------
 " Language: YAML
