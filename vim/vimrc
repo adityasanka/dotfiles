@@ -52,6 +52,7 @@ au FileType gitcommit set expandtab
 au FileType gitcommit set shiftwidth=2
 au FileType gitcommit set softtabstop=2
 au FileType gitcommit set tabstop=2
+autocmd FileType gitcommit setlocal spell
 
 "----------------------------------------------
 " Language: Markdown
@@ -60,6 +61,7 @@ au FileType markdown set expandtab
 au FileType markdown set shiftwidth=4
 au FileType markdown set softtabstop=4
 au FileType markdown set tabstop=4
+autocmd BufRead,BufNewFile *.md setlocal spell
 
 "----------------------------------------------
 " Language: SQL
