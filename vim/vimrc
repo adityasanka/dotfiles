@@ -1,18 +1,19 @@
-set encoding=utf-8
-" Allow backspacing over everything in insert mode
-set backspace=indent,eol,start
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
 "-----------------------------------------------------------
 " Plugins
 "-----------------------------------------------------------
-Plug 'dracula/vim', { 'as': 'dracula' }		" Dracula color scheme
-Plug 'bling/vim-airline'			" Lightweight status bar
-Plug 'bronson/vim-trailing-whitespace'		" Highlight unwanted whitespace
-Plug 'jiangmiao/auto-pairs'			" Brackets, parens, quotes in pair.
-Plug 'plasticboy/vim-markdown'			" Markdown syntax highlighting
-Plug 'lifepillar/pgsql.vim'                     " PostgreSQL syntax highlighting
+Plug 'dracula/vim', { 'as': 'dracula' }				" dracula color scheme
+Plug 'mhinz/vim-startify'					" fancy start screen
+Plug 'bling/vim-airline'					" lightweight status bar
+Plug 'airblade/vim-gitgutter'					" show git diff
+Plug 'bronson/vim-trailing-whitespace'				" highlight unwanted whitespace
+Plug 'jiangmiao/auto-pairs'					" brackets, parens, quotes in pair.
+Plug 'plasticboy/vim-markdown'					" markdown syntax highlighting
+Plug 'lifepillar/pgsql.vim'                     		" postgres syntax highlighting
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }		" enhanced support for Go
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" aynchronous auto complete
 
 " Initialize plugin system
 call plug#end()
@@ -21,6 +22,8 @@ call plug#end()
 " General settings
 "-----------------------------------------------------------
 syntax enable			  " enable syntax highlighting
+set encoding=utf-8		  " set encoding to utf-8
+set backspace=indent,eol,start    " allow backspacing over everything in insert mode
 set autoindent                    " take indent for new line from previous line
 set smartindent                   " enable smart indentation
 set autoread                      " reload file if the file changes on the disk
@@ -31,7 +34,7 @@ set cursorline 			  " highlight current line
 set noerrorbells                  " No bells!
 set novisualbell                  " I said, no bells!
 set title                         " let vim set the terminal title
-set updatetime=100                " redraw the status bar often
+set updatetime=100                " delay to trigger plugins
 set autochdir
 
 " Map leader key to `,`
@@ -67,6 +70,18 @@ endif
 
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.maxlinenr = ' L'
+
+"----------------------------------------------
+" Plugin: airblade/vim-gitgutter
+"----------------------------------------------
+set signcolumn=yes	       " always show sign column
+let g:gitgutter_max_signs = -1 " remove the limit for showing signs
+
+"----------------------------------------------
+" Plugin: Shougo/deoplete.nvim
+"----------------------------------------------
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
 "-----------------------------------------------------------
 " Language: gitcommit
