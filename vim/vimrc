@@ -17,6 +17,7 @@ Plug 'AndrewRadev/splitjoin.vim'				" single-line <=> multi-line statments
 Plug 'SirVer/ultisnips'						" ultimate snippets
 Plug 'ctrlpvim/ctrlp.vim'					" fuzzy search
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }		" go development env
+Plug 'dense-analysis/ale'					" check syntax and lint
 
 " Initialize plugin system
 call plug#end()
@@ -129,6 +130,22 @@ let g:gitgutter_max_signs = -1 " remove the limit for showing signs
 "----------------------------------------------
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
+"-----------------------------------------------------------
+" Plugin: dense-analysis/ale
+"
+" https://github.com/dense-analysis/ale
+" https://github.com/dense-analysis/ale/issues/44
+"-----------------------------------------------------------
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+
+" keep the sign gutter open
+let g:ale_sign_column_always = 1
+" set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 
 "-----------------------------------------------------------
 " Language: gitcommit
