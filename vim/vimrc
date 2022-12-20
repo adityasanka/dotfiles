@@ -4,44 +4,91 @@ call plug#begin('~/.vim/plugged')
 "-----------------------------------------------------------
 " Plugins
 "-----------------------------------------------------------
-Plug 'dracula/vim', { 'as': 'dracula' }				" dracula color scheme
 Plug 'mhinz/vim-startify'					" fancy start screen
+Plug 'dracula/vim', { 'as': 'dracula' }				" dracula color scheme
 Plug 'bling/vim-airline'					" lightweight status bar
-Plug 'airblade/vim-gitgutter'					" show git diff
-Plug 'bronson/vim-trailing-whitespace'				" highlight unwanted whitespace
 Plug 'jiangmiao/auto-pairs'					" brackets, parens, quotes in pair.
-Plug 'plasticboy/vim-markdown'					" markdown syntax highlighting
-Plug 'lifepillar/pgsql.vim'                     		" postgres syntax highlighting
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }		" enhanced support for Go
+Plug 'bronson/vim-trailing-whitespace'				" highlight unwanted whitespace
+Plug 'airblade/vim-gitgutter'					" show git diff
+Plug 'plasticboy/vim-markdown'					" markdown vim mode
+Plug 'lifepillar/pgsql.vim'                     		" postgres vim mode
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" aynchronous auto complete
+Plug 'AndrewRadev/splitjoin.vim'				" single-line <=> multi-line statments
+Plug 'SirVer/ultisnips'						" ultimate snippets
+Plug 'ctrlpvim/ctrlp.vim'					" fuzzy search
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }		" go development env
 
 " Initialize plugin system
 call plug#end()
 
 "-----------------------------------------------------------
-" General settings
+" Key Mappings
 "-----------------------------------------------------------
-syntax enable			  " enable syntax highlighting
-set encoding=utf-8		  " set encoding to utf-8
-set backspace=indent,eol,start    " allow backspacing over everything in insert mode
-set autoindent                    " take indent for new line from previous line
-set smartindent                   " enable smart indentation
-set autoread                      " reload file if the file changes on the disk
-set autowrite                     " write when switching buffers
-set autowriteall                  " write on :quit
-set number 			  " set line numbers
-set cursorline 			  " highlight current line
-set noerrorbells                  " No bells!
-set novisualbell                  " I said, no bells!
-set title                         " let vim set the terminal title
-set updatetime=100                " delay to trigger plugins
-set autochdir
-
-" Map leader key to `,`
+" set leader shortcut to a comma ','. By default it's the backslash
 let mapleader = ","
 
+" Jump to next error with Ctrl-n and previous error with Ctrl-m. Close the
+" quickfix window with <leader>a
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
 "-----------------------------------------------------------
-" Color scheme
+" General Settings
+"
+" https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
+"-----------------------------------------------------------
+set nocompatible                " enables vim specific features
+filetype off                    " reset filetype detection first ...
+filetype plugin indent on       " ... and enable filetype detection
+syntax enable			" enable syntax highlighting
+set ttyfast                     " indicate fast terminal conn for faster redraw
+"set ttymouse=xterm2            " indicate terminal type for mouse codes
+"set ttyscroll=3                " speedup scrolling
+set laststatus=2                " show status line always
+set encoding=utf-8              " set default encoding to UTF-8
+set autoread                    " automatically read changed files
+set autoindent                  " enabile Autoindent
+set smartindent                 " enable smart indentation
+set backspace=indent,eol,start  " makes backspace key more powerful.
+set incsearch                   " shows the match while typing
+set hlsearch                    " highlight found searches
+set noerrorbells                " no beeps!
+set novisualbell                " no bells!
+set number                      " show line numbers
+set cursorline 			" highlight current line
+set showcmd                     " show me what I'm typing
+set noswapfile                  " don't use swapfile
+set nobackup                    " don't create annoying backup files
+set splitright                  " vertical windows should be split to right
+set splitbelow                  " horizontal windows should split to bottom
+set autoread                    " reload file if the file changes on the disk
+set autowrite                   " automatically save before :next, :make etc. Or when switching buffers
+set autowriteall                " write on :quit
+set hidden                      " buffer should still exist if window is closed
+set fileformats=unix,mac        " prefer Unix, OSX over Windows fileformats
+set noshowmatch                 " do not show matching brackets by flickering
+set noshowmode                  " we show the mode with airline or lightline
+set ignorecase                  " search case insensitive...
+set smartcase                   " ... but not it begins with upper case
+set completeopt=menu,menuone    " show popup menu, even if there is one entry
+set pumheight=10                " completion window max size
+set nocursorcolumn              " do not highlight column (speeds up highlighting)
+"set nocursorline                " do not highlight cursor (speeds up highlighting)
+set title                       " let vim set the terminal title
+set updatetime=100              " delay to trigger plugins
+set lazyredraw                  " wait to redraw
+set autochdir
+
+" Enable to copy to clipboard for operations like yank, delete, change and put
+" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+if has('unnamedplus')
+  set clipboard^=unnamed
+  set clipboard^=unnamedplus
+endif
+
+"-----------------------------------------------------------
+" Color Scheme
 "-----------------------------------------------------------
 let g:dracula_italic = 0
 set t_Co=256
@@ -122,8 +169,57 @@ au FileType yaml set tabstop=2
 
 "----------------------------------------------
 " Language: Go
+"
+" https://github.com/fatih/vim-go/wiki/Tutorial
 "----------------------------------------------
 au FileType go set expandtab
 au FileType go set shiftwidth=4
 au FileType go set softtabstop=4
 au FileType go set tabstop=4
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+" use goimports intead of gofmt
+let g:go_fmt_command = "goimports"
+" use camelcase for json tags
+let g:go_addtags_transform = "camelcase"
+
+" syntax highlighting
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+
+" static code analysis
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_deadline = "5s"
+
+" use quickfix for all lists
+let g:go_list_type = "quickfix"
+
+" show functions and types in fuzzy search
+let g:go_decls_includes = "func,type"
+
+" show info in status line
+let g:go_auto_type_info = 1
