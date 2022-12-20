@@ -77,9 +77,16 @@ set pumheight=10                " completion window max size
 set nocursorcolumn              " do not highlight column (speeds up highlighting)
 "set nocursorline                " do not highlight cursor (speeds up highlighting)
 set title                       " let vim set the terminal title
-set updatetime=100              " delay to trigger plugins
 set lazyredraw                  " wait to redraw
 set autochdir
+
+" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
+" delays and poor user experience
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
@@ -122,7 +129,6 @@ let g:airline_symbols.maxlinenr = ' L'
 "----------------------------------------------
 " Plugin: airblade/vim-gitgutter
 "----------------------------------------------
-set signcolumn=yes	       " always show sign column
 let g:gitgutter_max_signs = -1 " remove the limit for showing signs
 
 "----------------------------------------------
