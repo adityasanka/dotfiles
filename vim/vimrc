@@ -9,6 +9,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }				" dracula color scheme
 Plug 'bling/vim-airline'					" lightweight status bar
 Plug 'jiangmiao/auto-pairs'					" brackets, parens, quotes in pair.
 Plug 'bronson/vim-trailing-whitespace'				" highlight unwanted whitespace
+Plug 'preservim/nerdtree'					" file system explorer
 Plug 'airblade/vim-gitgutter'					" show git diff
 Plug 'plasticboy/vim-markdown'					" markdown vim mode
 Plug 'lifepillar/pgsql.vim'                     		" postgres vim mode
