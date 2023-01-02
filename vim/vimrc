@@ -45,6 +45,7 @@ filetype off                    " reset filetype detection first ...
 filetype plugin indent on       " ... and enable filetype detection
 syntax enable			" enable syntax highlighting
 set ttyfast                     " indicate fast terminal conn for faster redraw
+set mouse=a			" enable mouse
 "set ttymouse=xterm2            " indicate terminal type for mouse codes
 "set ttyscroll=3                " speedup scrolling
 set laststatus=2                " show status line always
