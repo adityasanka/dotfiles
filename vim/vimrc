@@ -36,6 +36,20 @@ map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 
 "-----------------------------------------------------------
+" Split Panes
+" https://thoughtbot.com/blog/vim-splits-move-faster-and-more-naturally
+"-----------------------------------------------------------
+" easier split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" more natural split opening
+set splitbelow
+set splitright
+
+"-----------------------------------------------------------
 " General Settings
 "
 " https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
@@ -118,7 +132,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 0
 
 " Enable powerline fonts.
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 
 " Explicitly define some symbols that did not work well for me in Linux.
 if !exists('g:airline_symbols')
