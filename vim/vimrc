@@ -20,7 +20,6 @@ Plug 'SirVer/ultisnips'						" ultimate snippets
 Plug 'ctrlpvim/ctrlp.vim'					" fuzzy search
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }		" go development env
 Plug 'dense-analysis/ale'					" check syntax and lint
-Plug 'ryanoasis/vim-devicons'					" file type icons for nerdtree
 " Initialize plugin system
 call plug#end()
 
