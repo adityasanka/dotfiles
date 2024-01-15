@@ -1,0 +1,47 @@
+[aws]
+symbol = "  "
+disabled = true
+
+[character]
+error_symbol = "[✖](bold red) "
+
+[cmd_duration]
+# Show command duration over 10,000 milliseconds (=10 sec)
+min_time = 10_000
+format = " took [$duration]($style)"
+
+[docker_context]
+symbol = " "
+disabled = true
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[lua]
+disabled = true
+
+[python]
+symbol = " "
+disabled = true
+
+[ruby]
+symbol = " "
+disabled = true
+
+[nodejs]
+symbol = " "
+disabled = true
+
+[vagrant]
+disabled = true
+
+[os.symbols]
+Linux = " "
+Macos = " "
+Ubuntu = " "
