@@ -1,2 +1,6 @@
+# OSX folder metadata
 .DS_Store
-nvim/plugin
+# neovim plugins
+nvim/plugin/
+# tmux plugins
+tmux/plugins/
