@@ -1,3 +1,4 @@
+require('core.plugin_config.alpha')
 require('core.plugin_config.github-nvim-theme')
 require('core.plugin_config.lualine')
 require('core.plugin_config.nvim-tree')
