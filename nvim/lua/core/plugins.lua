@@ -27,7 +27,8 @@ local plugins = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
-  }
+  },
+  'lewis6991/gitsigns.nvim'
 }
 
 require("lazy").setup(plugins)
