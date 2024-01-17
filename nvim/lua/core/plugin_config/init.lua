@@ -1,3 +1,4 @@
+require('core.plugin_config.completions')
 require('core.plugin_config.github-nvim-theme')
 require('core.plugin_config.gitsigns')
 require('core.plugin_config.lsp_config')

@@ -3,7 +3,18 @@ require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "gopls"},
 })
 
+local lspconfig = require('lspconfig')
+
+local lsp_defaults = lspconfig.util.default_config
+
+lsp_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lsp_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
+
 require("lspconfig").lua_ls.setup {
+    capabilities = lsp_defaults.capabilities,
     settings = {
         Lua = {
             diagnostics = {
@@ -53,6 +64,7 @@ local on_attach = function(client, bufnr)
 end
 
 require("lspconfig").gopls.setup{
+  capabilities = lsp_defaults.capabilities,
   settings = {
     gopls = {
       analyses = {
