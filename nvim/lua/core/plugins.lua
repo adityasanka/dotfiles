@@ -22,6 +22,10 @@ local plugins = {
         tag = '0.1.5',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
+    {
+        'numToStr/Comment.nvim',
+        lazy = false,
+    },
     -- LSP
     {
         "williamboman/mason.nvim",
@@ -69,7 +73,7 @@ local plugins = {
                 -- or leave it empty to use the default settings
                 -- refer to the configuration section below
             }
-        }
+        },
     }
 }
 
