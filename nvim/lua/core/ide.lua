@@ -155,6 +155,28 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
+-- install golang ci lsp server
+-- go install github.com/nametake/golangci-lint-langserver@latest
+
+local configs = require 'lspconfig/configs'
+
+if not configs.golangcilsp then
+    configs.golangcilsp = {
+        default_config = {
+            cmd = { 'golangci-lint-langserver' },
+            root_dir = require('lspconfig').util.root_pattern('.git', 'go.mod'),
+            init_options = {
+                command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" },
+            }
+        },
+    }
+end
+
+-- golangci-lint language server
+require('lspconfig').golangci_lint_ls.setup {
+    filetypes = { 'go', 'gomod' }
+}
+
 ----------------------------------------------
 -- autocomplete
 ----------------------------------------------
