@@ -9,6 +9,11 @@ require('gitsigns').setup()
 require('Comment').setup()
 
 ----------------------------------------------
+-- autoclose brackets
+----------------------------------------------
+require("autoclose").setup()
+
+----------------------------------------------
 -- improve code highlighting
 ----------------------------------------------
 require 'nvim-treesitter.configs'.setup {

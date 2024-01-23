@@ -35,6 +35,8 @@ local plugins = {
         'numToStr/Comment.nvim',
         lazy = false,
     },
+    -- autoclose brackets
+    'm4xshen/autoclose.nvim',
     -- lsp integration
     {
         "williamboman/mason.nvim",
