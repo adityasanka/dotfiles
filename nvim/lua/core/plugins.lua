@@ -50,11 +50,6 @@ local plugins = {
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
     "rafamadriz/friendly-snippets",
-    -- pretty diagnostics
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
     -- vim and tmux navigation
     {
         "christoomey/vim-tmux-navigator",
