@@ -58,5 +58,6 @@ end
 vim.keymap.set('n', '<leader>ff', find_in_project, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fc', builtin.lsp_document_symbols, {})
 vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
