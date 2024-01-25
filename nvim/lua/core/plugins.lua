@@ -16,6 +16,10 @@ local plugins = {
     'projekt0n/github-nvim-theme',
     -- file type icons
     'nvim-tree/nvim-web-devicons',
+    {
+        "projekt0n/circles.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" }
+    },
     -- file tree explorer
     'nvim-tree/nvim-tree.lua',
     -- status bar

@@ -1,6 +1,10 @@
 ----------------------------------------------
 -- file tree explorer
 ----------------------------------------------
+local circles = require('circles')
+
+circles.setup({ icons = { empty = '', filled = '', lsp_prefix = '' } })
+
 require("nvim-tree").setup({
     sort_by = "case_sensitive",
     view = {
@@ -8,6 +12,9 @@ require("nvim-tree").setup({
     },
     renderer = {
         group_empty = true,
+        icons = {
+            glyphs = circles.get_nvimtree_glyphs(),
+        },
     },
     filters = {
         dotfiles = true,
