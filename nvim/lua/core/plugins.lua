@@ -14,6 +14,13 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     -- github color scheme
     'projekt0n/github-nvim-theme',
+    -- zen mode
+    {
+        "folke/zen-mode.nvim",
+        opts = {
+            -- empty options to use the default settings
+        }
+    },
     -- file type icons
     'nvim-tree/nvim-web-devicons',
     {

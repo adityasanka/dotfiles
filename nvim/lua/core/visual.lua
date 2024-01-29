@@ -9,6 +9,11 @@ require("circles").setup()
 vim.cmd('colorscheme github_dark_high_contrast')
 
 ----------------------------------------------
+-- zen mode
+----------------------------------------------
+vim.keymap.set('n', '<leader>z', ':ZenMode<CR>')
+
+----------------------------------------------
 -- status bar
 ----------------------------------------------
 require('lualine').setup {
