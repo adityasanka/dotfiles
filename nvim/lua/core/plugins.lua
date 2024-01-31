@@ -46,6 +46,13 @@ local plugins = {
         'numToStr/Comment.nvim',
         lazy = false,
     },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            -- empty options to use the default settings
+        }
+    },
     -- autoclose brackets
     'm4xshen/autoclose.nvim',
     -- lsp integration
