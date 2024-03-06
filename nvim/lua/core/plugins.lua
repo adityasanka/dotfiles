@@ -99,7 +99,9 @@ local plugins = {
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
         }
-    }
+    },
+    -- d2 for diagrams
+    "devsunb/d2-vim",
 }
 
 require("lazy").setup(plugins)
