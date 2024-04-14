@@ -104,6 +104,8 @@ local plugins = {
     },
     -- d2 for diagrams
     "devsunb/d2-vim",
+    -- session manager
+    "rmagatti/auto-session",
 }
 
 require("lazy").setup(plugins)
