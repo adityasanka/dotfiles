@@ -69,6 +69,8 @@ local plugins = {
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
     "rafamadriz/friendly-snippets",
+    -- github copilot
+    "github/copilot.vim",
     -- vim and tmux navigation
     {
         "christoomey/vim-tmux-navigator",
