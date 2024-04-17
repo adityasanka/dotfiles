@@ -1,10 +1,62 @@
--- use true color
-vim.opt.termguicolors = true
+-- This file contains the global options for the editor
 
--- show line numbers
-vim.opt.number = true
+-- set file tree style
+vim.g.netrw_liststyle = 3
+
+local opt = vim.opt
+
+-- set relative line number
+-- opt.relativenumber = true
+-- show current line number 
+opt.number = true
+
+-- tabs and indentation
+-- expand tab to spaces
+opt.expandtab = true
+-- 4 spaces for tabs
+opt.tabstop = 4
+-- 4 spaces for indent width
+opt.shiftwidth = 4
+-- copy indent from current line when starting a new line
+opt.autoindent = true
+opt.smartindent = true
+-- wrap long lines
+opt.wrap = true
+
+-- search settings
+-- ignore case when searching
+opt.ignorecase = true
+-- if you have mixed case in your search term, assume case sensitive
+opt.smartcase = true
+
 -- highlight current line
-vim.opt.cursorline = true
+opt.cursorline = true
+
+-- use true color for better color scheme
+opt.termguicolors = true
+-- colorschemes that have both light and dark will be made dark
+opt.background = "dark"
+
+-- always show the signcolumn, otherwise it would shift the
+-- text each time diagnostics appear/become resolved
+opt.signcolumn = "yes"
+
+-- allow backspace on indent, end of line or insert mode start position
+opt.backspace = 'indent,eol,start'
+
+-- use system clipboard as the default register
+opt.clipboard:append("unnamedplus")
+
+-- split windows
+-- split vertical window to the right
+vim.opt.splitbelow = true
+-- split horizontal window to the bottom
+vim.opt.splitright = true
+
+
+-- use true color
+--[[ vim.opt.termguicolors = true
+
 
 -- mouse
 vim.opt.mouse = "a"
@@ -13,30 +65,12 @@ vim.opt.mousefocus = true
 -- indicate fast terminal conn for faster redraw
 vim.o.ttyfast = true
 
--- indent settings
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.smartindent = true
-vim.opt.wrap = true
-
--- splits
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-
 -- timings
 vim.o.updatetime = 1000
 vim.o.timeout = true
 vim.o.timeoutlen = 500
 vim.o.ttimeoutlen = 10
 
--- always show the signcolumn, otherwise it would shift the text each time
--- diagnostics appear/become resolved
-vim.wo.signcolumn = "yes"
-
--- show line numbers
-vim.opt.backspace = 'indent,eol,start'
 vim.opt.showcmd = true
 vim.opt.laststatus = 2
 vim.opt.autowrite = true
@@ -80,4 +114,4 @@ vim.o.autowrite = true
 vim.o.autochdir = true
 
 -- completion window max size
-vim.o.pumheight = 10
+-- vim.o.pumheight = 10 ]]
