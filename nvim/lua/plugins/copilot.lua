@@ -7,6 +7,11 @@ return {
 	},
 	config = function()
 		require("copilot").setup({
+			filetypes = {
+				-- disable copilot temporarily since subscription is inactive
+				-- disable for all other filetypes and ignore default `filetypes`
+				["*"] = false,
+			},
 			suggestion = { enabled = false },
 			panel = { enabled = false },
 		})
