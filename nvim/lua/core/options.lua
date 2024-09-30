@@ -7,7 +7,7 @@ local opt = vim.opt
 
 -- set relative line number
 -- opt.relativenumber = true
--- show current line number 
+-- show current line number
 opt.number = true
 
 -- tabs and indentation
@@ -42,7 +42,7 @@ opt.background = "dark"
 opt.signcolumn = "yes"
 
 -- allow backspace on indent, end of line or insert mode start position
-opt.backspace = 'indent,eol,start'
+opt.backspace = "indent,eol,start"
 
 -- use system clipboard as the default register
 opt.clipboard:append("unnamedplus")
@@ -53,10 +53,8 @@ vim.opt.splitbelow = true
 -- split horizontal window to the bottom
 vim.opt.splitright = true
 
-
 -- use true color
 --[[ vim.opt.termguicolors = true
-
 
 -- mouse
 vim.opt.mouse = "a"
