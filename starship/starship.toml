@@ -1,47 +1,36 @@
-[aws]
-symbol = "  "
-disabled = true
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$username\
+${custom.hostname}\
+$shlvl\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$line_break\
+$status\
+$character"""
+
+# Inserts a blank line between shell prompts
+add_newline = true
 
 [character]
-error_symbol = "[✖](bold red) "
+success_symbol = "[⌘](bold green)"  
+error_symbol = "[⌘](bold red)"
 
-[cmd_duration]
-# Show command duration over 10,000 milliseconds (=10 sec)
-min_time = 10_000
-format = " took [$duration]($style)"
+[username]
+show_always = true
+aliases = { "aditya" = "Aditya", "adityasanka" = "Aditya" }
+format = '[$user]($style) @ '
 
-[docker_context]
-symbol = " "
-disabled = true
+[custom.hostname]
+description = 'Custom hostname'
+when = true
+command = "echo ${MACHINE:- Macbook}"
+format = '[$symbol($output)]($style) in '
 
 [git_branch]
 symbol = " "
-
-[golang]
-symbol = " "
-
-[hostname]
-ssh_symbol = " "
-
-[lua]
-disabled = true
-
-[python]
-symbol = " "
-disabled = true
-
-[ruby]
-symbol = " "
-disabled = true
-
-[nodejs]
-symbol = " "
-disabled = true
-
-[vagrant]
-disabled = true
-
-[os.symbols]
-Linux = " "
-Macos = " "
-Ubuntu = " "
