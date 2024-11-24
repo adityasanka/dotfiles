@@ -24,7 +24,7 @@ error_symbol = "[⌘](bold red)"
 [username]
 show_always = true
 aliases = { "aditya" = "Aditya", "adityasanka" = "Aditya" }
-format = '[$user]($style) @ '
+format = '[$user]($style) on '
 
 [custom.hostname]
 description = 'Custom hostname'
