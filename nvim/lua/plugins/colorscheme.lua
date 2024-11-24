@@ -1,24 +1,17 @@
 return {
-	"catppuccin/nvim",
-	name = "catppuccin",
-	priority = 1000,
+	"projekt0n/github-nvim-theme",
+	name = "github-theme",
+	lazy = false, -- make sure we load this during startup if it is your main colorscheme
+	priority = 1000, -- make sure to load this before all the other start plugins
 	config = function()
-		require("catppuccin").setup({
-			styles = {
-				comments = { "italic" },
-				-- conditionals defaults to italics
-				conditionals = {},
-			},
-			highlight_overrides = {
-				all = function()
-					return {
-						-- module-related keywords
-						["@module"] = { style = {} },
-					}
-				end,
+		require("github-theme").setup({
+			options = {
+				styles = {
+					comments = "italic",
+				},
 			},
 		})
 
-		vim.cmd("colorscheme catppuccin-mocha")
+		vim.cmd("colorscheme github_dark_high_contrast")
 	end,
 }
