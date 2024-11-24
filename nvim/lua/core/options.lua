@@ -6,7 +6,7 @@ vim.g.netrw_liststyle = 3
 local opt = vim.opt
 
 -- set relative line number
--- opt.relativenumber = true
+opt.relativenumber = true
 -- show current line number
 opt.number = true
 
