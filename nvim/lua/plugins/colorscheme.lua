@@ -43,7 +43,11 @@ return {
 		local bg_visual_block = "#2c2c2c"
 
 		-- background color for popup menu selection
-		local bg_pmenu_sel = "#d3d3d3"
+		-- local bg_pmenu_sel = "#d3d3d3"
+
+		-- text color for ghost text
+		-- ex: git blame inline, copilot suggestion
+		local fg_ghost_text = "#6e7681"
 
 		require("catppuccin").setup({
 			color_overrides = {
@@ -90,12 +94,14 @@ return {
 					-- Pmenu = { bg = colors.surface, fg = "#F1F3F6" },
 					-- Highlighted autocomplete option
 					-- PmenuSel = { bg = "#66C2CD", fg = "#040404" },
-					PmenuSel = { bg = bg_pmenu_sel },
+					PmenuSel = { bg = bg_current_line },
 					-- Scrollbar background
 					-- PmenuSbar = { bg = "#A0A7B2" },
 					-- Scrollbar thumb
 					-- PmenuThumb = { bg = "#F1F3F6" },
 					["@module"] = { style = {} }, -- Removes italics
+					["TelescopeSelection"] = { bg = bg_current_line },
+					["GitSignsCurrentLineBlame"] = { fg = fg_ghost_text },
 				}
 			end,
 			styles = {
