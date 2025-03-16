@@ -50,6 +50,10 @@ return {
 			builtin.live_grep({ cwd = project_root() })
 		end
 
+		local find_text_in_open_buffers = function()
+			builtin.live_grep({ grep_open_files = true })
+		end
+
 		local find_diagnostics_in_current_buffer = function()
 			builtin.diagnostics({ bufnr = 0 })
 		end
@@ -61,7 +65,7 @@ return {
 		keymap.set("n", "<leader>ff", find_file_in_project, { desc = "Find files in project" })
 		keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find files in open buffers" })
 		-- find text
-		keymap.set("n", "<leader>fg", builtin.current_buffer_fuzzy_find, { desc = "Find text in current buffer" })
+		keymap.set("n", "<leader>fg", find_text_in_open_buffers, { desc = "Find text in open buffers" })
 		keymap.set("n", "<leader>fG", find_text_in_project, { desc = "Find text in project" })
 		-- find lsp symbols
 		keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Find LSP symbols in current buffer" })
