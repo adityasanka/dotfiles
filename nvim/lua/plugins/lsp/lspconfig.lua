@@ -28,7 +28,7 @@ return {
 				-- set keybindingss
 				-- show definition, references
 				opts.desc = "Show LSP references"
-				keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+				keymap.set("n", "<leader>cR", "<cmd>Telescope lsp_references<CR>", opts)
 
 				-- go to declaration
 				opts.desc = "Go to definition"
@@ -36,15 +36,15 @@ return {
 
 				-- show lsp definitions
 				opts.desc = "Show LSP definitions"
-				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+				keymap.set("n", "<leader>cd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
 				-- show lsp implementations
 				opts.desc = "Show LSP implementations"
-				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+				keymap.set("n", "<leader>ci", "<cmd>Telescope lsp_implementations<CR>", opts)
 
 				-- show lsp type definitions
 				opts.desc = "Show LSP type definitions"
-				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+				keymap.set("n", "<leader>ct", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
 				-- see available code actions, in visual mode will apply to selection
 				opts.desc = "See available code actions"
@@ -52,7 +52,7 @@ return {
 
 				-- smart rename
 				opts.desc = "Smart rename"
-				keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+				keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 
 				-- show diagnostics for file
 				opts.desc = "Show buffer diagnostics"
