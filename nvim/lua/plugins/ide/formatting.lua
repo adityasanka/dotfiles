@@ -4,6 +4,12 @@ return {
 	config = function()
 		local conform = require("conform")
 
+		local formatting_options = {
+			lsp_format = "fallback",
+			async = false,
+			timeout_ms = 1000,
+		}
+
 		conform.setup({
 			formatters_by_ft = {
 				go = { "goimports", "gofmt" },
@@ -19,22 +25,12 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
-				liquid = { "prettier" },
-				python = { "isort", "black" },
 			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			},
+			format_on_save = formatting_options,
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
-			conform.format({
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			})
+			conform.format(formatting_options)
 		end, { desc = "Format file or range (in visual mode)" })
 	end,
 }
