@@ -19,9 +19,10 @@ return {
 
 		-- Set menu
 		dashboard.section.buttons.val = {
-			dashboard.button("e", "  > New file", "<cmd>ene<CR>"),
+			dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
+			dashboard.button("f", "  > File Explorer", "<cmd>Oil<CR>"),
 			dashboard.button("s", "󰁯  > Restore session", "<cmd>SessionRestore<CR>"),
-			dashboard.button("q", "  > Quit", "<cmd>qa<CR>"),
+			dashboard.button("q", "  > Quit", "<cmd>qa<CR>"),
 		}
 
 		-- Send config to alpha
