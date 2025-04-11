@@ -13,7 +13,20 @@ return {
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
 
+		local is_cmp_enabled = true
+		vim.keymap.set("n", "<leader>cc", function()
+			is_cmp_enabled = not is_cmp_enabled
+			if is_cmp_enabled then
+				print("Autocomplete: ON")
+			else
+				print("Autocomplete: OFF")
+			end
+		end, { desc = "Toggle Autocomplete" })
+
 		cmp.setup({
+			enabled = function()
+				return is_cmp_enabled
+			end,
 			completion = {
 				completeopt = "menu,menuone,preview,noselect",
 			},
