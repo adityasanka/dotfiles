@@ -1,12 +1,23 @@
 return {
 	"rmagatti/auto-session",
 	config = function()
+		-- recommended sessionoptions config
+		-- https://github.com/rmagatti/auto-session?tab=readme-ov-file#recommended-sessionoptions-config
+		--
+		-- preserve window layouts, terminal states, and local options
+		vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 		local auto_session = require("auto-session")
 
 		auto_session.setup({
-			auto_session_suppress_dirs = { "~/", "~/Developer", "~/Downloads", "~/Desktop/" },
+			-- ignore auto session for these directories
+			suppressed_dirs = { "~/", "~/Developer", "~/Downloads", "~/Desktop/" },
+			-- ignore auto session for these filetypes
+			bypass_save_filetypes = { "alpha", "oil" },
 			-- auto save session on exit
-			auto_store_enabled = true,
+			auto_save = true,
+			-- auto restore session on start
+			auto_restore = true,
 		})
 
 		local keymap = vim.keymap
