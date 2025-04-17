@@ -1,10 +1,13 @@
 return {
 	"saghen/blink.cmp",
 	dependencies = {
-		-- optional: provides snippets for the snippet source
-		"rafamadriz/friendly-snippets",
+		-- reconstruct completion items and apply treesitter highlighting
+		"xzbdmw/colorful-menu.nvim",
+		-- copilot source
 		"fang2hou/blink-copilot",
 		"zbirenbaum/copilot.lua",
+		-- optional: provides snippets for the snippet source
+		"rafamadriz/friendly-snippets",
 	},
 	-- use a release tag to download pre-built binaries
 	version = "1.*",
@@ -26,6 +29,25 @@ return {
 		keymap = { preset = "super-tab" },
 
 		completion = {
+			menu = {
+				min_width = 40,
+				border = "rounded",
+				draw = {
+					-- We don't need label_description now because label and label_description are already
+					-- combined together in label by colorful-menu.nvim.
+					columns = { { "kind_icon" }, { "label", gap = 1 } },
+					components = {
+						label = {
+							text = function(ctx)
+								return require("colorful-menu").blink_components_text(ctx)
+							end,
+							highlight = function(ctx)
+								return require("colorful-menu").blink_components_highlight(ctx)
+							end,
+						},
+					},
+				},
+			},
 			documentation = {
 				auto_show = true,
 				auto_show_delay_ms = 100,
