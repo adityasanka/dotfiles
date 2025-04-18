@@ -2,7 +2,6 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
 	},
@@ -12,9 +11,6 @@ return {
 
 		-- import mason_lspconfig plugin
 		local mason_lspconfig = require("mason-lspconfig")
-
-		-- import cmp-nvim-lsp plugin
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		local keymap = vim.keymap
 
@@ -80,8 +76,13 @@ return {
 			end,
 		})
 
-		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		-- Use blink's lsp capabilities for better autocompletion
+		-- assign capabilities to every lsp server config
+		-- https://cmp.saghen.dev/installation#lsp-capabilities
+		local lsp_capabilities = require("blink.cmp").get_lsp_capabilities(
+			-- lsp default capabilities
+			lspconfig.util.default_config
+		)
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
@@ -95,13 +96,13 @@ return {
 			-- default handler for installed servers
 			function(server_name)
 				lspconfig[server_name].setup({
-					capabilities = capabilities,
+					capabilities = lsp_capabilities,
 				})
 			end,
 			-- configure emmet language server
 			["emmet_ls"] = function()
 				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
+					capabilities = lsp_capabilities,
 					filetypes = {
 						"html",
 						"typescriptreact",
@@ -117,7 +118,7 @@ return {
 			-- configure lua server (with special settings)
 			["lua_ls"] = function()
 				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
+					capabilities = lsp_capabilities,
 					settings = {
 						Lua = {
 							-- make the language server recognize "vim" global
@@ -139,17 +140,9 @@ return {
 					return
 				end
 
-				-- extend auto-complete candidates
-				local lsp_defaults = lspconfig.util.default_config
-				lsp_defaults.capabilities = vim.tbl_deep_extend(
-					"force",
-					lsp_defaults.capabilities,
-					require("cmp_nvim_lsp").default_capabilities()
-				)
-
 				lspconfig.gopls.setup({
 					cmd = { gopls_exec, "serve" },
-					capabilities = lsp_defaults.capabilities,
+					capabilities = lsp_capabilities,
 					settings = {
 						gopls = {
 							analyses = {
