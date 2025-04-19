@@ -41,7 +41,7 @@ return {
 							info = { fg = color_blue, bg = color_bg, gui = "none" },
 							hint = { fg = color_blue, bg = color_bg, gui = "none" },
 						},
-						symbols = { error = "E", warn = "W", info = "I", hint = "H" },
+						symbols = { error = "E ", warn = "W ", info = "I ", hint = "H " },
 						colored = true,
 						update_in_insert = true,
 						always_visible = false,
