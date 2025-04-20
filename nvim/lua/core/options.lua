@@ -147,3 +147,7 @@ opt.laststatus = 2
 
 -- compact pop up menu
 opt.pumheight = 10
+
+-- ensure some lines remain are visible above and below when scrolling
+-- keeps context visible around current line
+opt.scrolloff = 10
