@@ -2,6 +2,7 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
+		"AndreM222/copilot-lualine",
 	},
 	config = function()
 		local lazy_status = require("lazy.status")
@@ -51,6 +52,10 @@ return {
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
+						color = { fg = color_grey, bg = color_bg },
+					},
+					{
+						"copilot",
 						color = { fg = color_grey, bg = color_bg },
 					},
 				},
