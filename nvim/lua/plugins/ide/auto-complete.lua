@@ -14,7 +14,7 @@ return {
 	config = function()
 		local is_cmp_enabled = true
 
-		vim.keymap.set("n", "<leader>tc", function()
+		vim.keymap.set("n", "<leader>ta", function()
 			is_cmp_enabled = not is_cmp_enabled
 
 			if is_cmp_enabled then
