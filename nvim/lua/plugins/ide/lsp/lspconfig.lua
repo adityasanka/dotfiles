@@ -87,12 +87,14 @@ return {
 		)
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
-		-- (not in youtube nvim video)
-		local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
+		vim.diagnostic.config({
+			signs = {
+				[vim.diagnostic.severity.ERROR] = { text = " ", texthl = "DiagnosticSignError" },
+				[vim.diagnostic.severity.WARN] = { text = " ", texthl = "DiagnosticSignWarn" },
+				[vim.diagnostic.severity.HINT] = { text = " ", texthl = "DiagnosticSignHint" },
+				[vim.diagnostic.severity.INFO] = { text = " ", texthl = "DiagnosticSignInfo" },
+			},
+		})
 
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
