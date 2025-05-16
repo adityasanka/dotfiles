@@ -143,7 +143,7 @@ return {
 						gofumpt = true,
 					},
 				},
-				on_attach = function(_client, _bufnr)
+				on_attach = function()
 					vim.api.nvim_create_augroup("GoSettings", {})
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						pattern = "*.go",
