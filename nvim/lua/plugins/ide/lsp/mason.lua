@@ -1,20 +1,14 @@
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason.nvim",
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
+		-- automatically update the tools
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		-- bridges mason and nvim-lspconfig
+		-- automatically sets up LSP servers
+		"mason-org/mason-lspconfig.nvim",
 	},
 	config = function()
-		-- import mason
-		local mason = require("mason")
-
-		-- import mason-lspconfig
-		local mason_lspconfig = require("mason-lspconfig")
-
-		local mason_tool_installer = require("mason-tool-installer")
-
-		-- enable mason and configure icons
-		mason.setup({
+		require("mason").setup({
 			ui = {
 				icons = {
 					package_installed = "✓",
@@ -24,45 +18,33 @@ return {
 			},
 		})
 
-		mason_lspconfig.setup({
-			-- list of servers for mason to install
+		-- install and update tools
+		-- find available packages at https://mason-registry.dev/registry/list
+		require("mason-tool-installer").setup({
 			ensure_installed = {
-				"lua_ls",
+				-- lua
+				"lua-language-server",
+				"stylua",
+				-- go
 				"gopls",
-				"ts_ls",
-				"html",
-				"cssls",
-				"pyright",
-			},
-		})
-
-		mason_tool_installer.setup({
-			ensure_installed = {
-				{ "golangci-lint", auto_update = true },
-				{ "gopls", auto_update = true },
-				"goimports",
 				"gofumpt",
+				"goimports",
 				"golines",
 				"gomodifytags",
-				"gotests",
 				"json-to-struct",
+				"impl",
+				"staticcheck",
+				"gotests",
+				--
+				"golangci-lint",
+				"golangci-lint-langserver",
+				-- bash
 				"bash-language-server",
-				"vim-language-server",
-				"lua-language-server",
-				"stylua", -- lua formatter
 				"shellcheck",
 				"shfmt",
-				"editorconfig-checker",
-				"impl",
-				"misspell",
-				"revive",
-				"staticcheck",
-				"prettier", -- prettier formatter
-				"isort", -- python formatter
-				"black", -- python formatter
-				"pylint",
-				"eslint_d",
 			},
+			auto_update = true,
+			run_on_start = true,
 		})
 	end,
 }
