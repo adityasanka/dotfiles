@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 return {
 	{
 		"mfussenegger/nvim-lint",
@@ -27,6 +29,16 @@ return {
 			vim.keymap.set("n", "<leader>l", function()
 				lint.try_lint()
 			end, { desc = "Trigger linting for current file" })
+
+			-- Change the Diagnostic symbols in the sign column (gutter)
+			vim.diagnostic.config({
+				signs = {
+					[vim.diagnostic.severity.ERROR] = { text = " ", texthl = "DiagnosticSignError" },
+					[vim.diagnostic.severity.WARN] = { text = " ", texthl = "DiagnosticSignWarn" },
+					[vim.diagnostic.severity.HINT] = { text = " ", texthl = "DiagnosticSignHint" },
+					[vim.diagnostic.severity.INFO] = { text = " ", texthl = "DiagnosticSignInfo" },
+				},
+			})
 		end,
 	},
 	{
