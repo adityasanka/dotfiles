@@ -18,7 +18,6 @@ local plugins = {
 	{ import = "plugins.ui" },
 	{ import = "plugins.navigation" },
 	{ import = "plugins.ide" },
-	{ import = "plugins.ide.lsp" },
 }
 
 local config = {
