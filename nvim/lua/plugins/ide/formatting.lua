@@ -25,6 +25,7 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
+				d2 = { command = "d2", args = { "fmt", "$FILENAME" } },
 			},
 			format_on_save = formatting_options,
 		})
