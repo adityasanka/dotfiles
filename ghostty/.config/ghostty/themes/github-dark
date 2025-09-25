@@ -1,0 +1,35 @@
+# Github Dark theme with vibrant accent colors
+# Custom iTerm2 Theme - Converted for Ghostty
+
+# Basic colors
+background = #040404
+foreground = #F1F3F6
+
+# Cursor colors
+cursor-color = #FFFFFF
+cursor-text = #040404
+
+# Selection colors
+selection-background = #2A2A2A
+selection-foreground = #F1F3F6
+
+# 16-color ANSI palette
+# Normal colors (0-7)
+palette = 0=#7B828D
+palette = 1=#F09895
+palette = 2=#62CA5E
+palette = 3=#E7B94D
+palette = 4=#81B5F9
+palette = 5=#C497F9
+palette = 6=#66C2CD
+palette = 7=#DADEDF
+
+# Bright colors (8-15)
+palette = 8=#A0A7B2
+palette = 9=#F5B5B1
+palette = 10=#79DE76
+palette = 11=#EFCB5D
+palette = 12=#9DBCFB
+palette = 13=#D5B8FB
+palette = 14=#7ACFD4
+palette = 15=#FFFFFF
