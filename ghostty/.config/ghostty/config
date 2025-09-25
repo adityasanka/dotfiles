@@ -45,3 +45,8 @@ font-feature         = -liga
 # ---
 adjust-cell-height = 30%
 
+# Window Dimensions 
+# ---
+window-height = 40
+window-width  = 160
+
