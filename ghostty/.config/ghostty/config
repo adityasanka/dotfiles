@@ -50,3 +50,13 @@ adjust-cell-height = 30%
 window-height = 40
 window-width  = 160
 
+# Minimal Title Bar
+# ---
+# transparent title bar that blends with terminal background
+macos-titlebar-style       = tabs
+# remove window title text
+title                      = " "
+shell-integration-features = no-title
+# hide the folder icon
+macos-titlebar-proxy-icon  = hidden
+
