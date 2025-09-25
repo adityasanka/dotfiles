@@ -40,3 +40,8 @@ font-style-italic    = false
 font-synthetic-style = no-italic,no-bold-italic
 font-thicken         = true
 font-feature         = -liga
+
+# Line Height
+# ---
+adjust-cell-height = 30%
+
