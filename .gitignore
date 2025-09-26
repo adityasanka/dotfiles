@@ -3,4 +3,4 @@
 # neovim plugins
 nvim/plugin/
 # tmux plugins
-tmux/plugins/
+tmux/.config/tmux/plugins/
