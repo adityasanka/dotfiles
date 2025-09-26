@@ -15,7 +15,12 @@ return {
 			defaults = {
 				path_display = { "smart" },
 			},
-			file_ignore_patterns = { "node%_modules/.*" },
+			pickers = {
+				find_files = {
+					hidden = true,
+					file_ignore_patterns = { "%.git/.*", "node_modules/.*", "%.cache/.*" },
+				},
+			},
 		})
 
 		telescope.load_extension("fzf")
