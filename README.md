@@ -12,28 +12,21 @@ Configuration files tailored to my workflow. Use them as inspiration or starting
 - **Git**: Global Git configuration, aliases, and workflow settings
 - **Starship**: Cross-shell prompt configuration for a beautiful command line
 
+### Fonts 🔤
+
+A good monospace font can significantly boost your developer experience. I love these fonts:
+
+- [Codelia](https://tosche.net/fonts/codelia)
+- [Recursive Mono](https://www.recursive.design/)
+- [Maple Font Mono](https://github.com/subframe7536/maple-font)
+
 ### Notes 📝
 
 - **Backup**: Always backup your existing dotfiles before using these configurations
 - **OS Compatibility**: These configurations are primarily tested on macOS/Linux
 - **Updates**: Configurations are updated regularly as my workflow evolves
 
-### Git Configuration
-
-Use the template file (globally, not just in the current repo).
-
-```sh
-git config --global commit.template ~/.gitmessage
-```
-
-Open commit messages in NeoVim
-
-```sh
-git config --global core.editor nvim
-```
-
-#### References
+### References
 
 - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 - [Using Git Commit Message Templates to Write Better Commit Messages](https://gist.github.com/lisawolderiksen/a7b99d94c92c6671181611be1641c733)
-- [Configuring Git and Vim](https://csswizardry.com/2017/03/configuring-git-and-vim/)
