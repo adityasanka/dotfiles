@@ -22,7 +22,7 @@ return {
 			-- Auto-open for files > 100 lines, but only for specific filetypes
 			open_automatic = function(bufnr)
 				local line_count = vim.api.nvim_buf_line_count(bufnr)
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local filetype = vim.bo[bufnr].filetype
 
 				local supported_filetypes = {
 					"go",
