@@ -110,18 +110,6 @@ return {
 				},
 				{
 					"n",
-					"[d",
-					vim.diagnostic.goto_prev,
-					{ desc = "Go to previous diagnostic" },
-				},
-				{
-					"n",
-					"]d",
-					vim.diagnostic.goto_next,
-					{ desc = "Go to next diagnostic" },
-				},
-				{
-					"n",
 					"K",
 					vim.lsp.buf.hover,
 					{ desc = "Show documentation for what is under cursor" },
