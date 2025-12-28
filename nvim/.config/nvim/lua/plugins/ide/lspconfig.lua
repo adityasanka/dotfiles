@@ -19,15 +19,14 @@ return {
 				},
 			})
 
-			-- install and update tools
+			-- install and update non-LSP tools (formatters, linters, utilities)
+			-- LSP servers are managed by mason-lspconfig below
 			-- find available packages at https://mason-registry.dev/registry/list
 			require("mason-tool-installer").setup({
 				ensure_installed = {
 					-- lua
-					"lua-language-server",
 					"stylua",
 					-- go
-					"gopls",
 					"gofumpt",
 					"goimports",
 					"golines",
@@ -36,11 +35,8 @@ return {
 					"impl",
 					"staticcheck",
 					"gotests",
-					--
 					"golangci-lint",
-					"golangci-lint-langserver",
 					-- bash
-					"bash-language-server",
 					"shellcheck",
 					"shfmt",
 				},
@@ -218,11 +214,22 @@ return {
 				},
 			}
 
-			-- Setup all installed servers
-			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-				local config = vim.tbl_deep_extend("force", default_config, server_configs[server_name] or {})
-				lspconfig[server_name].setup(config)
-			end
+			-- Setup LSP servers using mason-lspconfig handlers
+			mason_lspconfig.setup({
+				ensure_installed = {
+					"lua_ls",
+					"gopls",
+					"bashls",
+					"golangci_lint_ls",
+				},
+				handlers = {
+					-- Default handler for all servers
+					function(server_name)
+						local config = vim.tbl_deep_extend("force", default_config, server_configs[server_name] or {})
+						lspconfig[server_name].setup(config)
+					end,
+				},
+			})
 		end,
 	},
 }
