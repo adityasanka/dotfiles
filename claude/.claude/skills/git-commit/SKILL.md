@@ -36,6 +36,7 @@ Match the repository's existing style when writing your commit message.
   - If suspicious files are detected, warn the user and skip them
 
 **Before staging, get user approval:**
+
 1. Display the list of files you plan to stage
 2. Ask the user to confirm before proceeding
 3. Only stage files after receiving explicit approval
@@ -77,9 +78,11 @@ Include relevant task IDs or issue numbers if applicable.
 ```
 
 **Important:**
+
 - Do NOT include any AI co-author attribution (e.g., "Co-Authored-By: Claude..." or similar)
 
 **Before committing, get user approval:**
+
 1. Display the proposed commit message to the user
 2. Ask for confirmation or feedback
 3. If the user suggests changes, update the message accordingly
@@ -100,8 +103,13 @@ Include relevant task IDs or issue numbers if applicable.
 
 ## Step 8: Confirm
 
-Display a success message showing the commit summary:
+Run this command to get the commit summary:
 
 ```bash
 git log -1 --stat --format="Committed: %h%n%nMessage:%n%B"
 ```
+
+**Important:**
+
+- Include the full output in your text response to the user.
+- Do not just show the tool output - copy the commit hash, message, and file stats into your final message so the user sees it directly.
