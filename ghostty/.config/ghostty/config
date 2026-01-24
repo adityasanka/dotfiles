@@ -70,3 +70,4 @@ keybind = alt+right=unbind
 # Colorscheme
 # ---
 theme = github-dark
+keybind = shift+enter=text:\x1b\r

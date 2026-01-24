@@ -4,3 +4,5 @@
 nvim/plugin/
 # tmux plugins
 tmux/.config/tmux/plugins/
+# ghostty backup files
+*.bak
