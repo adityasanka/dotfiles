@@ -8,6 +8,12 @@ allowed-tools: Bash(git *)
 
 You are an AI agent helping with git commits. Follow these steps precisely:
 
+## Arguments
+
+- `--auto`: Skip approval prompts for staging and commit message.
+  Use for small, obvious changes where you trust the AI's judgment.
+  Security safeguards (no staging of .env, secrets, binaries) still apply.
+
 ## Step 1: Check Repository Status
 
 Run `git status` to check the current state of the working directory.
@@ -35,12 +41,14 @@ Match the repository's existing style when writing your commit message.
   - NEVER stage binary files
   - If suspicious files are detected, warn the user and skip them
 
-**Before staging, get user approval:**
+**Before staging:**
 
-1. Display the list of files you plan to stage
-2. Ask the user to confirm before proceeding
-3. Only stage files after receiving explicit approval
-4. If the user wants to exclude certain files, respect their choice
+- If `--auto` flag is provided: Stage the appropriate files and proceed
+- Otherwise:
+  1. Display the list of files you plan to stage
+  2. Ask the user to confirm before proceeding
+  3. Only stage files after receiving explicit approval
+  4. If the user wants to exclude certain files, respect their choice
 
 ## Step 5: Review Staged Changes
 
@@ -81,12 +89,14 @@ Include relevant task IDs or issue numbers if applicable.
 
 - Do NOT include any AI co-author attribution (e.g., "Co-Authored-By: Claude..." or similar)
 
-**Before committing, get user approval:**
+**Before committing:**
 
-1. Display the proposed commit message to the user
-2. Ask for confirmation or feedback
-3. If the user suggests changes, update the message accordingly
-4. Only proceed to execute the commit after receiving explicit approval
+- If `--auto` flag is provided: Proceed directly to execute the commit
+- Otherwise:
+  1. Display the proposed commit message to the user
+  2. Ask for confirmation or feedback
+  3. If the user suggests changes, update the message accordingly
+  4. Only proceed to execute the commit after receiving explicit approval
 
 ## Step 7: Execute Commit
 
