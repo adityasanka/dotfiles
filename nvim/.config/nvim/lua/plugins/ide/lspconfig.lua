@@ -193,14 +193,21 @@ return {
 								-- twice for changes to be saved.
 								-- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
 								local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-								for cid, res in pairs(result or {}) do
+								if not result then
+									return
+								end
+								for cid, res in pairs(result) do
+									if type(res) ~= "table" or res.error then
+										goto continue
+									end
 									for _, r in pairs(res.result or {}) do
 										if r.edit then
-											local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding
-												or "utf-16"
+											local client = vim.lsp.get_client_by_id(cid)
+											local enc = client and client.offset_encoding or "utf-16"
 											vim.lsp.util.apply_workspace_edit(r.edit, enc)
 										end
 									end
+									::continue::
 								end
 
 								-- autoformat on save

@@ -9,12 +9,14 @@ return {
 				width = 0.80,
 			},
 			on_open = function()
-				-- Hide tmux status bar
-				vim.fn.system("tmux set status off")
+				if vim.env.TMUX then
+					vim.fn.system("tmux set status off")
+				end
 			end,
 			on_close = function()
-				-- Restore tmux status bar
-				vim.fn.system("tmux set status on")
+				if vim.env.TMUX then
+					vim.fn.system("tmux set status on")
+				end
 			end,
 		})
 
