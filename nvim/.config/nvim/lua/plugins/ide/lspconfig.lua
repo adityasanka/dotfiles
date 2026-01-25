@@ -179,7 +179,7 @@ return {
 						},
 					},
 					on_attach = function()
-						vim.api.nvim_create_augroup("GoSettings", {})
+						vim.api.nvim_create_augroup("GoSettings", { clear = true })
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							pattern = "*.go",
 							group = "GoSettings",
