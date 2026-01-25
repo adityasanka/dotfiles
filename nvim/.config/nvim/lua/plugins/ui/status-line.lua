@@ -5,15 +5,7 @@ return {
 	},
 	config = function()
 		local lazy_status = require("lazy.status")
-
-		-- Colors from iTerm2 Github Dark High Contrast color scheme
-		-- for a seamless color experience across terminal and NeoVim
-		-- https://github.com/cdalvaro/github-vscode-theme-iterm
-		local color_bg = "#040404"
-		local color_blue = "#81B5F9"
-		local color_grey = "#A0A7B2"
-		local color_red = "#F09895"
-		local color_yellow = "#E7B94D"
+		local colors = require("core.colors")
 
 		require("lualine").setup({
 			options = {
@@ -28,7 +20,7 @@ return {
 					{ "mode", color = { gui = "reverse,bold" } },
 				},
 				lualine_b = {
-					{ "branch", icon = "", color = { fg = color_grey, bg = color_bg } },
+					{ "branch", icon = "", color = { fg = colors.ansi_8, bg = colors.base } },
 				},
 				lualine_c = {
 					{
@@ -36,10 +28,10 @@ return {
 						sources = { "nvim_lsp" },
 						sections = { "error", "warn", "info", "hint" },
 						diagnostics_color = {
-							error = { fg = color_red, bg = color_bg, gui = "none" },
-							warn = { fg = color_yellow, bg = color_bg, gui = "none" },
-							info = { fg = color_blue, bg = color_bg, gui = "none" },
-							hint = { fg = color_blue, bg = color_bg, gui = "none" },
+							error = { fg = colors.ansi_1, bg = colors.base, gui = "none" },
+							warn = { fg = colors.ansi_3, bg = colors.base, gui = "none" },
+							info = { fg = colors.ansi_4, bg = colors.base, gui = "none" },
+							hint = { fg = colors.ansi_4, bg = colors.base, gui = "none" },
 						},
 						symbols = { error = "E ", warn = "W ", info = "I ", hint = "H " },
 						colored = true,
@@ -51,15 +43,15 @@ return {
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
-						color = { fg = color_grey, bg = color_bg },
+						color = { fg = colors.ansi_8, bg = colors.base },
 					},
 				},
 				lualine_y = {
-					{ "progress", icon = "", color = { fg = color_blue, bg = color_bg } },
-					{ "location", icon = "", color = { fg = color_blue, bg = color_bg, gui = "bold" } },
+					{ "progress", icon = "", color = { fg = colors.ansi_4, bg = colors.base } },
+					{ "location", icon = "", color = { fg = colors.ansi_4, bg = colors.base, gui = "bold" } },
 				},
 				lualine_z = {
-					{ "filename", path = 1, color = { fg = color_grey, bg = color_bg } },
+					{ "filename", path = 1, color = { fg = colors.ansi_8, bg = colors.base } },
 				},
 			},
 		})
