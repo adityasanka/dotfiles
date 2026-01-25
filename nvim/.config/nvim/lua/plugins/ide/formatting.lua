@@ -11,6 +11,12 @@ return {
 		}
 
 		conform.setup({
+			formatters = {
+				d2 = {
+					command = "d2",
+					args = { "fmt", "$FILENAME" },
+				},
+			},
 			formatters_by_ft = {
 				go = { "goimports", "gofmt" },
 				lua = { "stylua" },
@@ -25,7 +31,7 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
-				d2 = { command = "d2", args = { "fmt", "$FILENAME" } },
+				d2 = { "d2" },
 			},
 			format_on_save = formatting_options,
 		})
