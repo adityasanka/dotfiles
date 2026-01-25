@@ -43,6 +43,9 @@ return {
 			end,
 
 			completion = {
+				accept = {
+					auto_brackets = { enabled = true },
+				},
 				menu = {
 					min_width = 40,
 					border = "rounded",
