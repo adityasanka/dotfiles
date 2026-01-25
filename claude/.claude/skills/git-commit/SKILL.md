@@ -90,9 +90,10 @@ Include relevant task IDs or issue numbers if applicable.
 
 ## Step 7: Execute Commit
 
-1. Write the commit message to a temporary file (e.g., `.git/COMMIT_EDITMSG_TEMP`)
-2. Execute the commit using: `git commit -F <tempfile>`
-3. Clean up the temporary file after successful commit
+1. Find the git directory: run `git rev-parse --git-dir` to get the path to the `.git` directory
+2. Write the commit message to a temporary file in that directory (e.g., `<git-dir>/COMMIT_EDITMSG_TEMP`)
+3. Execute the commit using: `git commit -F <tempfile>`
+4. Clean up the temporary file after successful commit
 
 **If the commit fails due to pre-commit hooks:**
 
