@@ -23,7 +23,10 @@ return {
 			},
 		})
 
-		telescope.load_extension("fzf")
+		local fzf_ok, _ = pcall(telescope.load_extension, "fzf")
+		if not fzf_ok then
+			vim.notify("Telescope fzf extension failed to load", vim.log.levels.WARN)
+		end
 
 		local project_root = function()
 			local root_names = { ".git", "go.mod", "Makefile" }
