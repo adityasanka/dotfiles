@@ -112,9 +112,6 @@ opt.backup = false
 ------------------------------------------
 -- timings and responsiveness
 ------------------------------------------
--- indicate fast terminal conn for faster redraw
-opt.ttyfast = true
-
 opt.updatetime = 1000
 opt.timeout = true
 opt.timeoutlen = 500
@@ -123,8 +120,6 @@ opt.ttimeoutlen = 10
 ------------------------------------------
 -- buffers and files
 ------------------------------------------
--- buffer should still exist if window is closed
-opt.hidden = true
 -- reload file if the file changes on the disk
 opt.autoread = true
 -- automatically save before :next, :make etc. Or when switching buffers
