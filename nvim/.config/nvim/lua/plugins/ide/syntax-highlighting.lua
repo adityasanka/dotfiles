@@ -16,8 +16,6 @@ return {
 			},
 			-- enable indentation
 			indent = { enable = true },
-			-- enable autotagging (w/ nvim-ts-autotag plugin)
-			autotag = { enable = true },
 			-- automatically install missing parsers when entering buffer
 			auto_install = true,
 			-- install parsers asynchronously (only applied to `ensure_installed`)
