@@ -113,7 +113,7 @@ return {
 				{
 					"n",
 					"<leader>rs",
-					":LspRestart<CR>",
+					"<cmd>LspRestart<CR>",
 					{ desc = "Restart LSP" },
 				},
 			}
