@@ -33,10 +33,12 @@ return {
 			-- Change the Diagnostic symbols in the sign column (gutter)
 			vim.diagnostic.config({
 				signs = {
-					[vim.diagnostic.severity.ERROR] = { text = " ", texthl = "DiagnosticSignError" },
-					[vim.diagnostic.severity.WARN] = { text = " ", texthl = "DiagnosticSignWarn" },
-					[vim.diagnostic.severity.HINT] = { text = " ", texthl = "DiagnosticSignHint" },
-					[vim.diagnostic.severity.INFO] = { text = " ", texthl = "DiagnosticSignInfo" },
+					text = {
+						[vim.diagnostic.severity.ERROR] = " ",
+						[vim.diagnostic.severity.WARN] = " ",
+						[vim.diagnostic.severity.HINT] = " ",
+						[vim.diagnostic.severity.INFO] = " ",
+					},
 				},
 			})
 		end,
