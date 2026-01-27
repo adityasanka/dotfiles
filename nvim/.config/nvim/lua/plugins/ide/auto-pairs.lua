@@ -2,10 +2,8 @@ return {
 	"windwp/nvim-autopairs",
 	event = { "InsertEnter" },
 	config = function()
-		-- import nvim-autopairs
 		local autopairs = require("nvim-autopairs")
 
-		-- configure autopairs
 		autopairs.setup({
 			-- enable treesitter
 			check_ts = true,
