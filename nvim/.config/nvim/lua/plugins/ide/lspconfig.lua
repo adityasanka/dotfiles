@@ -141,6 +141,9 @@ return {
 				capabilities = lsp_capabilities,
 			}
 
+			-- Cache runtime files for lua_ls
+			local nvim_runtime_files = vim.api.nvim_get_runtime_file("", true)
+
 			-- Special configs
 			local server_configs = {
 				lua_ls = {
@@ -157,7 +160,7 @@ return {
 							},
 							workspace = {
 								-- Make the server aware of Neovim runtime files
-								library = vim.api.nvim_get_runtime_file("", true),
+								library = nvim_runtime_files,
 								checkThirdParty = false,
 							},
 							telemetry = {
