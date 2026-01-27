@@ -6,7 +6,10 @@ return {
 			group = vim.api.nvim_create_augroup("D2Format", { clear = true }),
 			pattern = "*.d2",
 			callback = function(args)
-				require("conform").format({ bufnr = args.buf, formatters = { "d2" } })
+				local ok, conform = pcall(require, "conform")
+				if ok then
+					conform.format({ bufnr = args.buf, formatters = { "d2" } })
+				end
 			end,
 		})
 	end,
