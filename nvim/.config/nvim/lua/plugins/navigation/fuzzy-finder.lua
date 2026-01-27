@@ -67,22 +67,19 @@ return {
 		end
 
 		-- set keymaps
-		local keymap = vim.keymap
-
 		-- find files
-		keymap.set("n", "<leader>ff", find_file_in_project, { desc = "Find files in project" })
-		keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find files in open buffers" })
+		vim.keymap.set("n", "<leader>ff", find_file_in_project, { desc = "Find files in project" })
+		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find files in open buffers" })
 		-- find text
-		keymap.set("n", "<leader>fg", find_text_in_open_buffers, { desc = "Find text in open buffers" })
-		keymap.set("n", "<leader>fG", find_text_in_project, { desc = "Find text in project" })
+		vim.keymap.set("n", "<leader>fg", find_text_in_open_buffers, { desc = "Find text in open buffers" })
+		vim.keymap.set("n", "<leader>fG", find_text_in_project, { desc = "Find text in project" })
 		-- find lsp symbols
-		keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Find LSP symbols in current buffer" })
-		keymap.set("n", "<leader>fS", builtin.lsp_dynamic_workspace_symbols, { desc = "Find LSP symbols in workspace" })
+		vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Find LSP symbols in current buffer" })
+		vim.keymap.set("n", "<leader>fS", builtin.lsp_dynamic_workspace_symbols, { desc = "Find LSP symbols in workspace" })
 		-- find diagnostics
-		local opts = { desc = "Find diagnostics in current buffer" }
-		keymap.set("n", "<leader>fd", find_diagnostics_in_current_buffer, opts)
-		keymap.set("n", "<leader>fD", builtin.diagnostics, { desc = "Find diagnostics in project" })
+		vim.keymap.set("n", "<leader>fd", find_diagnostics_in_current_buffer, { desc = "Find diagnostics in current buffer" })
+		vim.keymap.set("n", "<leader>fD", builtin.diagnostics, { desc = "Find diagnostics in project" })
 		-- find TODOs
-		keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+		vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 	end,
 }
