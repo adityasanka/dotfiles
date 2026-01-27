@@ -3,6 +3,12 @@ return {
 	event = "VeryLazy",
 	opts = {
 		spec = {
+			-- Hide utility key bindings for a cleaner menu
+			{ "<leader>+", hidden = true, desc = "Increment number" },
+			{ "<leader>-", hidden = true, desc = "Decrement number" },
+			{ "<leader>.", hidden = true, desc = "Go to definition" },
+			{ "<leader>,", hidden = true, desc = "Jump back" },
+			-- Named groups
 			{ "<leader>c", group = "Code" },
 			{ "<leader>f", group = "Find" },
 			{ "<leader>g", group = "Git" },
@@ -11,10 +17,6 @@ return {
 			{ "<leader>t", group = "Toggle" },
 			{ "<leader>w", group = "Session" },
 			{ "<leader>x", group = "Diagnostics" },
-			{ "<leader>+", hidden = true, desc = "Increment number" },
-			{ "<leader>-", hidden = true, desc = "Decrement number" },
-			{ "<leader>.", hidden = true, desc = "Go to definition" },
-			{ "<leader>,", hidden = true, desc = "Jump back" },
 		},
 	},
 }
