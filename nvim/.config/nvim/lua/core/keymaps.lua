@@ -22,4 +22,4 @@ vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer", silent = 
 vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<CR>", { desc = "Previous buffer", silent = true })
 
 --  jump back to the previous location
-vim.keymap.set("n", "<Leader>,", "<C-o>", { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>,", "<C-o>", { noremap = true, silent = true, desc = "Jump back" })
