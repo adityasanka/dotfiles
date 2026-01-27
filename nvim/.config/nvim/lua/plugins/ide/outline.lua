@@ -1,8 +1,7 @@
 return {
 	"stevearc/aerial.nvim",
 	keys = {
-		{ "<leader>a", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
-		{ "<leader>A", "<cmd>AerialNavToggle<CR>", desc = "Toggle Aerial Nav" },
+		{ "<leader>to", "<cmd>AerialToggle!<CR>", desc = "Toggle Outline" },
 	},
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
