@@ -94,13 +94,13 @@ return {
 				},
 				{
 					"n",
-					"<leader>D",
+					"<leader>xD",
 					"<cmd>Telescope diagnostics bufnr=0<CR>",
 					{ desc = "Show buffer diagnostics" },
 				},
 				{
 					"n",
-					"<leader>d",
+					"<leader>xd",
 					vim.diagnostic.open_float,
 					{ desc = "Show line diagnostics" },
 				},
@@ -112,7 +112,7 @@ return {
 				},
 				{
 					"n",
-					"<leader>rs",
+					"<leader>cx",
 					"<cmd>LspRestart<CR>",
 					{ desc = "Restart LSP" },
 				},
