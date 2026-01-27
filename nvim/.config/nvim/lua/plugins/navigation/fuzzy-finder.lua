@@ -20,6 +20,10 @@ return {
 					hidden = true,
 					file_ignore_patterns = { "%.git/.*", "node_modules/.*", "%.cache/.*" },
 				},
+				live_grep = {
+					additional_args = { "--hidden" },
+					glob_pattern = { "!.git/*", "!node_modules/*", "!.cache/*" },
+				},
 			},
 		})
 
@@ -31,14 +35,14 @@ return {
 		local project_root = function()
 			local root_names = { ".git", "go.mod", "Makefile" }
 
-			-- get path to current buffer
+			-- get path to current buffer, fall back to cwd if unnamed buffer
 			local fname = vim.api.nvim_buf_get_name(0)
+			local cwd
 			if fname == "" then
-				return
+				cwd = vim.fn.getcwd()
+			else
+				cwd = vim.fs.dirname(fname)
 			end
-
-			-- get current working directory
-			local cwd = vim.fs.dirname(fname)
 
 			-- searching upward for root directory
 			local root_file = vim.fs.find(root_names, { path = cwd, upward = true })[1]
