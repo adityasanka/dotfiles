@@ -181,10 +181,6 @@ return {
 							gofumpt = true,
 						},
 					},
-				-- Formatting handled by conform.nvim (goimports + gofumpt)
-				},
-				golangci_lint_ls = {
-					filetypes = { "go", "gomod" },
 				},
 			}
 
@@ -194,7 +190,6 @@ return {
 					"lua_ls",
 					"gopls",
 					"bashls",
-					"golangci_lint_ls",
 				},
 				handlers = {
 					-- Default handler for all servers
