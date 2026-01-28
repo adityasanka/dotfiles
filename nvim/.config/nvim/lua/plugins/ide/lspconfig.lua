@@ -181,43 +181,7 @@ return {
 							gofumpt = true,
 						},
 					},
-					on_attach = function()
-						vim.api.nvim_create_augroup("GoSettings", { clear = true })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							pattern = "*.go",
-							group = "GoSettings",
-							callback = function()
-								-- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
-								local params = vim.lsp.util.make_range_params()
-								params.context = { only = { "source.organizeImports" } }
-								-- buf_request_sync defaults to a 1000ms timeout. Depending on your
-								-- machine and codebase, you may want longer. Add an additional
-								-- argument after params if you find that you have to write the file
-								-- twice for changes to be saved.
-								-- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-								local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-								if not result then
-									return
-								end
-								for cid, res in pairs(result) do
-									if type(res) ~= "table" or res.error then
-										goto continue
-									end
-									for _, r in pairs(res.result or {}) do
-										if r.edit then
-											local client = vim.lsp.get_client_by_id(cid)
-											local enc = client and client.offset_encoding or "utf-16"
-											vim.lsp.util.apply_workspace_edit(r.edit, enc)
-										end
-									end
-									::continue::
-								end
-
-								-- autoformat on save
-								vim.lsp.buf.format({ async = false })
-							end,
-						})
-					end,
+				-- Formatting handled by conform.nvim (goimports + gofumpt)
 				},
 				golangci_lint_ls = {
 					filetypes = { "go", "gomod" },
