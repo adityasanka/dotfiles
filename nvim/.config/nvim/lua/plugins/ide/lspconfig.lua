@@ -49,80 +49,86 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			local keymaps = {
-				{
-					"n",
-					"<leader>cR",
-					"<cmd>Telescope lsp_references<CR>",
-					{ desc = "Show LSP references" },
-				},
-				{
-					"n",
-					"<leader>.",
-					vim.lsp.buf.definition,
-					{ desc = "Go to definition" },
-				},
-				{
-					"n",
-					"<leader>cd",
-					"<cmd>Telescope lsp_definitions<CR>",
-					{ desc = "Show LSP definitions" },
-				},
-				{
-					"n",
-					"<leader>ci",
-					"<cmd>Telescope lsp_implementations<CR>",
-					{ desc = "Show LSP implementations" },
-				},
-				{
-					"n",
-					"<leader>ct",
-					"<cmd>Telescope lsp_type_definitions<CR>",
-					{ desc = "Show LSP type definitions" },
-				},
-				{
-					{ "n", "v" },
-					"<leader>ca",
-					vim.lsp.buf.code_action,
-					{ desc = "See available code actions" },
-				},
-				{
-					"n",
-					"<leader>cr",
-					vim.lsp.buf.rename,
-					{ desc = "Smart rename" },
-				},
-				{
-					"n",
-					"<leader>xD",
-					"<cmd>Telescope diagnostics bufnr=0<CR>",
-					{ desc = "Show buffer diagnostics" },
-				},
-				{
-					"n",
-					"<leader>xd",
-					vim.diagnostic.open_float,
-					{ desc = "Show line diagnostics" },
-				},
-				{
-					"n",
-					"K",
-					vim.lsp.buf.hover,
-					{ desc = "Show documentation for what is under cursor" },
-				},
-				{
-					"n",
-					"<leader>cx",
-					"<cmd>LspRestart<CR>",
-					{ desc = "Restart LSP" },
-				},
-			}
+			-- Buffer-local keymaps via LspAttach
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+				callback = function(args)
+					local keymaps = {
+						{
+							"n",
+							"<leader>cR",
+							"<cmd>Telescope lsp_references<CR>",
+							{ desc = "Show LSP references" },
+						},
+						{
+							"n",
+							"<leader>.",
+							vim.lsp.buf.definition,
+							{ desc = "Go to definition" },
+						},
+						{
+							"n",
+							"<leader>cd",
+							"<cmd>Telescope lsp_definitions<CR>",
+							{ desc = "Show LSP definitions" },
+						},
+						{
+							"n",
+							"<leader>ci",
+							"<cmd>Telescope lsp_implementations<CR>",
+							{ desc = "Show LSP implementations" },
+						},
+						{
+							"n",
+							"<leader>ct",
+							"<cmd>Telescope lsp_type_definitions<CR>",
+							{ desc = "Show LSP type definitions" },
+						},
+						{
+							{ "n", "v" },
+							"<leader>ca",
+							vim.lsp.buf.code_action,
+							{ desc = "See available code actions" },
+						},
+						{
+							"n",
+							"<leader>cr",
+							vim.lsp.buf.rename,
+							{ desc = "Smart rename" },
+						},
+						{
+							"n",
+							"<leader>xD",
+							"<cmd>Telescope diagnostics bufnr=0<CR>",
+							{ desc = "Show buffer diagnostics" },
+						},
+						{
+							"n",
+							"<leader>xd",
+							vim.diagnostic.open_float,
+							{ desc = "Show line diagnostics" },
+						},
+						{
+							"n",
+							"K",
+							vim.lsp.buf.hover,
+							{ desc = "Show documentation for what is under cursor" },
+						},
+						{
+							"n",
+							"<leader>cx",
+							"<cmd>LspRestart<CR>",
+							{ desc = "Restart LSP" },
+						},
+					}
 
-			for _, map in ipairs(keymaps) do
-				local mode, lhs, rhs, opts = unpack(map)
-				opts = vim.tbl_extend("keep", opts or {}, { silent = true })
-				vim.keymap.set(mode, lhs, rhs, opts)
-			end
+					for _, map in ipairs(keymaps) do
+						local mode, lhs, rhs, opts = unpack(map)
+						opts = vim.tbl_extend("keep", opts or {}, { buffer = args.buf, silent = true })
+						vim.keymap.set(mode, lhs, rhs, opts)
+					end
+				end,
+			})
 
 			local lspconfig = require("lspconfig")
 			local mason_lspconfig = require("mason-lspconfig")
