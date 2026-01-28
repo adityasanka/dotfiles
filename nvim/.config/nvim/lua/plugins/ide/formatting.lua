@@ -18,7 +18,7 @@ return {
 				},
 			},
 			formatters_by_ft = {
-				go = { "goimports", "gofmt" },
+				go = { "goimports", "gofumpt" },
 				lua = { "stylua" },
 				html = { "prettier" },
 				css = { "prettier" },
