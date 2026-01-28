@@ -153,7 +153,6 @@ return {
 			-- Special configs
 			local server_configs = {
 				lua_ls = {
-					capabilities = lsp_capabilities,
 					settings = {
 						Lua = {
 							runtime = {
@@ -177,7 +176,6 @@ return {
 				},
 				gopls = {
 					cmd = { "gopls", "serve" },
-					capabilities = lsp_capabilities,
 					settings = {
 						gopls = {
 							analyses = {
