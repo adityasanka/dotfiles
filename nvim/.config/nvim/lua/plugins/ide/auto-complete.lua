@@ -21,8 +21,6 @@ return {
 			end
 		end, { desc = "Toggle Autocomplete" })
 
-		---@module 'blink.cmp'
-		---@type blink.cmp.Config
 		local opts = {
 			-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
 			-- 'super-tab' for mappings similar to vscode (tab to accept)
