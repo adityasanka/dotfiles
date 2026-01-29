@@ -165,6 +165,7 @@ After each task:
 
 Subtasks: 6/6 completed
 Verification: All passed
+Progress: 1/6 tasks (17%)
 Commit: abc1234 - Setup PostgreSQL connection and create user schema
 
 Continue to 02-create-user-model? [Y/n]
@@ -180,7 +181,7 @@ When all tasks complete:
 ```
 ✓ Plan complete: User Authentication
 
-Tasks: 6/6 completed
+Tasks: 6/6 completed (100%)
 ─────────────────────────
 [x] 01-setup-database
 [x] 02-create-user-model
