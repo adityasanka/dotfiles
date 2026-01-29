@@ -34,9 +34,31 @@ Move existing `PLAN.md` and `tasks/` folder to `.archive/` directory at project 
 4. If not, inform user "Nothing to archive" and stop
 5. Extract plan title from `PLAN.md` (first `# Plan: ...` heading)
 6. Create archive folder at project root: `<project-root>/.archive/{date}_{title-slug}/`
-7. Move `PLAN.md` to archive folder
-8. Move `tasks/` folder to archive folder
-9. Confirm: "Archived to .archive/{folder-name}/"
+7. Copy and remove files atomically (see Atomic Operations below)
+8. Confirm: "Archived to .archive/{folder-name}/"
+
+## Atomic Operations
+
+To prevent partial state if interrupted, use copy-then-delete:
+
+1. **Copy phase** (all or nothing):
+   ```bash
+   cp PLAN.md {archive-folder}/PLAN.md
+   cp -r tasks/ {archive-folder}/tasks/
+   ```
+
+2. **Verify copies exist** before proceeding
+
+3. **Delete phase** (only after successful copy):
+   ```bash
+   rm PLAN.md
+   rm -r tasks/
+   ```
+
+**Error recovery:**
+- If copy fails: Remove any partial copies from archive folder, inform user
+- If delete fails: Archive is complete but originals remain - inform user to delete manually
+- Never use `mv` for both files since a failed second move leaves inconsistent state
 
 ## Naming Convention
 
