@@ -1,8 +1,8 @@
 # Task: Create User Model
 
 ## Status
-<!-- TODO | IN PROGRESS | DONE -->
-TODO
+<!-- TODO | IN PROGRESS | DONE | SKIPPED -->
+DONE
 
 ## Requires
 - Task 01 must be complete
@@ -21,12 +21,12 @@ User.verifyPassword(user, password)  // Compare password with hash
 ```
 
 ## Subtasks
-- [ ] Install bcrypt package
-- [ ] Create models/user.js with User class
-- [ ] Implement User.create() with password hashing
-- [ ] Implement User.findByEmail()
-- [ ] Implement User.verifyPassword()
-- [ ] Add input validation (email format, password length)
+- [x] Install bcrypt package
+- [x] Create models/user.js with User class
+- [x] Implement User.create() with password hashing
+- [x] Implement User.findByEmail()
+- [x] Implement User.verifyPassword()
+- [x] Add input validation (email format, password length)
 
 ## Files to Modify
 - `package.json` - Add bcrypt dependency
@@ -34,9 +34,15 @@ User.verifyPassword(user, password)  // Compare password with hash
 - `models/index.js` - New file, export models
 
 ## Verification
-- [ ] Tests pass: `npm test -- --grep "User model"`
-- [ ] Builds without errors: `npm run build`
-- [ ] Works as expected: Create user via REPL, verify password hash differs from input
+- [x] Tests pass: `npm test -- --grep "User model"` (timeout: 5min)
+- [x] Builds without errors: `npm run build` (timeout: 2min)
+- [x] Works as expected: Create user via REPL, verify password hash differs from input
 
 ## Notes
-<!-- Context for execution agent -->
+<!-- Implementation notes added during execution -->
+- Used bcrypt cost factor 12 as proposed; 10 was too fast for security, 14 too slow for UX
+- Added async/await wrapper around bcrypt.hash() for cleaner code
+- Email validation uses simple regex; considered validator.js but kept deps minimal
+- Password minimum length set to 8 chars per OWASP guidelines
+- findByEmail returns null instead of throwing for non-existent users (easier login flow)
+- Added unique constraint error handling in create() - returns friendly message
