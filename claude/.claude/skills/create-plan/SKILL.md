@@ -160,7 +160,8 @@ Each `tasks/NN-task-name.md`:
 
 ## Status
 
-<!-- TODO | IN PROGRESS | DONE -->
+<!-- TODO | IN PROGRESS | DONE | SKIPPED -->
+<!-- Detailed state here; PLAN.md checkbox is source of truth for completion -->
 
 TODO
 

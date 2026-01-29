@@ -126,6 +126,20 @@ Next task (loop back to top)
 - Before starting a task, verify its `## Requires` dependencies are complete
 - If dependencies not met, inform user and stop
 
+## Status Tracking
+
+Two status indicators are maintained for each task:
+
+| Location | Format | Purpose |
+|----------|--------|---------|
+| PLAN.md | `- [ ]` / `- [x]` | **Source of truth** for completion. Quick overview. |
+| Task file | `## Status` section | Detailed state: TODO, IN PROGRESS, DONE, SKIPPED |
+
+Keep both in sync:
+- When starting a task: Set task file status to `IN PROGRESS`
+- When completing: Set task file status to `DONE`, then mark `[x]` in PLAN.md
+- PLAN.md checkbox determines whether a task is skipped during execution
+
 ## During Execution
 
 - Work on ONE task at a time
