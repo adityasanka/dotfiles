@@ -3,6 +3,14 @@ name: execute-plan
 description: Execute implementation plans created by create-plan skill. Reads PLAN.md, executes tasks one at a time, updates status, and commits via /git-commit.
 ---
 
+## Dependencies
+
+This skill requires:
+
+- **`/git-commit` skill** - Must be available for automatic commits after each task. Located at `skills/git-commit/SKILL.md`.
+
+If `/git-commit` is not available, inform the user and ask them to commit manually using standard git commands.
+
 # Execute Plan Workflow
 
 ## Project Root Detection
@@ -117,6 +125,7 @@ Next task (loop back to top)
    - If no: Pause, let user review/modify, ask again when ready
    - If yes: Proceed to commit
 5. Invoke `/git-commit` skill (it handles commit message format)
+   - If `/git-commit` unavailable, inform user to commit manually
 6. Display task completion output
 7. Ask: "Continue to next task? [Y/n]"
    - Enter or Y: Proceed to next task
