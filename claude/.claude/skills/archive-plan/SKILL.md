@@ -35,7 +35,12 @@ Move existing `PLAN.md` and `tasks/` folder to `.archive/` directory at project 
 5. Extract plan title from `PLAN.md` (first `# Plan: ...` heading)
 6. Create archive folder at project root: `<project-root>/.archive/{date}_{title-slug}/`
 7. Copy and remove files atomically (see Atomic Operations below)
-8. Confirm: "Archived to .archive/{folder-name}/"
+8. Display success message:
+   ```
+   ✓ Archived: {Plan Title}
+
+   Location: .archive/{folder-name}/
+   ```
 
 ## Atomic Operations
 
