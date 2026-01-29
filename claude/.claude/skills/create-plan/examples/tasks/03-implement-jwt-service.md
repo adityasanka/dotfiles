@@ -1,8 +1,8 @@
 # Task: Implement JWT Service
 
 ## Status
-<!-- TODO | IN PROGRESS | DONE -->
-TODO
+<!-- TODO | IN PROGRESS | DONE | SKIPPED -->
+IN PROGRESS
 
 ## Requires
 - Task 02 must be complete
@@ -14,10 +14,10 @@ Create a JWT service for generating and validating access tokens and refresh tok
 Use `jsonwebtoken` package. Create `services/auth.js` with token generation and validation. Store refresh tokens as hashed values in the database to prevent token theft if DB is compromised.
 
 ## Subtasks
-- [ ] Install jsonwebtoken package
-- [ ] Create services/auth.js
-- [ ] Implement generateAccessToken(user)
-- [ ] Implement generateRefreshToken(user) with DB storage
+- [x] Install jsonwebtoken package
+- [x] Create services/auth.js
+- [x] Implement generateAccessToken(user)
+- [x] Implement generateRefreshToken(user) with DB storage
 - [ ] Implement verifyAccessToken(token)
 - [ ] Implement verifyRefreshToken(token) with DB lookup
 - [ ] Implement revokeRefreshToken(token)
@@ -29,9 +29,24 @@ Use `jsonwebtoken` package. Create `services/auth.js` with token generation and 
 - `.env.example` - Add JWT_SECRET placeholder
 
 ## Verification
-- [ ] Tests pass: `npm test -- --grep "JWT service"`
-- [ ] Builds without errors: `npm run build`
+- [ ] Tests pass: `npm test -- --grep "JWT service"` (timeout: 5min)
+- [ ] Builds without errors: `npm run build` (timeout: 2min)
 - [ ] Works as expected: Generate token, decode on jwt.io, verify claims
 
 ## Notes
-<!-- Context for execution agent -->
+<!-- Blocker details added during execution -->
+**BLOCKED**: Tests failing with "JWT_SECRET is not defined" error.
+
+**What happened:**
+- Completed token generation functions (subtasks 1-4)
+- Tests fail because JWT_SECRET env var is not set in test environment
+- `.env.example` was updated but `.env.test` was not created
+
+**To unblock:**
+1. Create `.env.test` with test-specific JWT_SECRET value
+2. Update `jest.config.js` to load `.env.test` before running tests
+3. Re-run `/execute-plan` to continue from verification step
+
+**Attempted fixes:**
+- Tried hardcoding secret in tests (bad practice, reverted)
+- Looked for existing env loading pattern but none found in codebase
