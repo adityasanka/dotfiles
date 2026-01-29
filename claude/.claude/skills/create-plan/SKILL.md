@@ -189,8 +189,8 @@ TODO
 
 ## Verification
 
-- [ ] Tests pass: `command to run tests`
-- [ ] Builds without errors: `build command`
+- [ ] Tests pass: `command to run tests` (timeout: 5min)
+- [ ] Builds without errors: `build command` (timeout: 2min)
 - [ ] Works as expected: [manual verification step]
 
 ## Notes

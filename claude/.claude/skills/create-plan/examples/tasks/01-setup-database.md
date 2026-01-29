@@ -49,8 +49,8 @@ CREATE TABLE refresh_tokens (
 - `db/migrations/002_refresh_tokens.sql` - New file, tokens table
 
 ## Verification
-- [ ] Tests pass: `npm test -- --grep "database"`
-- [ ] Builds without errors: `npm run build`
+- [ ] Tests pass: `npm test -- --grep "database"` (timeout: 5min)
+- [ ] Builds without errors: `npm run build` (timeout: 2min)
 - [ ] Works as expected: Connect with psql and verify tables exist with `\dt`
 
 ## Notes

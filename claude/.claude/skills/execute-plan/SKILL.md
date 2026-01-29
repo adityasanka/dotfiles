@@ -179,6 +179,9 @@ Run /archive-plan to archive this plan.
 
 - **Automated checks**: Run command, must exit 0 to pass
 - **Manual checks**: Ask user to confirm before marking complete
+- **Timeouts**: If `(timeout: Xmin)` is specified, abort command after that duration
+  - Default: 5 minutes for tests, 2 minutes for builds
+  - If command times out, treat as failure and inform user
 - If any verification fails, do not mark task complete
 
 ## Resume Capability

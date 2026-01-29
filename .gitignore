@@ -6,7 +6,7 @@ nvim/plugin/
 tmux/.config/tmux/plugins/
 # ghostty backup files
 *.bak
-# plan workflow files
-PLAN.md
-tasks/
-claude/.claude/REVIEW.md
+# plan workflow files (at project root only)
+/PLAN.md
+/tasks/
+/claude/.claude/REVIEW.md
