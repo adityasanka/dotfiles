@@ -35,6 +35,23 @@ Before starting:
 2. Check if `PLAN.md` exists at project root
 3. If not, inform user "Nothing to execute - no PLAN.md found" and stop
 4. Check for uncommitted changes - if found, warn user and ask to proceed or abort
+5. Validate all task files exist (see Validate Task Files below)
+
+## Validate Task Files
+
+Parse PLAN.md and verify each linked task file exists before starting execution.
+
+If any files are missing, display:
+
+```
+Missing task files:
+- tasks/03-implement-jwt-service.md (referenced in PLAN.md)
+- tasks/05-add-middleware.md (referenced in PLAN.md)
+
+Please create missing files or update PLAN.md before continuing.
+```
+
+Stop execution and let user fix issues before proceeding.
 
 ## Process
 
