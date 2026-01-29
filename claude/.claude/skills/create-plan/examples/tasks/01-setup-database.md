@@ -1,7 +1,7 @@
 # Task: Setup Database
 
 ## Status
-<!-- TODO | IN PROGRESS | DONE -->
+<!-- TODO | IN PROGRESS | DONE | SKIPPED -->
 TODO
 
 ## Requires

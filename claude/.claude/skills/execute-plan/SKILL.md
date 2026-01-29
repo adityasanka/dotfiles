@@ -138,6 +138,7 @@ Two status indicators are maintained for each task:
 Keep both in sync:
 - When starting a task: Set task file status to `IN PROGRESS`
 - When completing: Set task file status to `DONE`, then mark `[x]` in PLAN.md
+- When skipping: Set task file status to `SKIPPED`, mark `[x]` in PLAN.md, add reason to Notes
 - PLAN.md checkbox determines whether a task is skipped during execution
 
 ## During Execution
@@ -233,7 +234,7 @@ When resuming interrupted work:
 | `/execute-plan` | Start from first incomplete task |
 | "continue the plan" | Same as execute (resume-aware) |
 | "execute task 03" | Execute specific task only |
-| "skip task 02" | Mark task skipped in Notes, move to next |
+| "skip task 02" | Set status to SKIPPED, mark `[x]` in PLAN.md, add reason to Notes, move to next |
 | "stop after this task" | Complete current, then stop |
 
 ## Safety
