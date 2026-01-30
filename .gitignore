@@ -1,13 +1,20 @@
-# OSX folder metadata
+# === OS ===
 .DS_Store
-# neovim plugins
-nvim/plugin/
-# tmux plugins
-tmux/.config/tmux/plugins/
-# ghostty backup files
+
+# === Ghostty ===
 *.bak
-# plan workflow files (at project root only)
+
+# === Neovim ===
+nvim/plugin/
+
+# === Tmux ===
+tmux/.config/tmux/plugins/
+
+# === Claude Code ===
+.claude/settings.local.json
+/claude/.claude/REVIEW.md
+
+# === Workflow ===
 /PLAN.md
 /tasks/
-/claude/.claude/REVIEW.md
 /.archive/

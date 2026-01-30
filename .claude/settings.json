@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(ls:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "Bash(nvim:*)",
+      "Bash(echo:*)",
+      "Bash(pbcopy:*)",
+      "Bash(pbpaste)",
+      "WebSearch",
+      "Skill(git-commit)",
+      "Skill(browser-use)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "enableAllProjectMcpServers": true
+}
