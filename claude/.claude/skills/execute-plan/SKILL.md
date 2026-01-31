@@ -53,25 +53,53 @@ Please create missing files or update PLAN.md before continuing.
 
 Stop execution and let user fix issues before proceeding.
 
+## Progress Tracking Initialization
+
+After pre-execution checks pass (and before executing the first task), initialize Claude Code's built-in task management for real-time UI feedback. Built-in tasks are a **display layer only** — the file-based system remains the source of truth.
+
+1. Parse PLAN.md's `## Tasks` section for all task entries
+2. For each **unchecked** (`- [ ]`) task entry:
+   - Extract the task name and brief description from the line (e.g., from `- [ ] [01-setup-database](tasks/01-setup-database.md) - Configure PostgreSQL and create user schema`, extract name "Setup database" and description "Configure PostgreSQL and create user schema")
+   - Call `TaskCreate` with:
+     - `subject`: Human-readable task name (e.g., "Setup database")
+     - `description`: The brief description from PLAN.md
+     - `activeForm`: Present continuous form of the task name (e.g., "Setting up database"). This powers the spinner text in the UI.
+   - Remember the returned task ID — you'll need it for status updates later
+3. Skip tasks already marked `[x]` in PLAN.md — do not create built-in tasks for them
+4. After all built-in tasks are created, read each corresponding task file's `## Requires` field. For tasks that depend on other tasks, call `TaskUpdate` with `addBlockedBy` using the built-in task IDs of the prerequisite tasks
+5. Keep the mapping of plan task numbers → built-in task IDs in working memory for the session
+
+Example: For a plan with 3 unchecked tasks where task 02 requires 01 and task 03 requires 02:
+- `TaskCreate` for each → returns IDs #1, #2, #3
+- `TaskUpdate(#2, addBlockedBy: [#1])`
+- `TaskUpdate(#3, addBlockedBy: [#2])`
+
 ## Process
 
-1. **Load plan**: Read PLAN.md, identify first incomplete task (unchecked `- [ ]`)
-2. **Check requires**: Read task file, verify `## Requires` dependencies are met
-3. **Update status**: Set task status to `IN PROGRESS`
-4. **Execute subtasks**: Complete each subtask, updating checkboxes as you go
-5. **Verify**: Run verification steps from task file
-6. **Mark complete**: Update task status to `DONE`, check off in PLAN.md
-7. **Request approval**: Show summary, ask user "Ready to commit?"
-8. **Commit**: Once approved, invoke `/git-commit` skill
-9. **Report**: Show task completion output
-10. **Confirm continue**: Ask "Continue to next task? [Y/n]"
-11. **Repeat**: If yes, move to next incomplete task
-12. **Finish**: When all tasks complete (or user stops), show summary
+1. **Load plan**: Read PLAN.md, identify all tasks and their completion state
+2. **Initialize progress tracking**: Create built-in tasks for unchecked entries and wire dependencies (see Progress Tracking Initialization above)
+3. **Select task**: Identify first incomplete task (unchecked `- [ ]`)
+4. **Check requires**: Read task file, verify `## Requires` dependencies are met
+5. **Update status**: Set task file status to `IN PROGRESS`, then call `TaskUpdate` with `status: "in_progress"` for the corresponding built-in task ID
+6. **Execute subtasks**: Complete each subtask, updating checkboxes as you go
+7. **Verify**: Run verification steps from task file
+8. **Mark complete**: Update task file status to `DONE`, check off in PLAN.md, then call `TaskUpdate` with `status: "completed"` for the corresponding built-in task ID
+9. **Request approval**: Show summary, ask user "Ready to commit?"
+10. **Commit**: Once approved, invoke `/git-commit` skill
+11. **Report**: Show task completion output
+12. **Confirm continue**: Ask "Continue to next task? [Y/n]"
+13. **Repeat**: If yes, move to next incomplete task
+14. **Finish**: When all tasks complete (or user stops), show summary
 
 ## Execution Flow
 
 ```
 Read PLAN.md
+         │
+         ▼
+Initialize progress tracking
+(TaskCreate for each unchecked task,
+ wire blockedBy dependencies)
          │
          ▼
 Find first unchecked task
@@ -128,14 +156,15 @@ Next task (loop back to top)
 
 ## Status Tracking
 
-Two status indicators are maintained for each task:
+Three status indicators are maintained for each task:
 
 | Location | Format | Purpose |
 |----------|--------|---------|
 | PLAN.md | `- [ ]` / `- [x]` | **Source of truth** for completion. Quick overview. |
 | Task file | `## Status` section | Detailed state: TODO, IN PROGRESS, DONE, SKIPPED |
+| Built-in task | `TaskUpdate` status | Real-time UI feedback (spinner/progress). Session-scoped. |
 
-Keep both in sync:
+Keep all three in sync:
 - When starting a task: Set task file status to `IN PROGRESS`
 - When completing: Set task file status to `DONE`, then mark `[x]` in PLAN.md
 - When skipping: Set task file status to `SKIPPED`, mark `[x]` in PLAN.md, add reason to Notes
@@ -146,6 +175,7 @@ Keep both in sync:
 - Work on ONE task at a time
 - Update subtask checkboxes as each completes
 - Add implementation notes to task's `## Notes` section
+- Keep built-in task status in sync: update file-based status first, then call `TaskUpdate` to match
 - If blocked, add details to Notes, stop, and inform user
 
 ## After Each Task
@@ -168,6 +198,7 @@ Keep both in sync:
 - Do NOT mark task complete
 - Add failure details to task's `## Notes` section
 - Keep status as `IN PROGRESS`
+- Keep built-in task status as `in_progress` (no change needed — matches file-based behavior)
 - Stop execution and report failure to user
 - User can fix issue and run `/execute-plan` to resume
 
@@ -222,10 +253,20 @@ Run /archive-plan to archive this plan.
 When resuming interrupted work:
 
 1. Read PLAN.md to find first unchecked task
-2. Read task file - check if status is `IN PROGRESS` (partial work)
-3. If partial, review subtask checkboxes to find where to resume
-4. Continue from first incomplete subtask
-5. Follow normal execution flow
+2. Run Progress Tracking Initialization — this creates built-in tasks only for unchecked `- [ ]` entries, so already-completed tasks are automatically excluded
+3. Read task file - check if status is `IN PROGRESS` (partial work)
+4. If task is `IN PROGRESS` (partial work from previous session), immediately call `TaskUpdate` to set its built-in task to `in_progress`
+5. If partial, review subtask checkboxes to find where to resume
+6. Continue from first incomplete subtask
+7. Follow normal execution flow
+
+### Progress Tracking on Resume
+
+Built-in tasks are session-scoped — they don't persist across sessions. On resume:
+
+- **Initialization recreates them**: The Progress Tracking Initialization phase (step 2) creates built-in tasks for all remaining incomplete work
+- **In-progress tasks need immediate update**: If the first unchecked task has file status `IN PROGRESS` (started in a previous session), set its built-in task to `in_progress` before resuming subtask execution
+- **Prior completed tasks won't appear in UI**: Tasks completed in previous sessions are already `[x]` in PLAN.md, so no built-in tasks are created for them. This is expected — the UI shows current session progress only
 
 ## Commands
 
