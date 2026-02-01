@@ -1,13 +1,15 @@
 ---
 name: archive-plan
-description: Archive existing PLAN.md and tasks/ folder to .archive directory. Use before creating a new plan or to preserve completed plans.
+description: Archive existing PLAN.md and tasks/ folder to .archive directory.
+allowed-tools:
+  - Bash
 ---
 
 # Archive Plan Workflow
 
-## Purpose
+## Input
 
-Move existing `PLAN.md` and `tasks/` folder to `.archive/` directory at project root. Preserves plan history without cluttering the project.
+Takes no arguments. Operates on `PLAN.md` at project root.
 
 ## Output Structure
 
@@ -28,14 +30,13 @@ Move existing `PLAN.md` and `tasks/` folder to `.archive/` directory at project 
 
 ## Process
 
-1. Find project root by searching upward for markers (see detection order below)
-2. If no marker found, ask user to confirm location - do not guess
-3. Check if `PLAN.md` exists at project root
-4. If not, inform user "Nothing to archive" and stop
-5. Extract plan title from `PLAN.md` (first `# Plan: ...` heading)
-6. Create archive folder at project root: `<project-root>/.archive/{date}_{title-slug}/`
-7. Copy and remove files atomically (see Atomic Operations below)
-8. Display success message:
+1. Find project root (nearest `.git/`, `package.json`, `Cargo.toml`, etc.) — if none found, ask user
+2. Check if `PLAN.md` exists at project root
+3. If not, inform user "Nothing to archive" and stop
+4. Extract plan title from `PLAN.md` (first `# Plan: ...` heading)
+5. Create archive folder at project root: `<project-root>/.archive/{date}_{title-slug}/`
+6. Copy and remove files atomically (see Atomic Operations below)
+7. Display success message:
    ```
    ✓ Archived: {Plan Title}
 
@@ -63,7 +64,6 @@ To prevent partial state if interrupted, use copy-then-delete:
 **Error recovery:**
 - If copy fails: Remove any partial copies from archive folder, inform user
 - If delete fails: Archive is complete but originals remain - inform user to delete manually
-- Never use `mv` for both files since a failed second move leaves inconsistent state
 
 ## Naming Convention
 
@@ -71,32 +71,10 @@ Archive folder: `{YYYY-MM-DD}_{title-slug}/`
 
 - Date: Current date
 - Title slug: Lowercase, hyphens, no special chars
-
-Examples:
-- `2025-01-29_user-authentication/`
-- `2025-01-30_api-refactor/`
-- `2025-02-01_fix-login-bug/`
-
-## Project Root Detection
-
-Search upward from current directory for these markers (in priority order):
-
-1. `.git/` - Git repository
-2. `go.mod` - Go modules
-3. `package.json` - Node.js/npm
-4. `Cargo.toml` - Rust
-5. `pyproject.toml` - Python
-6. `pom.xml` - Java/Maven
-7. `Makefile` - C/C++/general
-
-Stop at the first match. If no marker is found, ask the user to specify the project root.
+- Example: `2025-01-29_user-authentication/`
 
 ## Rules
 
-- ALWAYS create `.archive/` at project root - NEVER in subdirectories
-- If no project root marker found, ask user to confirm location - do not guess
-- Create `.archive/` directory if it doesn't exist
 - Never overwrite existing archives - if slug exists, append `-2`, `-3`, etc.
-- Preserve file permissions and timestamps
 - If `tasks/` folder doesn't exist, archive only `PLAN.md`
 - Add `.archive/` to `.gitignore` suggestion (inform user, don't modify)
