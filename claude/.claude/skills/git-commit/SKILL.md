@@ -73,10 +73,13 @@ If `--auto` is not set, display the proposed commit message and ask for confirma
 
 ## Step 7: Execute Commit
 
-1. Find the git directory: run `git rev-parse --git-dir` to get the path to the `.git` directory
-2. Write the commit message to a temporary file in that directory (e.g., `<git-dir>/COMMIT_EDITMSG_TEMP`)
-3. Execute the commit using: `git commit -F <tempfile>`
-4. Clean up the temporary file after successful commit
+Execute the commit by piping the message via stdin heredoc:
+
+```bash
+git commit -F - <<'EOF'
+<commit message here>
+EOF
+```
 
 **If the commit fails due to pre-commit hooks:**
 
