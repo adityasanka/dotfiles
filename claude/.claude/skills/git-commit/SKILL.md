@@ -6,17 +6,16 @@ allowed-tools: Bash(git *)
 
 # Git Commit Command
 
-You are an AI agent helping with git commits. Follow these steps precisely:
-
 ## Arguments
 
-- `--auto`: Skip approval prompts for staging and commit message.
-  Use for small, obvious changes where you trust the AI's judgment.
-  Security safeguards (no staging of .env, secrets, binaries) still apply.
+- `--auto`: Skip all user approval prompts. Stage files and commit without asking
+  for confirmation. Security safeguards (no staging of .env, secrets, binaries) still
+  apply. When not set, display proposed changes and ask for user confirmation at each
+  approval point (staging and commit message).
 
 ## Step 1: Check Repository Status
 
-Run `git status` to check the current state of the working directory.
+Run `git status`.
 
 ## Step 2: Review Recent Commit History
 
@@ -41,20 +40,11 @@ Match the repository's existing style when writing your commit message.
   - NEVER stage binary files
   - If suspicious files are detected, warn the user and skip them
 
-**Before staging:**
-
-- If `--auto` flag is provided: Stage the appropriate files and proceed
-- Otherwise:
-  1. Display the list of files you plan to stage
-  2. Ask the user to confirm before proceeding
-  3. Only stage files after receiving explicit approval
-  4. If the user wants to exclude certain files, respect their choice
+If `--auto` is not set, display the list of files you plan to stage and ask the user to confirm. Respect any exclusions they request.
 
 ## Step 5: Review Staged Changes
 
-Run `git diff --cached --stat` to see a summary of files changed, then run `git diff --cached` to see the exact changes that will be committed.
-
-Skip reviewing binary files in the diff output.
+Run `git diff --cached --stat` then `git diff --cached` to review what will be committed.
 
 ## Step 6: Generate Commit Message
 
@@ -67,7 +57,6 @@ Analyze the staged changes and create a commit message following these rules:
 - Maximum 50 characters
 - Do NOT end with a period
 - Be specific and descriptive
-- Match the repository's existing commit style (from Step 2)
 
 **Body (after blank line):**
 
@@ -76,27 +65,11 @@ Analyze the staged changes and create a commit message following these rules:
 - Include task ID if relevant (e.g., Jira issue)
 - Only include body if the changes need additional explanation
 
-**Format:**
-
-```
-Title line here
-
-Body paragraph explaining what and why, wrapped at 72 characters.
-Include relevant task IDs or issue numbers if applicable.
-```
-
 **Important:**
 
 - Do NOT include any AI co-author attribution (e.g., "Co-Authored-By: Claude..." or similar)
 
-**Before committing:**
-
-- If `--auto` flag is provided: Proceed directly to execute the commit
-- Otherwise:
-  1. Display the proposed commit message to the user
-  2. Ask for confirmation or feedback
-  3. If the user suggests changes, update the message accordingly
-  4. Only proceed to execute the commit after receiving explicit approval
+If `--auto` is not set, display the proposed commit message and ask for confirmation. Update the message if the user suggests changes.
 
 ## Step 7: Execute Commit
 
