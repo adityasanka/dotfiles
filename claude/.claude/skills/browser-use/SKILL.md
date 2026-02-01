@@ -6,13 +6,16 @@ allowed-tools: Bash(agent-browser *), mcp__playwright__*
 
 # Browser Automation Skill
 
-You are an AI agent helping with browser automation tasks. This skill provides guidelines for choosing the right tool based on the scenario.
+## Arguments
+
+- **task** (required) — description of what to automate
+- `--headless` (optional) — run browser in headless mode
 
 ## Display Mode
 
 **Default: Headed mode (visible browser window)**
 
-Always run browser automation in headed mode so the user can observe the actions being performed. This builds trust and aids debugging.
+Always run browser automation in headed mode so the user can observe the actions being performed.
 
 - **Agent-Browser**: Add `--headed` flag to all commands (it defaults to headless)
 - **Playwright MCP**: Already defaults to headed mode (no flag needed)
@@ -48,7 +51,7 @@ A CLI tool optimized for AI agents with 93% less context usage than traditional 
 **Commands:**
 
 ```bash
-# Navigation (always include --headed for visible browser)
+# Navigation
 agent-browser --headed open <url>
 agent-browser --headed back | forward | reload
 
@@ -76,6 +79,8 @@ agent-browser --headed screenshot @e1   # Element screenshot
 ### 2. Playwright MCP (Fallback)
 
 A full-featured browser automation MCP server. Use when Agent-Browser cannot accomplish the task.
+
+> Requires Playwright MCP server configured in `.mcp.json` or project settings. If unavailable when fallback is needed, inform the user.
 
 **Use Playwright MCP for:**
 
@@ -134,19 +139,7 @@ Before starting, determine which tool is appropriate based on the decision tree 
 
 ### Step 2: Start with Agent-Browser (if applicable)
 
-For most tasks, begin with Agent-Browser (always use `--headed` for visible browser):
-
-```bash
-# Open the page (headed mode)
-agent-browser --headed open "https://example.com"
-
-# Get interactive elements
-agent-browser --headed snapshot -i
-
-# Interact using refs from snapshot
-agent-browser --headed click @e3
-agent-browser --headed fill @e5 "search query"
-```
+Use `open` to load the page, `snapshot -i` to discover interactive elements, then interact using `@ref` values. See command reference above.
 
 ### Step 3: Fall Back to Playwright MCP (if needed)
 
@@ -171,47 +164,24 @@ After **all** actions are complete and results have been reported to the user, c
 - **Agent-Browser**: `agent-browser close`
 - **Playwright MCP**: `mcp__playwright__browser_close`
 
-**Important**: Do NOT close the browser between actions. Keep it open throughout the entire task to:
-
-- Preserve session state (cookies, authentication, scroll position)
-- Avoid unnecessary latency from repeated open/close cycles
-- Allow the user to observe the full automation sequence
-
-Only close the browser once at the very end when the task is fully complete.
+Close the browser only after all actions are complete.
 
 ## Examples
 
-### Example 1: Simple Page Scraping (Agent-Browser)
+### Example 1: Navigate, Extract, and Submit (Agent-Browser)
 
 ```bash
-agent-browser --headed open "https://news.ycombinator.com"
-agent-browser --headed snapshot -i -c
-agent-browser --headed text @e1  # Extract headline text
-# ... report results to user ...
-agent-browser close              # Cleanup: close browser when done
+agent-browser --headed open "https://example.com/login"
+agent-browser --headed snapshot -i
+agent-browser --headed fill @username "user@example.com"
+agent-browser --headed fill @password "secret"
+agent-browser --headed click @submit
+agent-browser --headed snapshot
+agent-browser --headed text @message
+agent-browser close
 ```
 
 ### Example 2: Generate PDF (Playwright MCP)
 
 Use `mcp__playwright__browser_navigate` to open the page, then `mcp__playwright__browser_pdf_save` to generate the PDF. After reporting results, use `mcp__playwright__browser_close` to close the browser.
 
-### Example 3: Fill and Submit Form (Agent-Browser)
-
-```bash
-agent-browser --headed open "https://example.com/login"
-agent-browser --headed snapshot -i
-agent-browser --headed fill @username "user@example.com"
-agent-browser --headed fill @password "secretpassword"
-agent-browser --headed click @submit
-agent-browser --headed snapshot  # Verify result
-# ... report results to user ...
-agent-browser close              # Cleanup: close browser when done
-```
-
-## Notes
-
-- **Always use `--headed` flag** with Agent-Browser for visible browser (unless `--headless` requested)
-- Agent-Browser maintains session state between commands
-- Use `agent-browser --headed snapshot -i` for a focused view of interactive elements
-- Playwright MCP requires the MCP server to be configured in the project
-- Both tools use Chromium by default
