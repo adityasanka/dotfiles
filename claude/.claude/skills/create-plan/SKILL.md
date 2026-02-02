@@ -1,9 +1,14 @@
 ---
 name: create-plan
-description: Create PLAN.md + tasks/ folder with implementation plan. Does NOT execute - use execute-plan to run.
+description: Create PLAN.md + tasks/ folder with implementation plan (does not execute).
+allowed-tools: ["Bash"]
 ---
 
 # Create Plan Workflow
+
+## Input
+
+User provides a description of the feature, change, or fix to plan.
 
 ## Output Structure
 
@@ -55,10 +60,8 @@ If user selects Archive, invoke `/archive-plan` skill first, then continue with 
 
 ## Before Creating the Plan
 
-1. Understand the existing codebase structure
-2. Identify existing patterns to follow
-3. Ask clarifying questions if scope is ambiguous
-4. Confirm tech stack choices with user if multiple options exist
+1. Ask clarifying questions if scope is ambiguous
+2. Confirm tech stack choices with user if multiple options exist
 
 ## Process
 
@@ -96,31 +99,6 @@ Rules for success output:
 - If more than 10 tasks, show first 9 then `└── ... ({N} more)`
 - Copy full path of PLAN.md to clipboard using `pbcopy` (macOS) or equivalent
 - Always end with the `/execute-plan` hint
-
-Example with truncation (12 tasks):
-
-```
-✓ Plan created: User Authentication (12 tasks)
-
-Location: /Users/dev/my-project/
-
-PLAN.md
-tasks/
-├── 01-setup-database.md
-├── 02-create-user-model.md
-├── 03-implement-jwt-service.md
-├── 04-create-auth-routes.md
-├── 05-add-middleware.md
-├── 06-write-tests.md
-├── 07-add-rate-limiting.md
-├── 08-create-password-reset.md
-├── 09-add-email-verification.md
-└── ... (3 more)
-
-📋 Copied PLAN.md path to clipboard
-
-Run /execute-plan to start implementation.
-```
 
 ## PLAN.md Structure
 
@@ -201,13 +179,8 @@ TODO
 
 ## Rules
 
-- If requirements are unclear, ask clarifying questions BEFORE creating the plan
-- Do not make assumptions about tech stack, patterns, or scope
 - Tasks must be atomic and independently executable
 - Number tasks in logical execution order (01-, 02-, etc.)
 - Keep task descriptions actionable and specific
 - Each task should be completable in one session
 - If you can't describe what "done" looks like in one sentence, it's too big
-- Include verification steps for every task
-- Never execute code - only create the plan structure
-- Wait for user approval before considering plan complete
