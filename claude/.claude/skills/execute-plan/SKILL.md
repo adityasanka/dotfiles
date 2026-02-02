@@ -3,13 +3,20 @@ name: execute-plan
 description: Execute implementation plans from PLAN.md, completing tasks sequentially with commits after each.
 ---
 
+## Arguments
+
+- `--batch-commit`: Defer commits until all tasks complete. Instead of committing after each task, invoke `/git-commit` once after the final summary.
+- `--no-commit`: Skip commits entirely. No commit prompts appear during or after execution.
+
+Default (no flag): commit after each task (current behavior).
+
 ## Dependencies
 
 This skill requires:
 
-- **`/git-commit` skill** - Must be available for automatic commits after each task. Located at `skills/git-commit/SKILL.md`.
+- **`/git-commit` skill** - Required unless `--no-commit` is used. Located at `skills/git-commit/SKILL.md`.
 
-If `/git-commit` is not available, inform the user and ask them to commit manually using standard git commands.
+If `/git-commit` is not available and commits are expected, inform the user and ask them to commit manually using standard git commands.
 
 # Execute Plan Workflow
 
@@ -59,12 +66,11 @@ After pre-execution checks pass (and before executing the first task), initializ
 6. **Execute subtasks**: Complete each subtask, updating checkboxes and adding implementation notes to `## Notes`
 7. **Verify**: Run verification steps from task file and update the checkboxes
 8. **Mark complete**: Update task file status to `DONE`, check off in PLAN.md, then call `TaskUpdate` with `status: "completed"` for the corresponding built-in task ID
-9. **Request approval**: Show summary, ask user "Ready to commit?"
-10. **Commit**: Once approved, invoke `/git-commit` skill
-11. **Report**: Show task completion output
-12. **Confirm continue**: Ask "Continue to next task? [Y/n]"
-13. **Repeat**: If yes, move to next incomplete task
-14. **Finish**: When all tasks complete (or user stops), show summary
+9. **Commit** (default mode only): Show summary, ask user "Ready to commit?", then invoke `/git-commit` skill
+10. **Report**: Show task completion output
+11. **Confirm continue**: Ask "Continue to next task? [Y/n]"
+12. **Repeat**: If yes, move to next incomplete task
+13. **Finish**: When all tasks complete (or user stops), show summary. If `--batch-commit`, prompt to commit all changes now.
 
 ## Execution Flow
 
@@ -82,13 +88,14 @@ IN PROGRESS → Execute subtasks → Run verification
 DONE, mark [x] in PLAN.md
          │
          ▼
+[default mode only]
 "Ready to commit?" ── No ──► User reviews ──┐
          │                                   │
          ▼ Yes                               │
 Invoke /git-commit ◄────────────────────────┘
          │
          ▼
-More tasks? ── No ──► Final summary
+More tasks? ── No ──► Final summary ──► [--batch-commit: prompt to commit all]
          │
          ▼ Yes
 "Continue?" ── No ──► Stop (resume later)
@@ -106,7 +113,7 @@ Next task (loop back)
 
 ## Task Completion Output
 
-After each task:
+After each task (default mode):
 
 ```
 ✓ Task complete: 01-setup-database
@@ -115,6 +122,18 @@ Subtasks: 6/6 completed
 Verification: All passed
 Progress: 1/6 tasks (17%)
 Commit: abc1234 - Setup PostgreSQL connection and create user schema
+
+Continue to 02-create-user-model? [Y/n]
+```
+
+After each task (`--batch-commit` or `--no-commit`):
+
+```
+✓ Task complete: 01-setup-database
+
+Subtasks: 6/6 completed
+Verification: All passed
+Progress: 1/6 tasks (17%)
 
 Continue to 02-create-user-model? [Y/n]
 ```
@@ -141,6 +160,8 @@ Tasks: 6/6 completed (100%)
 Run /archive-plan to archive this plan.
 ```
 
+If `--batch-commit`: After displaying the summary, ask "Ready to commit all changes?" and invoke `/git-commit` once approved. Include the commit hash in the summary output.
+
 ## Verification Handling
 
 - **Automated checks**: Run command, must exit 0 to pass
@@ -160,12 +181,16 @@ When resuming interrupted work:
 4. Review subtask checkboxes to find where to resume, continue from first incomplete subtask
 5. Follow normal Process flow
 
+Commit mode does not persist across sessions. When resuming, the default commit behavior applies unless the user passes `--batch-commit` or `--no-commit` again.
+
 ## Commands
 
-| User Says              | Action                                                                          |
-| ---------------------- | ------------------------------------------------------------------------------- |
-| `/execute-plan`        | Start from first incomplete task                                                |
-| "continue the plan"    | Same as execute (resume-aware)                                                  |
-| "execute task 03"      | Execute specific task only                                                      |
-| "skip task 02"         | Set status to SKIPPED, mark `[x]` in PLAN.md, add reason to Notes, move to next |
-| "stop after this task" | Complete current, then stop                                                     |
+| User Says                      | Action                                                                          |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| `/execute-plan`                | Start from first incomplete task, commit after each                             |
+| `/execute-plan --batch-commit` | Execute all tasks, commit once at the end                                       |
+| `/execute-plan --no-commit`    | Execute all tasks, skip commits entirely                                        |
+| "continue the plan"            | Same as execute (resume-aware)                                                  |
+| "execute task 03"              | Execute specific task only                                                      |
+| "skip task 02"                 | Set status to SKIPPED, mark `[x]` in PLAN.md, add reason to Notes, move to next |
+| "stop after this task"         | Complete current, then stop                                                     |
