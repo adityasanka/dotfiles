@@ -1,5 +1,6 @@
 return {
 	"saghen/blink.cmp",
+	event = "InsertEnter",
 	dependencies = {
 		-- reconstruct completion items and apply treesitter highlighting
 		"xzbdmw/colorful-menu.nvim",

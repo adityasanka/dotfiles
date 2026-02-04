@@ -1,6 +1,7 @@
 return {
 	{
 		"mason-org/mason.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			-- automatically update the tools
 			"WhoIsSethDaniel/mason-tool-installer.nvim",

@@ -1,6 +1,18 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
+	cmd = "Telescope",
+	keys = {
+		{ "<leader>ff", desc = "Find files in project" },
+		{ "<leader>fb", desc = "Find files in open buffers" },
+		{ "<leader>fg", desc = "Find text in open buffers" },
+		{ "<leader>fG", desc = "Find text in project" },
+		{ "<leader>fs", desc = "Find LSP symbols in current buffer" },
+		{ "<leader>fS", desc = "Find LSP symbols in workspace" },
+		{ "<leader>fd", desc = "Find diagnostics in current buffer" },
+		{ "<leader>fD", desc = "Find diagnostics in project" },
+		{ "<leader>ft", desc = "Find todos" },
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
