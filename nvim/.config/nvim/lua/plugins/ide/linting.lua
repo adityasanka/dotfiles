@@ -39,6 +39,16 @@ return {
 					},
 				},
 			})
+
+			vim.keymap.set("n", "<leader>tx", function()
+				if vim.diagnostic.is_enabled() then
+					vim.diagnostic.enable(false)
+					print("Diagnostics: OFF")
+				else
+					vim.diagnostic.enable(true)
+					print("Diagnostics: ON")
+				end
+			end, { desc = "Toggle Diagnostics" })
 		end,
 	},
 	{
