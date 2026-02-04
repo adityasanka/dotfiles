@@ -1,5 +1,6 @@
 -- GitHub Dark High Contrast color palette
 -- Source: https://github.com/cdalvaro/github-vscode-theme-iterm
+-- After changing values, run :CatppuccinCompile to regenerate the theme cache
 
 local M = {}
 
