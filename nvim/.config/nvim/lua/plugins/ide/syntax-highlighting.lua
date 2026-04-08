@@ -1,56 +1,46 @@
 return {
 	-- better syntax highlighting
 	"nvim-treesitter/nvim-treesitter",
-	event = { "BufReadPre", "BufNewFile" },
+	branch = "main",
 	build = ":TSUpdate",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = { "windwp/nvim-ts-autotag" },
 	config = function()
-		-- import nvim-treesitter plugin
-		local treesitter = require("nvim-treesitter.configs")
+		require("nvim-treesitter").setup()
 
-		-- configure treesitter
-		treesitter.setup({
-			-- enable syntax highlighting
-			highlight = {
-				enable = true,
-			},
-			-- enable indentation
-			indent = { enable = true },
-			-- automatically install missing parsers when entering buffer
-			auto_install = true,
-			-- install parsers asynchronously (only applied to `ensure_installed`)
-			sync_install = false,
-			-- ensure these language parsers are installed
-			ensure_installed = {
-				"lua",
-				"go",
-				"json",
-				"javascript",
-				"typescript",
-				"tsx",
-				"html",
-				"css",
-				"yaml",
-				"markdown",
-				"markdown_inline",
-				"bash",
-				"vim",
-				"dockerfile",
-				"gitignore",
-			},
-			-- list of parsers to ignore installing
-			ignore_install = {},
-			-- modules configuration
-			modules = {},
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<C-space>",
-					node_incremental = "<C-space>",
-					scope_incremental = false,
-					node_decremental = "<bs>",
-				},
-			},
+		-- ensure these language parsers are installed
+		require("nvim-treesitter").install({
+			"lua",
+			"go",
+			"json",
+			"javascript",
+			"typescript",
+			"tsx",
+			"html",
+			"css",
+			"yaml",
+			"markdown",
+			"markdown_inline",
+			"bash",
+			"vim",
+			"dockerfile",
+			"gitignore",
 		})
+
+		-- start highlighting + indent on supported filetypes
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(args)
+				local buf = args.buf
+				local ft = vim.bo[buf].filetype
+				local lang = vim.treesitter.language.get_lang(ft) or ft
+				if not (lang and pcall(vim.treesitter.start, buf, lang)) then
+					return
+				end
+				vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end,
+		})
+
+		-- nvim-ts-autotag still has its own setup on the main branch
+		require("nvim-ts-autotag").setup()
 	end,
 }
