@@ -48,14 +48,14 @@ Primary: **Go** (gopls, golangci-lint, gofumpt/goimports). Also: Lua, TypeScript
 
 ## Keymaps
 
-| Key | Action |
-|-----|--------|
-| `<leader>ff` | Find files |
-| `<leader>fG` | Find text in project |
-| `<leader>.` | Go to definition |
-| `<leader>ca` | Code actions |
-| `<leader>mp` | Format file |
-| `<leader>a` | Toggle symbol outline |
-| `gc` | Comment toggle |
-| `-` | Open file explorer |
-| `ga` | Align text (visual) |
+| Key          | Action                |
+| ------------ | --------------------- |
+| `<leader>ff` | Find files            |
+| `<leader>fG` | Find text in project  |
+| `<leader>.`  | Go to definition      |
+| `<leader>ca` | Code actions          |
+| `<leader>mp` | Format file           |
+| `<leader>a`  | Toggle symbol outline |
+| `gc`         | Comment toggle        |
+| `-`          | Open file explorer    |
+| `ga`         | Align text (visual)   |
