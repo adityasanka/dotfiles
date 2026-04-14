@@ -21,6 +21,7 @@ return {
 			"yaml",
 			"markdown",
 			"markdown_inline",
+			"python",
 			"bash",
 			"vim",
 			"dockerfile",
