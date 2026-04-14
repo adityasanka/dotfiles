@@ -32,9 +32,8 @@
 
 # Font Settings
 # ---
-font-size            = 14
-font-family          = Codelia
-font-family          = Recursive Monospace 
+font-size            = 16
+font-family          = Berkeley Mono
 font-family          = Symbols Nerd Font Mono
 font-style-italic    = false
 font-synthetic-style = no-italic,no-bold-italic
