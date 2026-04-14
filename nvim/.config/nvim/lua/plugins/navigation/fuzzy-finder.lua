@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x",
+	branch = "master",
 	cmd = "Telescope",
 	keys = {
 		{ "<leader>ff", desc = "Find files in project" },
